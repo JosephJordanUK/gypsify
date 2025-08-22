@@ -1,14 +1,14 @@
-# Gypsify
+# Gypsify — Firebase setup (Phase 3)
 
-Music-first social streaming app built with React Native + Expo.
+## Configure
 
-## Working Rules
+1. Copy `.env.example` to `.env`.
+2. Fill Firebase web config from Firebase Console → Project settings → General.
 
-- Development driven by Master Prompt.
-- Mini Manifest stored in /prompt/mini-manifest.yml.
-- End sessions with Session Close-Out package.
+## Run
 
-## Quick refs
-
-- Prompt: /prompt/MASTER_PROMPT_GYPSIFY.md
-- Close-out sheet: /docs/session-closeout.md
+```bash
+yarn
+yarn lint
+npx expo start
+```

@@ -1,6 +1,46 @@
 manifest:
+  src/navigation/MainTabs.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/navigation/MainTabs.tsx
+    description: Bottom tab navigator with Home, Search, Library, Profile
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  src/navigation/RootNavigator.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/navigation/RootNavigator.tsx
+    description: Root stack navigator hosting Onboarding, Login, and MainTabs
+    lastUpdated: 2025-08-22
+    version: 0.1.0
   src/screens/HomeScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8c848a3330bc345b65e67b9bfb20e37b86039012/src/screens/HomeScreen.tsx
-    description: Placeholder Home screen with tracking header
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/screens/HomeScreen.tsx
+    description: Placeholder Home screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  src/screens/SearchScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/screens/SearchScreen.tsx
+    description: Placeholder Search screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  src/screens/LibraryScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/screens/LibraryScreen.tsx
+    description: Placeholder Library screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  src/screens/ProfileScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/screens/ProfileScreen.tsx
+    description: Placeholder Profile screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  src/screens/OnboardingScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/screens/OnboardingScreen.tsx
+    description: Placeholder Onboarding screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  src/screens/LoginScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/src/screens/LoginScreen.tsx
+    description: Placeholder Login screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+  App.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8acebd00fd67d31dd0a230aeb270cc313ac2273d/App.tsx
+    description: App entry mounting RootNavigator
     lastUpdated: 2025-08-22
     version: 0.1.1

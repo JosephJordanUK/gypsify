@@ -1,76 +1,108 @@
 manifest:
   src/navigation/MainTabs.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/navigation/MainTabs.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/MainTabs.tsx
     description: Bottom tab navigator with Home, Search, Library, Profile (localized titles via i18n)
     lastUpdated: 2025-08-22
     version: 0.1.1
+
   src/navigation/RootNavigator.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/navigation/RootNavigator.tsx
-    description: Root stack with Splash, Onboarding, MainTabs
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/RootNavigator.tsx
+    description: Root stack (Splash, Onboarding, Auth, Main) with replace-based routing
     lastUpdated: 2025-08-22
-    version: 0.2.0
+    version: 0.4.0
+
+  src/navigation/AuthStack.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/AuthStack.tsx
+    description: Native stack for authentication screens (Login, Signup, PasswordReset)
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+
   src/screens/HomeScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/HomeScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/HomeScreen.tsx
     description: Placeholder Home screen
     lastUpdated: 2025-08-22
     version: 0.1.0
+
   src/screens/SearchScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/SearchScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SearchScreen.tsx
     description: Placeholder Search screen
     lastUpdated: 2025-08-22
     version: 0.1.0
+
   src/screens/LibraryScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/LibraryScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LibraryScreen.tsx
     description: Placeholder Library screen
     lastUpdated: 2025-08-22
     version: 0.1.0
+
   src/screens/ProfileScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/ProfileScreen.tsx
-    description: Placeholder Profile screen
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/ProfileScreen.tsx
+    description: Profile with long-press dev reset of onboarding/lang/auth
     lastUpdated: 2025-08-22
-    version: 0.1.0
+    version: 0.2.0
+
   src/screens/OnboardingScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/OnboardingScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/OnboardingScreen.tsx
     description: Placeholder Onboarding screen
     lastUpdated: 2025-08-22
     version: 0.1.0
+
   src/screens/LoginScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/LoginScreen.tsx
-    description: Placeholder Login screen
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LoginScreen.tsx
+    description: Login UI; temp sets authed and resets root to Main
+    lastUpdated: 2025-08-22
+    version: 0.4.0
+
+  src/screens/SignupScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SignupScreen.tsx
+    description: Signup form (display name, email, password)
     lastUpdated: 2025-08-22
     version: 0.1.0
+
+  src/screens/PasswordResetScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/PasswordResetScreen.tsx
+    description: Password reset email form
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+
   src/screens/SplashScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/SplashScreen.tsx
-    description: Boot gate routing to Onboarding or Main
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SplashScreen.tsx
+    description: Splash reads language/onboarding/auth and replaces to next route
     lastUpdated: 2025-08-22
-    version: 0.1.0
+    version: 0.3.0
+
   src/screens/LanguageSelectionScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/screens/LanguageSelectionScreen.tsx
-    description: Language chooser completing onboarding
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LanguageSelectionScreen.tsx
+    description: Language chooser persists selection and routes to Auth or Main (guest)
     lastUpdated: 2025-08-22
-    version: 0.1.0
+    version: 0.3.0
+
   src/utils/i18n.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/utils/i18n.ts
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/i18n.ts
     description: i18next setup with expo-localization
     lastUpdated: 2025-08-22
     version: 0.1.0
+
   src/utils/storage.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/src/utils/storage.ts
-    description: AsyncStorage helpers for onboarding and language
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/storage.ts
+    description: AsyncStorage helpers (onboarding, language, authed) + dev reset
     lastUpdated: 2025-08-22
-    version: 0.1.0
+    version: 0.3.0
+
   App.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/App.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/App.tsx
     description: App entry mounting RootNavigator with i18n init
     lastUpdated: 2025-08-22
     version: 0.1.2
+
   babel.config.js:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/babel.config.js
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/babel.config.js
     description: Babel config with Reanimated plugin
     lastUpdated: 2025-08-22
     version: 0.1.0
+
   eslint.config.cjs:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/ff04e820e2d10bf64800affa39ee489299e9b455/eslint.config.cjs
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/eslint.config.cjs
     description: ESLint v9 flat config for RN + TS + React
     lastUpdated: 2025-08-22
     version: 0.1.0

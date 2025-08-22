@@ -12,12 +12,13 @@ const LANGS = [
   { code: 'ro', label: 'Romani' },
 ];
 
-function LanguageSelectionScreen({ navigation }: Props) {
+export default function LanguageSelectionScreen({ navigation }: Props) {
   const [selected, setSelected] = useState<string>(i18n.language);
 
   return (
-    <View style={{ flex: 1, padding: 24, justifyContent: 'center' }}>
+    <View style={{ flex: 1, padding: 24, gap: 16, justifyContent: 'center' }}>
       <Text style={{ fontSize: 22, textAlign: 'center' }}>{i18n.t('chooseLanguage')}</Text>
+
       {LANGS.map((l) => (
         <Pressable
           key={l.code}
@@ -27,6 +28,7 @@ function LanguageSelectionScreen({ navigation }: Props) {
             borderRadius: 12,
             borderWidth: 1,
             borderColor: selected === l.code ? '#888' : '#ccc',
+            marginBottom: 12,
           }}
         >
           <Text style={{ textAlign: 'center' }}>
@@ -34,19 +36,25 @@ function LanguageSelectionScreen({ navigation }: Props) {
           </Text>
         </Pressable>
       ))}
+
       <Pressable
         onPress={async () => {
           await setAppLanguage(selected);
           i18n.changeLanguage(selected);
           await setOnboardingDone(true);
-          navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
+          navigation.replace('Auth');
         }}
-        style={{ padding: 16, borderRadius: 12, backgroundColor: '#111', marginTop: 20 }}
+        style={{ padding: 16, borderRadius: 12, backgroundColor: '#111', marginTop: 8 }}
       >
         <Text style={{ textAlign: 'center', color: 'white' }}>{i18n.t('continue')}</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={() => navigation.replace('Main')}
+        style={{ padding: 12, marginTop: 12 }}
+      >
+        <Text style={{ textAlign: 'center' }}>Continue as Guest</Text>
       </Pressable>
     </View>
   );
 }
-
-export default LanguageSelectionScreen;

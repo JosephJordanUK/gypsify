@@ -120,3 +120,57 @@ manifest:
     description: ESLint v9 flat config for RN + TS + React
     lastUpdated: 2025-08-22
     version: 0.1.0
+
+  package.json:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/package.json
+    description: add firebase and async-storage deps
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+
+  yarn.lock:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/yarn.lock
+    description: lockfile for new deps
+    lastUpdated: 2025-08-22
+
+  app.json:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
+    description: add expo-localization plugin
+    lastUpdated: 2025-08-22
+
+  .env.example:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.env.example
+    description: Firebase env template
+    lastUpdated: 2025-08-22
+
+  src/services/firebase.ts:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
+    description: Firebase init (Auth with RN persistence, Firestore, Storage)
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+
+  src/services/analytics.ts:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
+    description: analytics stub (logEvent, setUserId)
+    lastUpdated: 2025-08-22
+
+  src/services/crashlytics.ts:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/crashlytics.ts
+    description: crash logging stub (recordError, setUserId)
+    lastUpdated: 2025-08-22
+
+  metro.config.js:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/metro.config.js
+    description: Expo+Firebase bundling config
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+
+  tsconfig.json:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
+    description: Expo TS config; RN Firebase typings path
+    lastUpdated: 2025-08-22
+    version: 0.1.0
+
+  README.md:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/README.md
+    description: Phase 3 notes
+    lastUpdated: 2025-08-22

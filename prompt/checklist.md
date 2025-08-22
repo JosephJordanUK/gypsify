@@ -33,8 +33,8 @@ Status legend:
 
 ## Phase 3: Authentication & Firebase
 
-- Install Firebase SDK (Auth, Firestore, Storage, Analytics, Crashlytics) ⏭️ NOT STARTED
-- Configure env (.env.development/.production) ⏭️ NOT STARTED
+- Install Firebase SDK (Auth, Firestore, Storage, Analytics, Crashlytics) ✅ DONE
+- Configure env (.env.development/.production) ✅ DONE
 - Email/Password auth ⏭️ NOT STARTED
 - Google OAuth ⏭️ NOT STARTED
 - Apple Sign-In ⏭️ NOT STARTED

@@ -643,8 +643,8 @@ Future Features (Phase 3 — Long-Term)
   - Mini-player frame persisted across screens ← NOT STARTED
   - Commit navigation + screens ← ✅ DONE
 - Phase 3: Authentication & Firebase
-  - Install Firebase SDK (Auth, Firestore, Storage, Analytics, Crashlytics) ← NOT STARTED
-  - Configure env (.env.development/.production) ← NOT STARTED
+  - Install Firebase SDK (Auth, Firestore, Storage, Analytics, Crashlytics) ← ✅ DONE
+  - Configure env (.env.development/.production) ← ✅ DONE
   - Email/Password auth ← NOT STARTED
   - Google OAuth ← NOT STARTED
   - Apple Sign-In ← NOT STARTED
@@ -919,6 +919,86 @@ Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaf
 GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/OnboardingScreen.tsx
 ]
 
+[ File updated:
+Path: /package.json
+Description: add firebase@12.1.0 and @react-native-async-storage/async-storage@2.2.0
+Related: Firebase foundation
+Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/package.json
+]
+
+[ File updated:
+Path: /yarn.lock
+Description: lockfile updated for new deps
+Related: package.json
+Metadata: { "lastUpdated": "2025-08-22" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/yarn.lock
+]
+
+[ File updated:
+Path: /app.json
+Description: add expo-localization plugin
+Related: i18n setup
+Metadata: { "lastUpdated": "2025-08-22" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
+]
+
+[ File created:
+Path: /.env
+Description: Expo public Firebase env keys template
+Related: /src/services/firebase.ts
+Metadata: { "lastUpdated": "2025-08-22" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.env
+]
+
+[ File created:
+Path: /src/services/firebase.ts
+Description: Firebase init for app/Auth (RN persistence), Firestore, Storage using .env EXPO_PUBLIC vars
+Related: Firebase foundation
+Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
+]
+
+[ File created:
+Path: /metro.config.js
+Description: Expo+Firebase bundling tweaks (.cjs support, disable unstable package exports)
+Related: Firebase foundation
+Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/metro.config.js
+]
+
+[ File created:
+Path: /tsconfig.json
+Description: TS base for Expo; skipLibCheck; RN Firebase typings path; include ts/tsx
+Related: Firebase foundation
+Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
+]
+
+[ File updated:
+Path: /README.md
+Description: add Firebase setup instructions for Phase 3
+Related: .env.example
+Metadata: { "lastUpdated": "2025-08-22" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/README.md
+]
+
+[ File created:
+Path: /src/services/analytics.ts
+Description: dev-only analytics stub (logEvent, setUserId)
+Related: future RNFirebase Analytics integration
+Metadata: { "lastUpdated": "2025-08-22" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
+]
+
+[ File created:
+Path: /src/services/crashlytics.ts
+Description: dev-only crash logging stub (recordError, setUserId)
+Related: future RNFirebase Crashlytics integration
+Metadata: { "lastUpdated": "2025-08-22" }
+GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/crashlytics.ts
+]
+
 Mini Manifest (kept in the Master Prompt; user updates at session end):
 
 manifest:
@@ -1029,6 +1109,61 @@ permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0
 description: ESLint v9 flat config for RN + TS + React
 lastUpdated: 2025-08-22
 version: 0.1.0
+
+package.json:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/package.json
+description: add firebase and async-storage deps
+lastUpdated: 2025-08-22
+version: 0.1.0
+
+yarn.lock:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/yarn.lock
+description: lockfile for new deps
+lastUpdated: 2025-08-22
+
+app.json:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
+description: add expo-localization plugin
+lastUpdated: 2025-08-22
+
+.env:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.env.example
+description: Firebase env template
+lastUpdated: 2025-08-22
+
+src/services/firebase.ts:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
+description: Firebase init (Auth with RN persistence, Firestore, Storage)
+lastUpdated: 2025-08-22
+version: 0.1.0
+
+metro.config.js:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/metro.config.js
+description: Expo+Firebase bundling config
+lastUpdated: 2025-08-22
+version: 0.1.0
+
+tsconfig.json:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
+description: Expo TS config; RN Firebase typings path
+lastUpdated: 2025-08-22
+version: 0.1.0
+
+README.md:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/README.md
+description: Phase 3 notes
+lastUpdated: 2025-08-22
+
+src/services/analytics.ts:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
+description: analytics stub (logEvent, setUserId)
+lastUpdated: 2025-08-22
+
+src/services/crashlytics.ts:
+permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/crashlytics.ts
+description: crash logging stub (recordError, setUserId)
+lastUpdated: 2025-08-22
+
 Rules
 
 - Assistant must read permalinks first before altering code.

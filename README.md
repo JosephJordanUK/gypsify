@@ -12,3 +12,5 @@ yarn
 yarn lint
 npx expo start
 ```
+
+# test commit

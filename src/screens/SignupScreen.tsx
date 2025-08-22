@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Signup'>;
@@ -8,43 +10,103 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'Signup'>;
 export default function SignupScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async () => {
+    if (!email || !password || !confirm) {
+      Alert.alert('Missing fields', 'Fill all fields.');
+      return;
+    }
+    if (password !== confirm) {
+      Alert.alert('Password mismatch', 'Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      Alert.alert('Weak password', 'Use at least 6 characters.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
+      // Replace root with Main after successful signup
+      navigation.getParent()?.reset({
+        index: 0,
+        routes: [{ name: 'Main' as never }],
+      });
+    } catch (err: any) {
+      let msg = 'Signup failed.';
+      switch (err?.code) {
+        case 'auth/email-already-in-use':
+          msg = 'Email already in use.';
+          break;
+        case 'auth/invalid-email':
+          msg = 'Invalid email address.';
+          break;
+        case 'auth/operation-not-allowed':
+          msg = 'Email/password sign-up is disabled.';
+          break;
+        case 'auth/weak-password':
+          msg = 'Password is too weak.';
+          break;
+      }
+      Alert.alert('Error', msg);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <View style={{ flex: 1, padding: 24, justifyContent: 'center', gap: 12 }}>
-      <Text style={{ fontSize: 22, textAlign: 'center' }}>Create account</Text>
+    <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
+      <Text style={{ fontSize: 28, fontWeight: '700' }}>Create account</Text>
 
       <TextInput
-        placeholder="Display name"
-        value={displayName}
-        onChangeText={setDisplayName}
-        style={{ borderWidth: 1, borderRadius: 10, padding: 12 }}
-      />
-      <TextInput
-        placeholder="Email"
-        autoCapitalize="none"
-        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
-        style={{ borderWidth: 1, borderRadius: 10, padding: 12 }}
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType="email-address"
+        placeholder="Email"
+        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
+
       <TextInput
-        placeholder="Password"
-        secureTextEntry
         value={password}
         onChangeText={setPassword}
-        style={{ borderWidth: 1, borderRadius: 10, padding: 12 }}
+        secureTextEntry
+        placeholder="Password"
+        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
+      />
+
+      <TextInput
+        value={confirm}
+        onChangeText={setConfirm}
+        secureTextEntry
+        placeholder="Confirm password"
+        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
 
       <Pressable
-        onPress={() => Alert.alert('Signup', 'Not wired yet')}
-        style={{ padding: 14, borderRadius: 12, backgroundColor: '#111' }}
+        onPress={handleSignup}
+        disabled={loading}
+        style={{
+          padding: 14,
+          borderRadius: 12,
+          backgroundColor: '#111',
+          alignItems: 'center',
+          opacity: loading ? 0.7 : 1,
+        }}
       >
-        <Text style={{ color: 'white', textAlign: 'center' }}>Sign Up</Text>
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
+          <Text style={{ color: '#fff', fontWeight: '600' }}>Sign Up</Text>
+        )}
       </Pressable>
 
       <Pressable onPress={() => navigation.navigate('Login')} style={{ padding: 8 }}>
-        <Text style={{ textAlign: 'center' }}>Back to login</Text>
+        <Text style={{ textDecorationLine: 'underline' }}>Already have an account? Sign in</Text>
       </Pressable>
     </View>
   );

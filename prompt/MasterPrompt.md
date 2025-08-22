@@ -943,13 +943,7 @@ Metadata: { "lastUpdated": "2025-08-22" }
 GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
 ]
 
-[ File created:
-Path: /.env
-Description: Expo public Firebase env keys template
-Related: /src/services/firebase.ts
-Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.env
-]
+
 
 [ File created:
 Path: /src/services/firebase.ts
@@ -973,14 +967,6 @@ Description: TS base for Expo; skipLibCheck; RN Firebase typings path; include t
 Related: Firebase foundation
 Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
 GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
-]
-
-[ File updated:
-Path: /README.md
-Description: add Firebase setup instructions for Phase 3
-Related: .env.example
-Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/README.md
 ]
 
 [ File created:
@@ -1124,11 +1110,6 @@ lastUpdated: 2025-08-22
 app.json:
 permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
 description: add expo-localization plugin
-lastUpdated: 2025-08-22
-
-.env:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.env.example
-description: Firebase env template
 lastUpdated: 2025-08-22
 
 src/services/firebase.ts:

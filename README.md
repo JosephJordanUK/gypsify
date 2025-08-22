@@ -14,5 +14,3 @@ npx expo start
 ```
 
 # test commit
-
-test: verifying push works Fri Aug 22 22:38:50 BST 2025

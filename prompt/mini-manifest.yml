@@ -1,1 +1,6 @@
-manifest: {}
+manifest:
+  src/screens/HomeScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/8c848a3330bc345b65e67b9bfb20e37b86039012/src/screens/HomeScreen.tsx
+    description: Placeholder Home screen with tracking header
+    lastUpdated: 2025-08-22
+    version: 0.1.1

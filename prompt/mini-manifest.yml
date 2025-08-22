@@ -1,3 +1,17 @@
+# Gypsify — Mini Manifest
+# This file tracks the current snapshot of all files created/updated.
+# History is kept in the File Tracking Blocks inside MASTER-PROMPT.md.
+# Update at the end of each session with new permalinks, version, and date.
+
+meta:
+  manifest_version: 1
+  session_date: 2025-08-22
+  author: AI + Joseph
+  notes: >
+    Update permalinks after pushing to GitHub.
+    Increment version numbers when logic/behavior changes,
+    not for formatting-only edits.
+
 manifest:
   src/navigation/MainTabs.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/MainTabs.tsx

@@ -9,7 +9,8 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 
 module.exports = [
   // ignore
-  { ignores: ['node_modules/**','dist/**','build/**','android/**','ios/**','eslint.config.cjs'] },
+  { ignores: ['node_modules/**','dist/**','build/**','android/**','ios/**','eslint.config.cjs', 'babel.config.js',
+'metro.config.js', 'jest.config.*', '*.config.js',] },
 
   // JS recommended, scoped to source files
   { files: ['**/*.{js,jsx,ts,tsx}'], ...js.configs.recommended },

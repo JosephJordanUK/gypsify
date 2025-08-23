@@ -5,15 +5,19 @@ on:
 concurrency:
   group: update-manifest-dev
   cancel-in-progress: true
+permissions:
+  contents: write
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
 
       - name: Compute SHAs
         id: vars
@@ -27,28 +31,30 @@ jobs:
           echo "${{ steps.vars.outputs.SHA }}" > prompt/latest-sha.txt
 
       - name: Build manifest.json
+        shell: bash
         run: |
           jq -n '[]' > prompt/manifest.json
           git ls-files \
             | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
             | while read -r f; do
-                if [ -f "$f" ]; then
-                  BYTES=$(wc -c < "$f" | xargs)
-                  SHA256=$(sha256sum "$f" | cut -d" " -f1)
-                  jq --arg path "$f" --argjson bytes "$BYTES" --arg sha "$SHA256" \
-                     '. + [{"path":$path,"bytes":$bytes,"sha256":$sha}]' \
-                     prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
-                fi
+                [ -f "$f" ] || continue
+                BYTES=$(wc -c < "$f" | xargs)
+                SHA256=$(sha256sum "$f" | cut -d" " -f1)
+                jq --arg path "$f" --argjson bytes "$BYTES" --arg sha "$SHA256" \
+                   '. + [{"path":$path,"bytes":$bytes,"sha256":$sha}]' \
+                   prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
               done
 
       - name: Build changed-in-latest.json
+        shell: bash
         run: |
           if [ -n "${{ steps.vars.outputs.PREV }}" ]; then
             git diff --name-only ${{ steps.vars.outputs.PREV }} ${{ steps.vars.outputs.SHA }} \
               | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
               | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
           else
-            jq -r '.[].path' prompt/manifest.json | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
+            jq -r '.[].path' prompt/manifest.json \
+              | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
           fi
 
       - name: Commit and push artifacts

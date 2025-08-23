@@ -1,0 +1,57 @@
+gypsify  (dev)
+2025-08-23
+
+/
+├─ .editorconfig
+├─ .env
+├─ .firebaserc
+├─ .gitignore
+├─ .prettierignore
+├─ .prettierrc.json
+├─ app.json
+├─ babel.config.js
+├─ eslint.config.cjs
+├─ firebase.json
+├─ firestore.indexes.json
+├─ metro.config.js
+├─ package-lock.json
+├─ package.json
+├─ tsconfig.json
+├─ yarn.lock
+├─ prompt/
+│  ├─ checklist.md
+│  ├─ firestore.rules
+│  ├─ MasterPrompt.md
+│  └─ mini-manifest.yml
+├─ src/
+│  ├─ components/
+│  │  └─ VerifyBanner.tsx
+│  ├─ navigation/
+│  │  ├─ AuthStack.tsx
+│  │  ├─ MainTabs.tsx
+│  │  ├─ OnboardingStack.tsx
+│  │  └─ RootNavigator.tsx
+│  ├─ screens/
+│  │  ├─ HomeScreen.tsx
+│  │  ├─ LanguageSelectionScreen.tsx
+│  │  ├─ LibraryScreen.tsx
+│  │  ├─ LoginScreen.tsx
+│  │  ├─ OnboardingScreen.tsx
+│  │  ├─ PasswordResetScreen.tsx
+│  │  ├─ ProfileScreen.tsx
+│  │  ├─ SearchScreen.tsx
+│  │  ├─ SignupScreen.tsx
+│  │  └─ SplashScreen.tsx
+│  ├─ services/
+│  │  ├─ analytics.ts
+│  │  ├─ crashlytics.ts
+│  │  └─ firebase.ts
+│  ├─ utils/
+│  │  ├─ i18n.ts
+│  │  └─ storage.ts
+│  ├─ docs/
+│  │  └─ ssession-closeout.md
+│  ├─ hooks/
+│  ├─ store/
+│  ├─ styles/
+└─ App.tsx

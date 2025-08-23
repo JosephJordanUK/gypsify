@@ -16,10 +16,10 @@ meta:
 
 manifest:
   App.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/App.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/App.tsx
     description: App entry mounting RootNavigator with i18n init
-    lastUpdated: 2025-08-22
-    version: 0.1.2
+    lastUpdated: 2025-08-23
+    version: 0.1.3
 
   babel.config.js:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/babel.config.js
@@ -34,10 +34,10 @@ manifest:
     version: 0.1.0
 
   src/utils/i18n.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/i18n.ts
-    description: i18next setup with expo-localization
-    lastUpdated: 2025-08-22
-    version: 0.1.0
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/utils/i18n.ts
+    description: i18next setup with resources and Expo localization; new auth/home/language strings
+    lastUpdated: 2025-08-23
+    version: 0.2.0
 
   src/utils/storage.ts:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/storage.ts
@@ -77,9 +77,9 @@ manifest:
 
   src/screens/LoginScreen.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/LoginScreen.tsx
-    description: Firebase email/password login with guest entry and soft email verification gate
+    description: Email/password login; i18n strings; guest option; soft verification gate
     lastUpdated: 2025-08-23
-    version: 0.6.0
+    version: 0.7.0
 
   src/screens/SignupScreen.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/SignupScreen.tsx

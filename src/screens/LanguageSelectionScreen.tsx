@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import i18n from '../utils/i18n';
-import { setAppLanguage, setOnboardingDone } from '../utils/storage';
+import { CommonActions } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { OnboardingStackParamList } from '../navigation/OnboardingStack';
-import { CommonActions } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import i18n from '../utils/i18n';
+import { setAppLanguage, setOnboardingDone } from '../utils/storage';
 
 type Props = NativeStackScreenProps<OnboardingStackParamList, 'Language'>;
 
 const LANGS = [
-  { code: 'en', label: 'English' },
-  { code: 'ro', label: 'Romani' },
+  { code: 'en', labelKey: 'language.english' },
+  { code: 'ro', labelKey: 'language.romani' },
 ];
 
 export default function LanguageSelectionScreen({ navigation }: Props) {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState(i18n.language);
 
   const toRoot = (route: 'Auth' | 'Main') =>
@@ -35,7 +37,7 @@ export default function LanguageSelectionScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
       <Text style={{ fontSize: 22, fontWeight: '700', marginBottom: 8 }}>
-        {i18n.t('chooseLanguage', { defaultValue: 'Choose your language' })}
+        {t('language.choose')}
       </Text>
 
       {LANGS.map((l) => (
@@ -51,7 +53,7 @@ export default function LanguageSelectionScreen({ navigation }: Props) {
           }}
         >
           <Text style={{ fontSize: 16 }}>
-            {l.label} {selected === l.code ? '✓' : ''}
+            {t(l.labelKey)} {selected === l.code ? '✓' : ''}
           </Text>
         </Pressable>
       ))}
@@ -67,12 +69,12 @@ export default function LanguageSelectionScreen({ navigation }: Props) {
         }}
       >
         <Text style={{ color: '#fff', fontWeight: '600' }}>
-          {i18n.t('continue', { defaultValue: 'Continue' })}
+          {t('language.continue')}
         </Text>
       </Pressable>
 
       <Pressable onPress={handleGuest} style={{ padding: 12, marginTop: 12, alignItems: 'center' }}>
-        <Text style={{ textDecorationLine: 'underline' }}>Continue as Guest</Text>
+        <Text style={{ textDecorationLine: 'underline' }}>{t('language.guest')}</Text>
       </Pressable>
     </View>
   );

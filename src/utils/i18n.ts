@@ -1,28 +1,190 @@
-import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import * as Localization from 'expo-localization';
 
 const resources = {
-  en: { translation: {
-    home: 'Home', search: 'Search', library: 'Library', profile: 'Profile',
-    getStarted: 'Get Started', chooseLanguage: 'Choose your language',
-    continue: 'Continue',
-  }},
-  ro: { translation: { // Romani placeholder (use your target locales later)
-    home: 'Home', search: 'Căutare', library: 'Bibliotecă', profile: 'Profil',
-    getStarted: 'Începe', chooseLanguage: 'Alege limba', continue: 'Continuă',
-  }},
+  en: {
+    translation: {
+      tabs: { home: 'Home', search: 'Search', library: 'Library', profile: 'Profile' },
+      home: { title: 'Home', welcome: 'Welcome to Gypsify.' },
+      language: {
+        choose: 'Choose your language',
+        continue: 'Continue',
+        guest: 'Continue as Guest',
+        english: 'English',
+        romani: 'Romani',
+      },
+      auth: {
+        login: {
+          title: 'Login',
+          email: 'Email',
+          password: 'Password',
+          signIn: 'Sign In',
+          forgot: 'Forgot password?',
+          create: 'Create account',
+          guest: 'Continue as Guest',
+          missing: 'Enter email and password.',
+          notVerifiedTitle: 'Email not verified',
+          notVerifiedMsg: 'You can continue. Some features may be limited until you verify.',
+          resend: 'Resend link',
+          continue: 'Continue',
+          errors: {
+            generic: 'Sign in failed.',
+            invalidEmail: 'Invalid email address.',
+            userDisabled: 'This user is disabled.',
+            badCreds: 'Email or password is incorrect.',
+          },
+          sentTitle: 'Verification sent',
+          sentMsg: 'Check your inbox for the link.',
+        },
+        signup: {
+          title: 'Create account',
+          email: 'Email',
+          password: 'Password',
+          confirm: 'Confirm password',
+          signUp: 'Sign Up',
+          have: 'Already have an account? Sign in',
+          missing: 'Fill all fields.',
+          mismatch: 'Passwords do not match.',
+          weak: 'Use at least 6 characters.',
+          verifyTitle: 'Verify your email',
+          verifyMsg: 'We sent a verification link. Verify, then sign in.',
+          errors: {
+            generic: 'Signup failed.',
+            inUse: 'Email already in use.',
+            invalidEmail: 'Invalid email address.',
+            notAllowed: 'Email/password sign-up is disabled.',
+            weak: 'Password is too weak.',
+          },
+        },
+        reset: {
+          title: 'Reset password',
+          email: 'Email',
+          send: 'Send reset link',
+          back: 'Back to sign in',
+          missing: 'Enter your account email.',
+          sentTitle: 'If the account exists',
+          sentMsg: 'Check your inbox for reset instructions.',
+          errors: {
+            generic: 'Failed to send reset email.',
+            invalidEmail: 'Invalid email address.',
+            notFound: 'No user found with this email.',
+          },
+        },
+        profile: {
+          title: 'Profile',
+          signOut: 'Sign out',
+          devReset: 'Long-press: Reset App State (Dev)',
+          signOutFailed: 'Sign out failed.',
+        },
+        verifyBanner: {
+          title: 'Verify your email to unlock all features',
+          resend: 'Resend link',
+          refresh: 'Refresh',
+          sentTitle: 'Verification sent',
+          sentMsg: 'Check your inbox for the link.',
+          sendError: 'Could not send verification.',
+          refreshError: 'Could not refresh status.',
+        },
+      },
+    },
+  },
+  ro: {
+    translation: {
+      tabs: { home: 'Home', search: 'Search', library: 'Library', profile: 'Profile' },
+      home: { title: 'Home', welcome: 'Welcome to Gypsify.' },
+      language: {
+        choose: 'Choose your language',
+        continue: 'Continue',
+        guest: 'Continue as Guest',
+        english: 'English',
+        romani: 'Romani',
+      },
+      auth: {
+        login: {
+          title: 'Login',
+          email: 'Email',
+          password: 'Password',
+          signIn: 'Sign In',
+          forgot: 'Forgot password?',
+          create: 'Create account',
+          guest: 'Continue as Guest',
+          missing: 'Enter email and password.',
+          notVerifiedTitle: 'Email not verified',
+          notVerifiedMsg: 'You can continue. Some features may be limited until you verify.',
+          resend: 'Resend link',
+          continue: 'Continue',
+          errors: {
+            generic: 'Sign in failed.',
+            invalidEmail: 'Invalid email address.',
+            userDisabled: 'This user is disabled.',
+            badCreds: 'Email or password is incorrect.',
+          },
+          sentTitle: 'Verification sent',
+          sentMsg: 'Check your inbox for the link.',
+        },
+        signup: {
+          title: 'Create account',
+          email: 'Email',
+          password: 'Password',
+          confirm: 'Confirm password',
+          signUp: 'Sign Up',
+          have: 'Already have an account? Sign in',
+          missing: 'Fill all fields.',
+          mismatch: 'Passwords do not match.',
+          weak: 'Use at least 6 characters.',
+          verifyTitle: 'Verify your email',
+          verifyMsg: 'We sent a verification link. Verify, then sign in.',
+          errors: {
+            generic: 'Signup failed.',
+            inUse: 'Email already in use.',
+            invalidEmail: 'Invalid email address.',
+            notAllowed: 'Email/password sign-up is disabled.',
+            weak: 'Password is too weak.',
+          },
+        },
+        reset: {
+          title: 'Reset password',
+          email: 'Email',
+          send: 'Send reset link',
+          back: 'Back to sign in',
+          missing: 'Enter your account email.',
+          sentTitle: 'If the account exists',
+          sentMsg: 'Check your inbox for reset instructions.',
+          errors: {
+            generic: 'Failed to send reset email.',
+            invalidEmail: 'Invalid email address.',
+            notFound: 'No user found with this email.',
+          },
+        },
+        profile: {
+          title: 'Profile',
+          signOut: 'Sign out',
+          devReset: 'Long-press: Reset App State (Dev)',
+          signOutFailed: 'Sign out failed.',
+        },
+        verifyBanner: {
+          title: 'Verify your email to unlock all features',
+          resend: 'Resend link',
+          refresh: 'Refresh',
+          sentTitle: 'Verification sent',
+          sentMsg: 'Check your inbox for the link.',
+          sendError: 'Could not send verification.',
+          refreshError: 'Could not refresh status.',
+        },
+      },
+    },
+  },
 };
 
 if (!i18n.isInitialized) {
-  i18n
-    .use(initReactI18next)
-    .init({
-      resources,
-      lng: Localization.getLocales()[0]?.languageCode ?? 'en',
-      fallbackLng: 'en',
-      interpolation: { escapeValue: false },
-    });
+  i18n.use(initReactI18next).init({
+    compatibilityJSON: 'v4',
+    lng: Localization.getLocales?.()[0]?.languageCode ?? 'en',
+    fallbackLng: 'en',
+    resources,
+    interpolation: { escapeValue: false },
+  });
 }
 
 export default i18n;

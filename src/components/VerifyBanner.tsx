@@ -3,8 +3,10 @@ import { View, Text, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { auth } from '../services/firebase';
 import { sendEmailVerification, reload } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import { useTranslation } from 'react-i18next';
 
 export default function VerifyBanner() {
+  const { t } = useTranslation();
   const [sending, setSending] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [, forceRender] = useState(0);
@@ -18,10 +20,10 @@ export default function VerifyBanner() {
     setSending(true);
     try {
       await sendEmailVerification(user);
-      Alert.alert('Verification sent', 'Check your inbox for the link.');
+      Alert.alert(t('auth.verifyBanner.sentTitle'), t('auth.verifyBanner.sentMsg'));
     } catch (err: unknown) {
       const msg =
-        err instanceof FirebaseError ? err.message : 'Could not send verification.';
+        err instanceof FirebaseError ? err.message : t('auth.verifyBanner.sendError');
       Alert.alert('Error', msg);
     } finally {
       setSending(false);
@@ -33,11 +35,10 @@ export default function VerifyBanner() {
     setRefreshing(true);
     try {
       await reload(auth.currentUser);
-      // Force a re-render so updated emailVerified is read
       forceRender((n) => n + 1);
     } catch (err: unknown) {
       const msg =
-        err instanceof FirebaseError ? err.message : 'Could not refresh status.';
+        err instanceof FirebaseError ? err.message : t('auth.verifyBanner.refreshError');
       Alert.alert('Error', msg);
     } finally {
       setRefreshing(false);
@@ -56,10 +57,10 @@ export default function VerifyBanner() {
       }}
     >
       <Text style={{ fontWeight: '700', marginBottom: 6 }}>
-        Verify your email to unlock all features
+        {t('auth.verifyBanner.title')}
       </Text>
       <Text style={{ marginBottom: 10 }}>{user?.email}</Text>
-      <View style={{ flexDirection: 'row', gap: 12 }}>
+      <View style={{ flexDirection: 'row' }}>
         <Pressable
           onPress={handleResend}
           disabled={sending}
@@ -75,7 +76,7 @@ export default function VerifyBanner() {
           {sending ? (
             <ActivityIndicator />
           ) : (
-            <Text style={{ color: '#fff', fontWeight: '600' }}>Resend link</Text>
+            <Text style={{ color: '#fff', fontWeight: '600' }}>{t('auth.verifyBanner.resend')}</Text>
           )}
         </Pressable>
 
@@ -93,7 +94,7 @@ export default function VerifyBanner() {
           {refreshing ? (
             <ActivityIndicator />
           ) : (
-            <Text style={{ fontWeight: '600' }}>Refresh</Text>
+            <Text style={{ fontWeight: '600' }}>{t('auth.verifyBanner.refresh')}</Text>
           )}
         </Pressable>
       </View>

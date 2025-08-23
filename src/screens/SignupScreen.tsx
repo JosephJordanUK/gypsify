@@ -4,28 +4,35 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CommonActions } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import { useTranslation } from 'react-i18next';
 import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Signup'>;
 
 export default function SignupScreen({ navigation }: Props) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const resetToAuth = () =>
+    navigation.getParent()?.dispatch(
+      CommonActions.reset({ index: 0, routes: [{ name: 'Auth' }] })
+    );
+
   const handleSignup = async () => {
     if (!email || !password || !confirm) {
-      Alert.alert('Missing fields', 'Fill all fields.');
+      Alert.alert(t('auth.signup.missing'));
       return;
     }
     if (password !== confirm) {
-      Alert.alert('Password mismatch', 'Passwords do not match.');
+      Alert.alert(t('auth.signup.mismatch'));
       return;
     }
     if (password.length < 6) {
-      Alert.alert('Weak password', 'Use at least 6 characters.');
+      Alert.alert(t('auth.signup.weak'));
       return;
     }
 
@@ -35,29 +42,24 @@ export default function SignupScreen({ navigation }: Props) {
       if (auth.currentUser) {
         await sendEmailVerification(auth.currentUser);
       }
-      Alert.alert(
-        'Verify your email',
-        'We sent a verification link. Verify, then sign in.',
-      );
+      Alert.alert(t('auth.signup.verifyTitle'), t('auth.signup.verifyMsg'));
       await signOut(auth);
-      navigation.getParent()?.dispatch(
-        CommonActions.reset({ index: 0, routes: [{ name: 'Auth' }] })
-      );
+      resetToAuth();
     } catch (err: unknown) {
-      let msg = 'Signup failed.';
+      let msg = t('auth.signup.errors.generic');
       if (err instanceof FirebaseError) {
         switch (err.code) {
           case 'auth/email-already-in-use':
-            msg = 'Email already in use.';
+            msg = t('auth.signup.errors.inUse');
             break;
           case 'auth/invalid-email':
-            msg = 'Invalid email address.';
+            msg = t('auth.signup.errors.invalidEmail');
             break;
           case 'auth/operation-not-allowed':
-            msg = 'Email/password sign-up is disabled.';
+            msg = t('auth.signup.errors.notAllowed');
             break;
           case 'auth/weak-password':
-            msg = 'Password is too weak.';
+            msg = t('auth.signup.errors.weak');
             break;
         }
       }
@@ -69,30 +71,34 @@ export default function SignupScreen({ navigation }: Props) {
 
   return (
     <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
-      <Text style={{ fontSize: 28, fontWeight: '700' }}>Create account</Text>
+      <Text style={{ fontSize: 28, fontWeight: '700' }}>{t('auth.signup.title')}</Text>
+
       <TextInput
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
         autoCorrect={false}
         keyboardType="email-address"
-        placeholder="Email"
+        placeholder={t('auth.signup.email')}
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
+
       <TextInput
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        placeholder="Password"
+        placeholder={t('auth.signup.password')}
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
+
       <TextInput
         value={confirm}
         onChangeText={setConfirm}
         secureTextEntry
-        placeholder="Confirm password"
+        placeholder={t('auth.signup.confirm')}
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
+
       <Pressable
         onPress={handleSignup}
         disabled={loading}
@@ -104,10 +110,11 @@ export default function SignupScreen({ navigation }: Props) {
           opacity: loading ? 0.7 : 1,
         }}
       >
-        {loading ? <ActivityIndicator /> : <Text style={{ color: '#fff', fontWeight: '600' }}>Sign Up</Text>}
+        {loading ? <ActivityIndicator /> : <Text style={{ color: '#fff', fontWeight: '600' }}>{t('auth.signup.signUp')}</Text>}
       </Pressable>
+
       <Pressable onPress={() => navigation.navigate('Login')} style={{ padding: 8 }}>
-        <Text style={{ textDecorationLine: 'underline' }}>Already have an account? Sign in</Text>
+        <Text style={{ textDecorationLine: 'underline' }}>{t('auth.signup.have')}</Text>
       </Pressable>
     </View>
   );

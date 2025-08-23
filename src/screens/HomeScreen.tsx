@@ -23,7 +23,7 @@ export default function HomeScreen() {
         <Text style={{ fontSize: 24, fontWeight: '700', marginBottom: 8 }}>
           {t('home.title')}
         </Text>
-        <Text>{t('home.welcome "yo"')}</Text>
+        <Text>{t('home.welcome "yo my guy"')}</Text>
       </View>
     </SafeAreaView>
   );

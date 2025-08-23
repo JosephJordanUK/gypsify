@@ -2,11 +2,16 @@ name: Update manifest and latest SHA
 on:
   push:
     branches: [dev]
+    paths-ignore:
+      - 'prompt/latest-sha.txt'
+      - 'prompt/manifest.json'
+      - 'prompt/changed-in-latest.json'
 concurrency:
   group: update-manifest-dev
   cancel-in-progress: true
 permissions:
   contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -16,28 +21,26 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: Sync with remote dev (linear history)
-        run: |
-          git fetch origin dev
-          git pull --rebase origin dev
-
       - name: Install jq
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Compute SHAs
-        id: vars
+      - name: Resolve SHAs
+        id: shas
+        shell: bash
         run: |
-          echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-          echo "PREV=$(git rev-parse HEAD^ || echo '')" >> $GITHUB_OUTPUT
+          NEW_SHA=$(git rev-parse HEAD)
+          # Try to read the previously published SHA from remote; ignore if missing
+          OLD_SHA=$(curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/dev/prompt/latest-sha.txt" || true)
+          # Fallback: first commit if none found
+          if [ -z "$OLD_SHA" ]; then
+            OLD_SHA=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "NEW_SHA=$NEW_SHA" >> $GITHUB_OUTPUT
+          echo "OLD_SHA=$OLD_SHA" >> $GITHUB_OUTPUT
 
-      - name: Write latest-sha.txt
-        run: |
-          mkdir -p prompt
-          echo "${{ steps.vars.outputs.SHA }}" > prompt/latest-sha.txt
-
-      - name: Build manifest.json
+      - name: Build manifest.json (all tracked files)
         shell: bash
         run: |
           jq -n '[]' > prompt/manifest.json
@@ -52,19 +55,19 @@ jobs:
                    prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
               done
 
-      - name: Build changed-in-latest.json
+      - name: Build changed-in-latest.json (diff OLD->NEW)
         shell: bash
         run: |
-          if [ -n "${{ steps.vars.outputs.PREV }}" ]; then
-            git diff --name-only ${{ steps.vars.outputs.PREV }} ${{ steps.vars.outputs.SHA }} \
-              | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
-              | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
-          else
-            jq -r '.[].path' prompt/manifest.json \
-              | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
-          fi
+          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
+            | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
-      - name: Commit and push artifacts (no force, linear safe)
+      - name: Write latest-sha.txt
+        run: |
+          mkdir -p prompt
+          echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt
+
+      - name: Commit and push artifacts (linear-safe)
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: update manifest and latest SHA [skip ci]"

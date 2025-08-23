@@ -19,7 +19,6 @@ export default function HomeScreen() {
           alignItems: 'center',
           paddingHorizontal: 16,
         }}
-        // will remove this after
       >
         <Text style={{ fontSize: 24, fontWeight: '700', marginBottom: 8 }}>
           {t('home.title')}

@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function emailVerified() {
+      // Firebase sets this boolean on the ID token
+      return request.auth.token.email_verified == true;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Users collection (tight by default)
+    match /users/{uid} {
+      allow read: if isOwner(uid);                     // adjust to `true` if profiles are public
+      allow create, update, delete: if isOwner(uid) && emailVerified();
+    }
+
+    // Example: posts (public read, verified writers only)
+    match /posts/{postId} {
+      allow read: if true;
+      allow create, update, delete: if isSignedIn() && emailVerified()
+        && request.resource.data.authorId == request.auth.uid;
+    }
+
+    // Example: uploads or tracks (verified writers only)
+    match /uploads/{id} {
+      allow read: if true;
+      allow write: if isSignedIn() && emailVerified();
+    }
+
+    // Deny everything else by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

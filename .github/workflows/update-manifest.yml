@@ -6,6 +6,7 @@ on:
       - 'prompt/latest-sha.txt'
       - 'prompt/manifest.json'
       - 'prompt/changed-in-latest.json'
+      - '.github/workflows/**'       # ignore CI edits
 concurrency:
   group: update-manifest-dev
   cancel-in-progress: true
@@ -38,7 +39,7 @@ jobs:
         run: |
           jq -n '[]' > prompt/manifest.json
           git ls-files \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/)' \
             | while read -r f; do
                 [ -f "$f" ] || continue
                 BYTES=$(wc -c < "$f" | xargs)
@@ -51,13 +52,22 @@ jobs:
       - name: Build changed-in-latest.json (diff OLD -> NEW)
         run: |
           git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
             | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
       - name: Write latest-sha.txt
         run: |
           mkdir -p prompt
           echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt
+
+      - name: Debug print JSON before commit
+        run: |
+          echo "---- DIFF ----"
+          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
+          echo "---- changed-in-latest.json ----"
+          cat prompt/changed-in-latest.json || true
+          echo "---- latest-sha.txt ----"
+          cat prompt/latest-sha.txt || true
 
       - name: Commit and push artifacts (linear-safe)
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -67,17 +77,3 @@ jobs:
             prompt/latest-sha.txt
             prompt/manifest.json
             prompt/changed-in-latest.json
-
-      - name: Debug print SHAs and diff
-        run: |
-          echo "NEW_SHA=${{ steps.shas.outputs.NEW_SHA }}"
-          echo "OLD_SHA=${{ steps.shas.outputs.OLD_SHA }}"
-          echo "---- DIFF ----"
-          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
-
-      - name: Debug print JSON before commit
-        run: |
-          echo "---- changed-in-latest.json ----"
-          cat prompt/changed-in-latest.json || true
-          echo "---- latest-sha.txt ----"
-          cat prompt/latest-sha.txt || true

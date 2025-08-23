@@ -1,35 +1,77 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'PasswordReset'>;
 
 export default function PasswordResetScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleReset = async () => {
+    if (!email) {
+      Alert.alert('Missing email', 'Enter your account email.');
+      return;
+    }
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email.trim());
+      Alert.alert('Email sent', 'Check your inbox for reset instructions.', [
+        { text: 'OK', onPress: () => navigation.navigate('Login') },
+      ]);
+    } catch (err: any) {
+      let msg = 'Failed to send reset email.';
+      switch (err?.code) {
+        case 'auth/invalid-email':
+          msg = 'Invalid email address.';
+          break;
+        case 'auth/user-not-found':
+          msg = 'No user found with this email.';
+          break;
+      }
+      Alert.alert('Error', msg);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <View style={{ flex: 1, padding: 24, justifyContent: 'center', gap: 12 }}>
-      <Text style={{ fontSize: 22, textAlign: 'center' }}>Reset password</Text>
+    <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
+      <Text style={{ fontSize: 28, fontWeight: '700' }}>Reset password</Text>
 
       <TextInput
-        placeholder="Email"
-        autoCapitalize="none"
-        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
-        style={{ borderWidth: 1, borderRadius: 10, padding: 12 }}
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType="email-address"
+        placeholder="Email"
+        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
 
       <Pressable
-        onPress={() => Alert.alert('Reset', 'Not wired yet')}
-        style={{ padding: 14, borderRadius: 12, backgroundColor: '#111' }}
+        onPress={handleReset}
+        disabled={loading}
+        style={{
+          padding: 14,
+          borderRadius: 12,
+          backgroundColor: '#111',
+          alignItems: 'center',
+          opacity: loading ? 0.7 : 1,
+        }}
       >
-        <Text style={{ color: 'white', textAlign: 'center' }}>Send link</Text>
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
+          <Text style={{ color: '#fff', fontWeight: '600' }}>Send reset link</Text>
+        )}
       </Pressable>
 
       <Pressable onPress={() => navigation.navigate('Login')} style={{ padding: 8 }}>
-        <Text style={{ textAlign: 'center' }}>Back to login</Text>
+        <Text style={{ textDecorationLine: 'underline' }}>Back to sign in</Text>
       </Pressable>
     </View>
   );

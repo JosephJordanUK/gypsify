@@ -20,11 +20,7 @@ export default function LoginScreen({ navigation }: Props) {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email.trim(), password);
-      // Replace root with Main after login
-      navigation.getParent()?.reset({
-        index: 0,
-        routes: [{ name: 'Main' as never }],
-      });
+      // Do not navigate manually. RootNavigator listens to auth state and routes to Main.
     } catch (err: any) {
       let msg = 'Sign in failed.';
       if (err?.code) {
@@ -58,12 +54,7 @@ export default function LoginScreen({ navigation }: Props) {
         autoCorrect={false}
         keyboardType="email-address"
         placeholder="Email"
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 12,
-          padding: 12,
-        }}
+        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
 
       <TextInput
@@ -71,12 +62,7 @@ export default function LoginScreen({ navigation }: Props) {
         onChangeText={setPassword}
         secureTextEntry
         placeholder="Password"
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 12,
-          padding: 12,
-        }}
+        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
 
       <Pressable
@@ -97,17 +83,11 @@ export default function LoginScreen({ navigation }: Props) {
         )}
       </Pressable>
 
-      <Pressable
-        onPress={() => navigation.navigate('PasswordReset')}
-        style={{ padding: 8 }}
-      >
+      <Pressable onPress={() => navigation.navigate('PasswordReset')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Forgot password?</Text>
       </Pressable>
 
-      <Pressable
-        onPress={() => navigation.navigate('Signup')}
-        style={{ padding: 8 }}
-      >
+      <Pressable onPress={() => navigation.navigate('Signup')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Create account</Text>
       </Pressable>
     </View>

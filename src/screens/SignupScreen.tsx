@@ -30,11 +30,7 @@ export default function SignupScreen({ navigation }: Props) {
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email.trim(), password);
-      // Replace root with Main after successful signup
-      navigation.getParent()?.reset({
-        index: 0,
-        routes: [{ name: 'Main' as never }],
-      });
+      // Do not navigate manually. RootNavigator listens to auth state and routes to Main.
     } catch (err: any) {
       let msg = 'Signup failed.';
       switch (err?.code) {

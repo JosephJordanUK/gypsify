@@ -20,7 +20,7 @@ export default function PasswordResetScreen({ navigation }: Props) {
     setLoading(true);
     try {
       await sendPasswordResetEmail(auth, email.trim());
-      Alert.alert('Email sent', 'Check your inbox for reset instructions.', [
+      Alert.alert('If the account exists', 'Check your inbox for reset instructions.', [
         { text: 'OK', onPress: () => navigation.navigate('Login') },
       ]);
     } catch (err: unknown) {

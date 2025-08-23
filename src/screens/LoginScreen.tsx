@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CommonActions } from '@react-navigation/native';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
@@ -23,11 +22,32 @@ export default function LoginScreen({ navigation }: Props) {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email.trim(), password);
+      const u = auth.currentUser;
+      if (!u?.emailVerified) {
+        Alert.alert(
+          'Email not verified',
+          'Verify your email. You can resend the verification link.',
+          [
+            {
+              text: 'Resend link',
+              onPress: async () => {
+                if (auth.currentUser) await sendEmailVerification(auth.currentUser);
+                await signOut(auth);
+              },
+            },
+            {
+              text: 'OK',
+              onPress: async () => {
+                await signOut(auth);
+              },
+              style: 'cancel',
+            },
+          ]
+        );
+        return;
+      }
       navigation.getParent()?.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'Main' }],
-        })
+        CommonActions.reset({ index: 0, routes: [{ name: 'Main' }] })
       );
     } catch (err: unknown) {
       let msg = 'Sign in failed.';
@@ -54,7 +74,6 @@ export default function LoginScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
       <Text style={{ fontSize: 28, fontWeight: '700' }}>Login</Text>
-
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -64,7 +83,6 @@ export default function LoginScreen({ navigation }: Props) {
         placeholder="Email"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <TextInput
         value={password}
         onChangeText={setPassword}
@@ -72,7 +90,6 @@ export default function LoginScreen({ navigation }: Props) {
         placeholder="Password"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <Pressable
         onPress={handleSignIn}
         disabled={loading}
@@ -86,11 +103,9 @@ export default function LoginScreen({ navigation }: Props) {
       >
         {loading ? <ActivityIndicator /> : <Text style={{ color: '#fff', fontWeight: '600' }}>Sign In</Text>}
       </Pressable>
-
       <Pressable onPress={() => navigation.navigate('PasswordReset')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Forgot password?</Text>
       </Pressable>
-
       <Pressable onPress={() => navigation.navigate('Signup')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Create account</Text>
       </Pressable>

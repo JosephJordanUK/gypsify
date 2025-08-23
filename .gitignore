@@ -64,7 +64,3 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 .env
-
-
-
-# This is a test

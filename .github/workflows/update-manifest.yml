@@ -1,0 +1,59 @@
+name: Update manifest and latest SHA
+on:
+  push:
+    branches: [dev]
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute SHAs
+        id: vars
+        run: |
+          echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          echo "PREV=$(git rev-parse HEAD^ || echo '')" >> $GITHUB_OUTPUT
+
+      - name: Write latest-sha.txt
+        run: |
+          mkdir -p prompt
+          echo "${{ steps.vars.outputs.SHA }}" > prompt/latest-sha.txt
+
+      - name: Build manifest.json
+        run: |
+          jq -n '[]' > prompt/manifest.json
+          git ls-files \
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
+            | while read -r f; do
+                if [ -f "$f" ]; then
+                  BYTES=$(wc -c < "$f" | xargs)
+                  SHA256=$(sha256sum "$f" | cut -d" " -f1)
+                  jq --arg path "$f" --argjson bytes "$BYTES" --arg sha "$SHA256" \
+                     '. + [{"path":$path,"bytes":$bytes,"sha256":$sha}]' \
+                     prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
+                fi
+              done
+
+      - name: Build changed-in-latest.json
+        run: |
+          if [ -n "${{ steps.vars.outputs.PREV }}" ]; then
+            git diff --name-only ${{ steps.vars.outputs.PREV }} ${{ steps.vars.outputs.SHA }} \
+              | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \
+              | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
+          else
+            jq -r '.[].path' prompt/manifest.json | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
+          fi
+
+      - name: Commit artifacts
+        run: |
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json
+            git commit -m "chore: update manifest and latest SHA [skip ci]"
+            git push
+          fi

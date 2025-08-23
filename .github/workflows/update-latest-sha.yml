@@ -5,21 +5,18 @@ on:
 concurrency:
   group: update-latest-sha-dev
   cancel-in-progress: true
+permissions:
+  contents: write
 jobs:
   write-sha:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
+        with: { fetch-depth: 0 }
       - name: Write SHA
         run: |
           mkdir -p prompt
           git rev-parse HEAD > prompt/latest-sha.txt
-
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

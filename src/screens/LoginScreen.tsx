@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CommonActions } from '@react-navigation/native';
-import { signInWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
@@ -14,6 +14,11 @@ export default function LoginScreen({ navigation }: Props) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const goMain = () =>
+    navigation.getParent()?.dispatch(
+      CommonActions.reset({ index: 0, routes: [{ name: 'Main' }] })
+    );
+
   const handleSignIn = async () => {
     if (!email || !password) {
       Alert.alert('Missing fields', 'Enter email and password.');
@@ -23,32 +28,28 @@ export default function LoginScreen({ navigation }: Props) {
     try {
       await signInWithEmailAndPassword(auth, email.trim(), password);
       const u = auth.currentUser;
-      if (!u?.emailVerified) {
+
+      if (u && !u.emailVerified) {
         Alert.alert(
           'Email not verified',
-          'Verify your email. You can resend the verification link.',
+          'You can continue. Some features may be limited until you verify.',
           [
             {
               text: 'Resend link',
               onPress: async () => {
-                if (auth.currentUser) await sendEmailVerification(auth.currentUser);
-                await signOut(auth);
+                try {
+                  await sendEmailVerification(u);
+                } catch {}
+                goMain();
               },
             },
-            {
-              text: 'OK',
-              onPress: async () => {
-                await signOut(auth);
-              },
-              style: 'cancel',
-            },
+            { text: 'Continue', onPress: goMain },
           ]
         );
         return;
       }
-      navigation.getParent()?.dispatch(
-        CommonActions.reset({ index: 0, routes: [{ name: 'Main' }] })
-      );
+
+      goMain();
     } catch (err: unknown) {
       let msg = 'Sign in failed.';
       if (err instanceof FirebaseError) {
@@ -74,6 +75,7 @@ export default function LoginScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
       <Text style={{ fontSize: 28, fontWeight: '700' }}>Login</Text>
+
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -83,6 +85,7 @@ export default function LoginScreen({ navigation }: Props) {
         placeholder="Email"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
+
       <TextInput
         value={password}
         onChangeText={setPassword}
@@ -90,6 +93,7 @@ export default function LoginScreen({ navigation }: Props) {
         placeholder="Password"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
+
       <Pressable
         onPress={handleSignIn}
         disabled={loading}
@@ -103,11 +107,20 @@ export default function LoginScreen({ navigation }: Props) {
       >
         {loading ? <ActivityIndicator /> : <Text style={{ color: '#fff', fontWeight: '600' }}>Sign In</Text>}
       </Pressable>
+
       <Pressable onPress={() => navigation.navigate('PasswordReset')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Forgot password?</Text>
       </Pressable>
+
       <Pressable onPress={() => navigation.navigate('Signup')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Create account</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={goMain}
+        style={{ padding: 12, marginTop: 8, alignItems: 'center' }}
+      >
+        <Text style={{ textDecorationLine: 'underline' }}>Continue as Guest</Text>
       </Pressable>
     </View>
   );

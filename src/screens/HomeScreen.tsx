@@ -26,5 +26,6 @@ export default function HomeScreen() {
         <Text>{t('home.welcome')}</Text>
       </View>
     </SafeAreaView>
+    // This is a test, please work
   );
 }

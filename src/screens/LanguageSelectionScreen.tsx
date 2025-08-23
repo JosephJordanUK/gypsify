@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import i18n from '../utils/i18n';
 import { setAppLanguage, setOnboardingDone } from '../utils/storage';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/RootNavigator';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/RootNavigator';
+import { CommonActions } from '@react-navigation/native';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Onboarding'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'LangSelect'>;
 
 const LANGS = [
   { code: 'en', label: 'English' },
@@ -13,11 +14,34 @@ const LANGS = [
 ];
 
 export default function LanguageSelectionScreen({ navigation }: Props) {
-  const [selected, setSelected] = useState<string>(i18n.language);
+  const [selected, setSelected] = useState(i18n.language);
+
+  const handleContinue = async () => {
+    await setAppLanguage(selected);
+    i18n.changeLanguage(selected);
+    await setOnboardingDone(true);
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      })
+    );
+  };
+
+  const handleGuest = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Main' }],
+      })
+    );
+  };
 
   return (
-    <View style={{ flex: 1, padding: 24, gap: 16, justifyContent: 'center' }}>
-      <Text style={{ fontSize: 22, textAlign: 'center' }}>{i18n.t('chooseLanguage')}</Text>
+    <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
+      <Text style={{ fontSize: 22, fontWeight: '700', marginBottom: 8 }}>
+        {i18n.t('chooseLanguage', { defaultValue: 'Choose your language' })}
+      </Text>
 
       {LANGS.map((l) => (
         <Pressable
@@ -31,29 +55,29 @@ export default function LanguageSelectionScreen({ navigation }: Props) {
             marginBottom: 12,
           }}
         >
-          <Text style={{ textAlign: 'center' }}>
+          <Text style={{ fontSize: 16 }}>
             {l.label} {selected === l.code ? '✓' : ''}
           </Text>
         </Pressable>
       ))}
 
       <Pressable
-        onPress={async () => {
-          await setAppLanguage(selected);
-          i18n.changeLanguage(selected);
-          await setOnboardingDone(true);
-          navigation.replace('Auth');
+        onPress={handleContinue}
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          backgroundColor: '#111',
+          marginTop: 8,
+          alignItems: 'center',
         }}
-        style={{ padding: 16, borderRadius: 12, backgroundColor: '#111', marginTop: 8 }}
       >
-        <Text style={{ textAlign: 'center', color: 'white' }}>{i18n.t('continue')}</Text>
+        <Text style={{ color: '#fff', fontWeight: '600' }}>
+          {i18n.t('continue', { defaultValue: 'Continue' })}
+        </Text>
       </Pressable>
 
-      <Pressable
-        onPress={() => navigation.replace('Main')}
-        style={{ padding: 12, marginTop: 12 }}
-      >
-        <Text style={{ textAlign: 'center' }}>Continue as Guest</Text>
+      <Pressable onPress={handleGuest} style={{ padding: 12, marginTop: 12 }}>
+        <Text style={{ textDecorationLine: 'underline' }}>Continue as Guest</Text>
       </Pressable>
     </View>
   );

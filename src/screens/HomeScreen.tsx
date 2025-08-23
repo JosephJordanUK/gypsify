@@ -32,4 +32,5 @@ export default function HomeScreen() {
       {/* ping */}
     </SafeAreaView>
   );
+  
 }

@@ -5,212 +5,209 @@
 
 meta:
   manifest_version: 2
-  session_date: 2025-08-23
-  author: AI + Joseph
-  notes: >
-    Keep this file in sync with File Tracking Blocks.
-    Update permalinks after pushing to GitHub.
-    Increment versions only when logic or behavior changes,
-    not for cosmetic edits or comments.
-    New files must always be added here in the same session.
+baseline_commit: "373d1f8f1b050a2a0a10af654f08cf40bbc03098"
+generated_at: 2025-08-23T00:00:00Z
+session_date: 2025-08-23
+notes: >
+  Tracks prompt/ and src/. Permalinks pinned to baseline_commit.
 
-manifest:
-  App.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
-    description: App entry mounting RootNavigator with i18n init
+files:
+  - path: prompt/MasterPrompt.md
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/prompt/MasterPrompt.md
+    description: Master system prompt defining workflow
     lastUpdated: 2025-08-23
-    version: 0.1.3
+    version: 1.0.0
+    bytes: 54621
+    sha256: "a25ca5acd4a26c983bc7ad5443dbec613c7bca851daf6e55f04b3519772299c1"
 
-  babel.config.js:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/babel.config.js
-    description: Babel config with Reanimated plugin
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  eslint.config.cjs:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/eslint.config.cjs
-    description: ESLint v9 flat config for RN + TS + React
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/utils/i18n.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
-    description: i18next setup with resources; fixed init types
+  - path: prompt/checklist.md
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/prompt/checklist.md
+    description: Execution checklist
     lastUpdated: 2025-08-23
-    version: 0.2.1
+    version: 1.0.0
+    bytes: 5789
+    sha256: "8510ba3cba2a00452e50788204c8c8ad03c2b8c834d2c354de1546d0705ded5c"
 
-  src/utils/storage.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
-    description: AsyncStorage helpers (onboarding, language, authed) + dev reset
-    lastUpdated: 2025-08-22
-    version: 0.3.0
-
-  src/navigation/RootNavigator.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
-    description: Root stack hosting Onboarding, Auth, Main
+  - path: prompt/firestore.rules
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/prompt/firestore.rules
+    description: Firestore security rules (reference copy)
     lastUpdated: 2025-08-23
-    version: 0.7.0
+    version: 1.0.0
+    bytes: 1181
+    sha256: "ebf5a99df8a61c374ecd8bc040b00b54207d70c39131fe424684b661c93005e2"
 
-  src/navigation/AuthStack.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
-    description: Native stack for Login, Signup, PasswordReset
+  - path: prompt/mini-manifest.yml
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/prompt/mini-manifest.yml
+    description: File tracking baseline for prompt/ and src/
     lastUpdated: 2025-08-23
-    version: 0.2.0
+    version: 1.0.0
+    bytes: 8609
+    sha256: "8372402b533725f6781b0acde0e5143977158cc36e66a847a3190340369cfd22"
 
-  src/navigation/OnboardingStack.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
-    description: Onboarding stack with Splash and Language selection
+  - path: prompt/project-overview.txt
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/prompt/project-overview.txt
+    description: High-level project overview
     lastUpdated: 2025-08-23
-    version: 0.1.0
+    version: 1.0.0
+    bytes: 1416
+    sha256: "3b711ebceadbc1c3b59f990739347ecd74237fe19e60ad85190d095b6ea111d7"
 
-  src/navigation/MainTabs.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
-    description: Bottom tabs with i18n tabBarLabel for Home/Search/Library/Profile
+  - path: src/components/VerifyBanner.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/components/VerifyBanner.tsx
+    description: Banner prompting email verification
     lastUpdated: 2025-08-23
-    version: 0.1.3
+    version: 1.0.0
+    bytes: 3001
+    sha256: "94a0c229b1b874836a5e5b3e76700e9037dc45bca20c231205f1062c684ebe20"
 
-  src/screens/SplashScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
-    description: Loads language/onboarding flags, then routes to Language or resets to Auth/Main
+  - path: src/navigation/AuthStack.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/navigation/AuthStack.tsx
+    description: Authentication flow stack
     lastUpdated: 2025-08-23
-    version: 0.4.0
+    version: 1.0.0
+    bytes: 824
+    sha256: "cab778150869d0bb7007cbd1dbf5143ff4c60b89d896d730b06023df79cf98eb"
 
-  src/screens/LanguageSelectionScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
-    description: Language selection using i18n keys; resets parent to Auth/Main
+  - path: src/navigation/MainTabs.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/navigation/MainTabs.tsx
+    description: Main application tab navigator
     lastUpdated: 2025-08-23
-    version: 0.6.0
+    version: 1.0.0
+    bytes: 1267
+    sha256: "cda8a96da1379edfa983971a735430cee71c6763c9a05f7c4a88b633e106561c"
 
-  src/screens/LoginScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
-    description: Email/password login; i18n strings; guest option; soft verification gate
+  - path: src/navigation/OnboardingStack.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/navigation/OnboardingStack.tsx
+    description: Onboarding flow stack
     lastUpdated: 2025-08-23
-    version: 0.7.0
+    version: 1.0.0
+    bytes: 715
+    sha256: "eda1e304dbf978c54df44d59e7e99254adac341fba155d89ff897e5b7a56962b"
 
-  src/screens/SignupScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
-    description: Signup; i18n strings; verification email flow
+  - path: src/navigation/RootNavigator.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/navigation/RootNavigator.tsx
+    description: Root navigation container and gate
     lastUpdated: 2025-08-23
-    version: 0.4.0
+    version: 1.0.0
+    bytes: 891
+    sha256: "e7140f6ef2cbddf4f93d409db3eb123dcdd5dbfcf2553e382916ca86dd98015e"
 
-  src/screens/PasswordResetScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
-    description: Password reset; i18n strings with anti-enumeration copy
+  - path: src/screens/HomeScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/HomeScreen.tsx
+    description: Home feed surface
     lastUpdated: 2025-08-23
-    version: 0.4.0
+    version: 1.0.0
+    bytes: 759
+    sha256: "04b6a2559996186cd294dc4fd3372afc0dc766d8131748e561c58313b64d7b9d"
 
-  src/screens/ProfileScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
-    description: Profile with sign out and dev reset; i18n strings
+  - path: src/screens/LanguageSelectionScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/LanguageSelectionScreen.tsx
+    description: Language selection UI
     lastUpdated: 2025-08-23
-    version: 0.4.0
+    version: 1.0.0
+    bytes: 2489
+    sha256: "191243ffab306429ffc44a0e247978714d04132ca9a1a9b629f76b9909236060"
 
-  src/screens/OnboardingScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
-    description: Placeholder Onboarding screen
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/SearchScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
-    description: Placeholder Search screen
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/LibraryScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
-    description: Placeholder Library screen
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/HomeScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
-    description: Home centered; i18n strings; shows VerifyBanner
+  - path: src/screens/LibraryScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/LibraryScreen.tsx
+    description: Saved items and library
     lastUpdated: 2025-08-23
-    version: 0.3.0
+    version: 1.0.0
+    bytes: 249
+    sha256: "f731fa51c4a4bcadf2410ae158ce2d0e8024bdd21074fb0ca58872e3d34c3ec6"
 
-  src/components/VerifyBanner.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
-    description: Banner for unverified users; i18n strings; resend and refresh
+  - path: src/screens/LoginScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/LoginScreen.tsx
+    description: Login UI and handlers
     lastUpdated: 2025-08-23
-    version: 0.2.0
+    version: 1.0.0
+    bytes: 4538
+    sha256: "5ca4bd988b76bd1a31d2d092a90baa0129e40deaa78c2cc7265c2d6422c45616"
 
-  src/services/firebase.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
-    description: Firebase init (Auth with RN persistence, Firestore, Storage)
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/services/analytics.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
-    description: analytics stub (logEvent, setUserId)
-    lastUpdated: 2025-08-22
-
-  src/services/crashlytics.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
-    description: crash logging stub (recordError, setUserId)
-    lastUpdated: 2025-08-22
-
-  metro.config.js:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/metro.config.js
-    description: Expo+Firebase bundling config
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  tsconfig.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/tsconfig.json
-    description: Expo TS config; RN Firebase typings path
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  package.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/package.json
-    description: add firebase and async-storage deps
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  yarn.lock:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/yarn.lock
-    description: lockfile for new deps
-    lastUpdated: 2025-08-22
-
-  app.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/app.json
-    description: add expo-localization plugin
-    lastUpdated: 2025-08-22
-
-  prompt/checklist.md:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
-    description: Project checklist with Phase 3 progress
+  - path: src/screens/OnboardingScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/OnboardingScreen.tsx
+    description: Onboarding carousel or intro
     lastUpdated: 2025-08-23
-    version: 0.3.0
+    version: 1.0.0
+    bytes: 255
+    sha256: "d7c7f957372b274df658c55c3abdf6abcc0bba2a152a23cfb10a34ff0657ebe3"
 
-  prompt/mini-manifest.yml:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
-    description: Mini manifest with onboarding and i18n updates
+  - path: src/screens/PasswordResetScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/PasswordResetScreen.tsx
+    description: Password reset UI and flow
     lastUpdated: 2025-08-23
-    version: 0.3.1
+    version: 1.0.0
+    bytes: 2667
+    sha256: "f69d4b5d67f99e475d3df08738bb7be09737e9f447c9d67c7f9fc2bcc519a8c1"
 
-  prompt/firestore.rules:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
-    description: Firestore rules enforcing email_verified for writes
+  - path: src/screens/ProfileScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/ProfileScreen.tsx
+    description: User profile and settings
     lastUpdated: 2025-08-23
-    version: 0.1.0
+    version: 1.0.0
+    bytes: 2310
+    sha256: "9a0a16224bec19217e4e07c0d8c18352a2ba6217a63bf0cc0253c2a227aa91c1"
 
-  firebase.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firebase.json
-    description: Firebase CLI config pointing to rules and indexes
+  - path: src/screens/SearchScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/SearchScreen.tsx
+    description: Search UI and results
     lastUpdated: 2025-08-23
-    version: 0.1.0
+    version: 1.0.0
+    bytes: 247
+    sha256: "01d5f7c2adbafda3ed80cf642b6d64b0d69edb73e2e7818289b349fccf7c815e"
 
-  firestore.indexes.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firestore.indexes.json
-    description: Firestore composite indexes placeholder
+  - path: src/screens/SignupScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/SignupScreen.tsx
+    description: Signup UI and handlers
     lastUpdated: 2025-08-23
-    version: 0.1.0
+    version: 1.0.0
+    bytes: 4015
+    sha256: "6a42f1e036c3152f2e7a2f7ae0f436d2a7ba55e325efc68009812136c0f39774"
 
-  .firebaserc:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/.firebaserc
-    description: Firebase project alias configuration
+  - path: src/screens/SplashScreen.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/screens/SplashScreen.tsx
+    description: App splash and bootstrap logic
     lastUpdated: 2025-08-23
-    version: 0.1.0
+    version: 1.0.0
+    bytes: 1683
+    sha256: "2535024ebf7b5e0d8631bfc9c8b02657e0520058558953ae4bfce156d9dd26f0"
+
+  - path: src/services/analytics.ts
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/services/analytics.ts
+    description: Analytics helpers and wrappers
+    lastUpdated: 2025-08-23
+    version: 1.0.0
+    bytes: 305
+    sha256: "290e6ffe7d922f00726d67538b5a325c573af1a546b9efa436ea48d384b06b20"
+
+  - path: src/services/crashlytics.ts
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/services/crashlytics.ts
+    description: Crashlytics helpers and wrappers
+    lastUpdated: 2025-08-23
+    version: 1.0.0
+    bytes: 252
+    sha256: "7d56b854660bd5f11521b45040839ceb1472011e89995897e2e1f65b4f55db9f"
+
+  - path: src/services/firebase.ts
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/services/firebase.ts
+    description: Firebase initialization and exports
+    lastUpdated: 2025-08-23
+    version: 1.0.0
+    bytes: 1183
+    sha256: "1e78d1d91edbd95b6da514c0c9d72dd2c853af5d38e925ebe24b6d71699626ca"
+
+  - path: src/utils/i18n.ts
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/utils/i18n.ts
+    description: i18n setup and resources loader
+    lastUpdated: 2025-08-23
+    version: 1.0.0
+    bytes: 6551
+    sha256: "17c2771e626da0b66180737d0eb94b58746768db46d0b62ed5331c3f9099966e"
+
+  - path: src/utils/storage.ts
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/373d1f8f1b050a2a0a10af654f08cf40bbc03098/src/utils/storage.ts
+    description: Async storage helpers
+    lastUpdated: 2025-08-23
+    version: 1.0.0
+    bytes: 1086
+    sha256: "635c1fafc9c3e338a745f048f80d38275eaea70ea7e4943da5bf4e30e698564e"

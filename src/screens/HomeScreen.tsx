@@ -1,3 +1,5 @@
+// chaning the test text here to see if it worked
+
 import React from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +28,5 @@ export default function HomeScreen() {
         <Text>{t('home.welcome')}</Text>
       </View>
     </SafeAreaView>
-    // ahh shit here we go again
-    // this is a test, it better work
   );
 }

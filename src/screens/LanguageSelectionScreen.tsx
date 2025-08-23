@@ -3,10 +3,10 @@ import { View, Text, Pressable } from 'react-native';
 import i18n from '../utils/i18n';
 import { setAppLanguage, setOnboardingDone } from '../utils/storage';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../navigation/RootNavigator';
+import type { OnboardingStackParamList } from '../navigation/OnboardingStack';
 import { CommonActions } from '@react-navigation/native';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'LangSelect'>;
+type Props = NativeStackScreenProps<OnboardingStackParamList, 'Language'>;
 
 const LANGS = [
   { code: 'en', label: 'English' },
@@ -16,25 +16,20 @@ const LANGS = [
 export default function LanguageSelectionScreen({ navigation }: Props) {
   const [selected, setSelected] = useState(i18n.language);
 
+  const toRoot = (route: 'Auth' | 'Main') =>
+    navigation.getParent()?.dispatch(
+      CommonActions.reset({ index: 0, routes: [{ name: route }] })
+    );
+
   const handleContinue = async () => {
     await setAppLanguage(selected);
     i18n.changeLanguage(selected);
     await setOnboardingDone(true);
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'Auth' }],
-      })
-    );
+    toRoot('Auth');
   };
 
   const handleGuest = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'Main' }],
-      })
-    );
+    toRoot('Main');
   };
 
   return (
@@ -76,7 +71,7 @@ export default function LanguageSelectionScreen({ navigation }: Props) {
         </Text>
       </Pressable>
 
-      <Pressable onPress={handleGuest} style={{ padding: 12, marginTop: 12 }}>
+      <Pressable onPress={handleGuest} style={{ padding: 12, marginTop: 12, alignItems: 'center' }}>
         <Text style={{ textDecorationLine: 'underline' }}>Continue as Guest</Text>
       </Pressable>
     </View>

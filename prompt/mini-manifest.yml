@@ -46,10 +46,10 @@ manifest:
     version: 0.3.0
 
   src/navigation/RootNavigator.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/RootNavigator.tsx
-    description: Root stack (Splash, Onboarding, Auth, Main) with replace-based routing
-    lastUpdated: 2025-08-22
-    version: 0.4.0
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/RootNavigator.tsx
+    description: Root stack hosting Onboarding, Auth, Main
+    lastUpdated: 2025-08-23
+    version: 0.7.0
 
   src/navigation/AuthStack.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/AuthStack.tsx
@@ -64,16 +64,16 @@ manifest:
     version: 0.1.2
 
   src/screens/SplashScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SplashScreen.tsx
-    description: Splash reads language/onboarding/auth and replaces to next route
-    lastUpdated: 2025-08-22
-    version: 0.3.0
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/SplashScreen.tsx
+    description: Loads language and onboarding flags, then routes to Language or resets to Auth/Main
+    lastUpdated: 2025-08-23
+    version: 0.4.0
 
   src/screens/LanguageSelectionScreen.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/LanguageSelectionScreen.tsx
-    description: First-launch language selection; resets to Auth or Main
+    description: First-launch language selection; resets parent to Auth or Main
     lastUpdated: 2025-08-23
-    version: 0.4.0
+    version: 0.5.0
 
   src/screens/LoginScreen.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/LoginScreen.tsx
@@ -206,5 +206,11 @@ manifest:
   .firebaserc:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.firebaserc
     description: Firebase project alias configuration
+    lastUpdated: 2025-08-23
+    version: 0.1.0
+
+  src/navigation/OnboardingStack.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/OnboardingStack.tsx
+    description: Onboarding stack with Splash and Language selection
     lastUpdated: 2025-08-23
     version: 0.1.0

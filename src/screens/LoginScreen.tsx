@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
 
@@ -20,10 +21,9 @@ export default function LoginScreen({ navigation }: Props) {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email.trim(), password);
-      // Do not navigate manually. RootNavigator listens to auth state and routes to Main.
-    } catch (err: any) {
+    } catch (err: unknown) {
       let msg = 'Sign in failed.';
-      if (err?.code) {
+      if (err instanceof FirebaseError) {
         switch (err.code) {
           case 'auth/invalid-email':
             msg = 'Invalid email address.';
@@ -46,7 +46,6 @@ export default function LoginScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
       <Text style={{ fontSize: 28, fontWeight: '700' }}>Login</Text>
-
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -56,7 +55,6 @@ export default function LoginScreen({ navigation }: Props) {
         placeholder="Email"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <TextInput
         value={password}
         onChangeText={setPassword}
@@ -64,7 +62,6 @@ export default function LoginScreen({ navigation }: Props) {
         placeholder="Password"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <Pressable
         onPress={handleSignIn}
         disabled={loading}
@@ -76,17 +73,11 @@ export default function LoginScreen({ navigation }: Props) {
           opacity: loading ? 0.7 : 1,
         }}
       >
-        {loading ? (
-          <ActivityIndicator />
-        ) : (
-          <Text style={{ color: '#fff', fontWeight: '600' }}>Sign In</Text>
-        )}
+        {loading ? <ActivityIndicator /> : <Text style={{ color: '#fff', fontWeight: '600' }}>Sign In</Text>}
       </Pressable>
-
       <Pressable onPress={() => navigation.navigate('PasswordReset')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Forgot password?</Text>
       </Pressable>
-
       <Pressable onPress={() => navigation.navigate('Signup')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Create account</Text>
       </Pressable>

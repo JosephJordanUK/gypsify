@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 import { auth } from '../services/firebase';
 import { AuthStackParamList } from '../navigation/AuthStack';
 
@@ -30,22 +31,23 @@ export default function SignupScreen({ navigation }: Props) {
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email.trim(), password);
-      // Do not navigate manually. RootNavigator listens to auth state and routes to Main.
-    } catch (err: any) {
+    } catch (err: unknown) {
       let msg = 'Signup failed.';
-      switch (err?.code) {
-        case 'auth/email-already-in-use':
-          msg = 'Email already in use.';
-          break;
-        case 'auth/invalid-email':
-          msg = 'Invalid email address.';
-          break;
-        case 'auth/operation-not-allowed':
-          msg = 'Email/password sign-up is disabled.';
-          break;
-        case 'auth/weak-password':
-          msg = 'Password is too weak.';
-          break;
+      if (err instanceof FirebaseError) {
+        switch (err.code) {
+          case 'auth/email-already-in-use':
+            msg = 'Email already in use.';
+            break;
+          case 'auth/invalid-email':
+            msg = 'Invalid email address.';
+            break;
+          case 'auth/operation-not-allowed':
+            msg = 'Email/password sign-up is disabled.';
+            break;
+          case 'auth/weak-password':
+            msg = 'Password is too weak.';
+            break;
+        }
       }
       Alert.alert('Error', msg);
     } finally {
@@ -56,7 +58,6 @@ export default function SignupScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, padding: 16, gap: 14, justifyContent: 'center' }}>
       <Text style={{ fontSize: 28, fontWeight: '700' }}>Create account</Text>
-
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -66,7 +67,6 @@ export default function SignupScreen({ navigation }: Props) {
         placeholder="Email"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <TextInput
         value={password}
         onChangeText={setPassword}
@@ -74,7 +74,6 @@ export default function SignupScreen({ navigation }: Props) {
         placeholder="Password"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <TextInput
         value={confirm}
         onChangeText={setConfirm}
@@ -82,7 +81,6 @@ export default function SignupScreen({ navigation }: Props) {
         placeholder="Confirm password"
         style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 12, padding: 12 }}
       />
-
       <Pressable
         onPress={handleSignup}
         disabled={loading}
@@ -94,13 +92,8 @@ export default function SignupScreen({ navigation }: Props) {
           opacity: loading ? 0.7 : 1,
         }}
       >
-        {loading ? (
-          <ActivityIndicator />
-        ) : (
-          <Text style={{ color: '#fff', fontWeight: '600' }}>Sign Up</Text>
-        )}
+        {loading ? <ActivityIndicator /> : <Text style={{ color: '#fff', fontWeight: '600' }}>Sign Up</Text>}
       </Pressable>
-
       <Pressable onPress={() => navigation.navigate('Login')} style={{ padding: 8 }}>
         <Text style={{ textDecorationLine: 'underline' }}>Already have an account? Sign in</Text>
       </Pressable>

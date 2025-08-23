@@ -26,22 +26,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Resolve SHAs
+      - name: Resolve SHAs from event
         id: shas
-        shell: bash
         run: |
-          NEW_SHA=$(git rev-parse HEAD)
-          # Try to read the previously published SHA from remote; ignore if missing
-          OLD_SHA=$(curl -fsSL "https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/dev/prompt/latest-sha.txt" || true)
-          # Fallback: first commit if none found
-          if [ -z "$OLD_SHA" ]; then
-            OLD_SHA=$(git rev-list --max-parents=0 HEAD)
-          fi
-          echo "NEW_SHA=$NEW_SHA" >> $GITHUB_OUTPUT
-          echo "OLD_SHA=$OLD_SHA" >> $GITHUB_OUTPUT
+          echo "NEW_SHA=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "OLD_SHA=${{ github.event.before }}" >> $GITHUB_OUTPUT
+          echo "New: ${{ github.sha }}"
+          echo "Old: ${{ github.event.before }}"
 
       - name: Build manifest.json (all tracked files)
-        shell: bash
         run: |
           jq -n '[]' > prompt/manifest.json
           git ls-files \
@@ -55,8 +48,7 @@ jobs:
                    prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
               done
 
-      - name: Build changed-in-latest.json (diff OLD->NEW)
-        shell: bash
+      - name: Build changed-in-latest.json (diff OLD -> NEW)
         run: |
           git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
             | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/)' \

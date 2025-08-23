@@ -1,6 +1,5 @@
 // chaning the test text here to see if it worked
-// i bet it doesnt work
-// if it does, happy days
+// i bet it doesnt work huh
 
 import React from 'react';
 import { SafeAreaView, View, Text } from 'react-native';

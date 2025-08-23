@@ -1,0 +1,27 @@
+name: Update latest SHA
+on:
+  push:
+    branches: [dev]
+jobs:
+  write-sha:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Write SHA
+        run: |
+          mkdir -p prompt
+          git rev-parse HEAD > prompt/latest-sha.txt
+      - name: Commit SHA
+        run: |
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add prompt/latest-sha.txt
+            git commit -m "chore: update latest-sha.txt"
+            git push
+          fi
+

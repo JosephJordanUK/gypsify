@@ -18,3 +18,4 @@ test
 # ping
 // ci ping
 // ci ping
+// ci ping

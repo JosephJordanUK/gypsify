@@ -38,7 +38,7 @@ Status legend: ✅ DONE · 🚧 IN PROGRESS · ⏭️ NOT STARTED
 - Firestore user schema (Listener/Artist/Admin) ⏭️ NOT STARTED
 - Security rules (email_verified gate) ✅ DONE
 - Profile CRUD (avatar, username, bio) ⏭️ NOT STARTED
-- Commit auth system 🚧 IN PROGRESS
+- Commit auth system ✅ DONE
 
 ---
 

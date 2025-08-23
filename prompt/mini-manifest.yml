@@ -16,201 +16,201 @@ meta:
 
 manifest:
   App.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/App.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
     description: App entry mounting RootNavigator with i18n init
     lastUpdated: 2025-08-23
     version: 0.1.3
 
   babel.config.js:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/babel.config.js
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/babel.config.js
     description: Babel config with Reanimated plugin
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   eslint.config.cjs:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/eslint.config.cjs
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/eslint.config.cjs
     description: ESLint v9 flat config for RN + TS + React
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   src/utils/i18n.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/utils/i18n.ts
-    description: i18next setup with resources and Expo localization; new auth/home/language strings
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
+    description: i18next setup with resources; fixed init types
     lastUpdated: 2025-08-23
-    version: 0.2.0
+    version: 0.2.1
 
   src/utils/storage.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/storage.ts
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
     description: AsyncStorage helpers (onboarding, language, authed) + dev reset
     lastUpdated: 2025-08-22
     version: 0.3.0
 
   src/navigation/RootNavigator.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/RootNavigator.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
     description: Root stack hosting Onboarding, Auth, Main
     lastUpdated: 2025-08-23
     version: 0.7.0
 
   src/navigation/AuthStack.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/AuthStack.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
     description: Native stack for Login, Signup, PasswordReset
     lastUpdated: 2025-08-23
     version: 0.2.0
 
-  src/navigation/MainTabs.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/MainTabs.tsx
-    description: Bottom tabs for Home, Search, Library, Profile with i18n titles
+  src/navigation/OnboardingStack.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
+    description: Onboarding stack with Splash and Language selection
     lastUpdated: 2025-08-23
-    version: 0.1.2
+    version: 0.1.0
+
+  src/navigation/MainTabs.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
+    description: Bottom tabs with i18n tabBarLabel for Home/Search/Library/Profile
+    lastUpdated: 2025-08-23
+    version: 0.1.3
 
   src/screens/SplashScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/SplashScreen.tsx
-    description: Loads language and onboarding flags, then routes to Language or resets to Auth/Main
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
+    description: Loads language/onboarding flags, then routes to Language or resets to Auth/Main
     lastUpdated: 2025-08-23
     version: 0.4.0
 
   src/screens/LanguageSelectionScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/LanguageSelectionScreen.tsx
-    description: First-launch language selection; resets parent to Auth or Main
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
+    description: Language selection using i18n keys; resets parent to Auth/Main
     lastUpdated: 2025-08-23
-    version: 0.5.0
+    version: 0.6.0
 
   src/screens/LoginScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/LoginScreen.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
     description: Email/password login; i18n strings; guest option; soft verification gate
     lastUpdated: 2025-08-23
     version: 0.7.0
 
   src/screens/SignupScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/SignupScreen.tsx
-    description: Firebase signup; sends verification email; guidance to verify
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
+    description: Signup; i18n strings; verification email flow
     lastUpdated: 2025-08-23
-    version: 0.3.0
+    version: 0.4.0
 
   src/screens/PasswordResetScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/PasswordResetScreen.tsx
-    description: Sends reset email; anti-enumeration copy
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
+    description: Password reset; i18n strings with anti-enumeration copy
     lastUpdated: 2025-08-23
-    version: 0.3.0
+    version: 0.4.0
 
   src/screens/ProfileScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/ProfileScreen.tsx
-    description: Sign out button; dev long-press reset onboarding/lang/auth
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
+    description: Profile with sign out and dev reset; i18n strings
     lastUpdated: 2025-08-23
-    version: 0.3.0
+    version: 0.4.0
 
   src/screens/OnboardingScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/OnboardingScreen.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
     description: Placeholder Onboarding screen
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   src/screens/SearchScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SearchScreen.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
     description: Placeholder Search screen
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   src/screens/LibraryScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LibraryScreen.tsx
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
     description: Placeholder Library screen
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   src/screens/HomeScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/HomeScreen.tsx
-    description: Home with centered content and top VerifyBanner
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
+    description: Home centered; i18n strings; shows VerifyBanner
+    lastUpdated: 2025-08-23
+    version: 0.3.0
+
+  src/components/VerifyBanner.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
+    description: Banner for unverified users; i18n strings; resend and refresh
     lastUpdated: 2025-08-23
     version: 0.2.0
 
-  src/components/VerifyBanner.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/components/VerifyBanner.tsx
-    description: Banner prompting unverified users to resend verification or refresh status
-    lastUpdated: 2025-08-23
-    version: 0.1.1
-
   src/services/firebase.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
     description: Firebase init (Auth with RN persistence, Firestore, Storage)
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   src/services/analytics.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
     description: analytics stub (logEvent, setUserId)
     lastUpdated: 2025-08-22
 
   src/services/crashlytics.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/crashlytics.ts
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
     description: crash logging stub (recordError, setUserId)
     lastUpdated: 2025-08-22
 
   metro.config.js:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/metro.config.js
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/metro.config.js
     description: Expo+Firebase bundling config
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   tsconfig.json:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/tsconfig.json
     description: Expo TS config; RN Firebase typings path
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   package.json:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/package.json
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/package.json
     description: add firebase and async-storage deps
     lastUpdated: 2025-08-22
     version: 0.1.0
 
   yarn.lock:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/yarn.lock
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/yarn.lock
     description: lockfile for new deps
     lastUpdated: 2025-08-22
 
   app.json:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/app.json
     description: add expo-localization plugin
     lastUpdated: 2025-08-22
 
   prompt/checklist.md:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/prompt/checklist.md
-    description: Checklist progress for Phase 3; auth marked done; rules added
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
+    description: Project checklist with Phase 3 progress
     lastUpdated: 2025-08-23
     version: 0.3.0
 
   prompt/mini-manifest.yml:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/prompt/mini-manifest.yml
-    description: Mini manifest with permalinks and versions for changed files
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
+    description: Mini manifest with onboarding and i18n updates
     lastUpdated: 2025-08-23
-    version: 0.3.0
+    version: 0.3.1
 
   prompt/firestore.rules:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/prompt/firestore.rules
-    description: Firestore security rules requiring email_verified for writes + examples
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
+    description: Firestore rules enforcing email_verified for writes
     lastUpdated: 2025-08-23
     version: 0.1.0
 
   firebase.json:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/firebase.json
-    description: Firebase CLI config mapping rules and indexes
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firebase.json
+    description: Firebase CLI config pointing to rules and indexes
     lastUpdated: 2025-08-23
     version: 0.1.0
 
   firestore.indexes.json:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/firestore.indexes.json
-    description: Placeholder Firestore indexes file
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firestore.indexes.json
+    description: Firestore composite indexes placeholder
     lastUpdated: 2025-08-23
     version: 0.1.0
 
   .firebaserc:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.firebaserc
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/.firebaserc
     description: Firebase project alias configuration
-    lastUpdated: 2025-08-23
-    version: 0.1.0
-
-  src/navigation/OnboardingStack.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/OnboardingStack.tsx
-    description: Onboarding stack with Splash and Language selection
     lastUpdated: 2025-08-23
     version: 0.1.0

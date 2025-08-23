@@ -645,14 +645,14 @@ Future Features (Phase 3 — Long-Term)
 - Phase 3: Authentication & Firebase
   - Install Firebase SDK (Auth, Firestore, Storage, Analytics, Crashlytics) ← ✅ DONE
   - Configure env (.env.development/.production) ← ✅ DONE
-  - Email/Password auth ← NOT STARTED
+  - Email/Password auth ← ✅ DONE
   - Google OAuth ← NOT STARTED
   - Apple Sign-In ← NOT STARTED
-  - Guest login mode ← NOT STARTED
+  - Guest login mode ← ✅ DONE
   - Firestore user schema (Listener/Artist/Admin) ← NOT STARTED
-  - Security rules (role-based) ← NOT STARTED
+  - Security rules (role-based) ← ✅ DONE
   - Profile CRUD (avatar, username, bio) ← NOT STARTED
-  - Commit auth system ← NOT STARTED
+  - Commit auth system ← ✅ DONE
 - Phase 4: Home & Discovery
   - Featured, Recommended, Trending, Recently Played sections ← NOT STARTED
   - Banner carousel + quick access cards ← NOT STARTED
@@ -746,10 +746,9 @@ Description: App entry mounting RootNavigator with i18n init
 Related: navigation/RootNavigator, utils/i18n
 Mock Data / Example Props: none
 Test Instructions: yarn lint && npx expo start → app launches into Splash
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.2", integrationNotes: "Uses RootNavigator and i18n init", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/App.tsx
+Metadata: { lastUpdated: "2025-08-23", version: "0.1.3", integrationNotes: "Uses RootNavigator and i18n init", author: "AI" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
 ]
-
 [ File created/updated:
 Path: babel.config.js
 Description: Babel config with Reanimated plugin
@@ -757,9 +756,8 @@ Related: animations
 Mock Data / Example Props: none
 Test Instructions: expo start → confirm no Reanimated errors
 Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Required for Reanimated v3+", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/babel.config.js
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/babel.config.js
 ]
-
 [ File created/updated:
 Path: eslint.config.cjs
 Description: ESLint v9 flat config for RN + TS + React
@@ -767,19 +765,18 @@ Related: lint
 Mock Data / Example Props: none
 Test Instructions: yarn lint → no config errors
 Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Migrated to ESLint v9 flat config", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/eslint.config.cjs
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/eslint.config.cjs
 ]
-
-[ File created/updated:
-Path: src/utils/i18n.ts
-Description: i18next setup with expo-localization
-Related: LanguageSelectionScreen
-Mock Data / Example Props: LANGS = ["en","ro"]
-Test Instructions: change device locale → verify translations
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Language switching supported", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/i18n.ts
+[
+File updated:
+Path: /src/utils/i18n.ts
+Description: i18next setup with resources; auth/home/language strings; fixed init types
+Related: /src/screens/*, /src/navigation/MainTabs.tsx
+Mock Data / Example Props: n/a
+Test Instructions: Switch device language or call i18n.changeLanguage('en'|'ro'); UI strings update
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.2.1", "integrationNotes": "Adds en and placeholder ro bundles; compatibilityJSON 'v4'" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
 ]
-
 [ File created/updated:
 Path: src/utils/storage.ts
 Description: AsyncStorage helpers (onboarding, language, authed) + dev reset
@@ -787,128 +784,95 @@ Related: SplashScreen, LanguageSelectionScreen, LoginScreen, ProfileScreen
 Mock Data / Example Props: setOnboardingDone(true), setAuthed(true)
 Test Instructions: run app, long-press Profile → confirm reset works
 Metadata: { lastUpdated: "2025-08-22", version: "0.3.0", integrationNotes: "Extended with authed + reset", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/storage.ts
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
 ]
-
-[ File created/updated:
-Path: src/navigation/MainTabs.tsx
-Description: Bottom tab navigator with Home, Search, Library, Profile (localized titles via i18n)
-Related: HomeScreen, SearchScreen, LibraryScreen, ProfileScreen
-Mock Data / Example Props: none
-Test Instructions: launch app after login → tabs visible
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.1", integrationNotes: "React Navigation v6 bottom tabs", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/MainTabs.tsx
+[ File updated:
+Path: /src/navigation/RootNavigator.tsx
+Description: Root stack hosting Onboarding, Auth, Main
+Related: /src/navigation/OnboardingStack.tsx, /src/navigation/AuthStack.tsx, /src/navigation/MainTabs.tsx
+Mock Data / Example Props: n/a
+Test Instructions: From Splash, verified user → Main; signed out → Auth; first launch → Onboarding
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.7.0", "integrationNotes": "Single NavigationContainer; initialRouteName=Onboarding" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
 ]
-
-[ File created/updated:
-Path: src/navigation/RootNavigator.tsx
-Description: Root stack (Splash, Onboarding, Auth, Main) with replace-based routing
-Related: SplashScreen, LanguageSelectionScreen, AuthStack, MainTabs
-Mock Data / Example Props: none
-Test Instructions: reset app state → flow Splash→Language→Auth→Main
-Metadata: { lastUpdated: "2025-08-22", version: "0.4.0", integrationNotes: "Stable root stack for auth/onboarding flow", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/RootNavigator.tsx
+[ File updated:
+Path: /src/navigation/AuthStack.tsx
+Description: Native stack for Login, Signup, PasswordReset
+Related: /src/screens/LoginScreen.tsx, /src/screens/SignupScreen.tsx, /src/screens/PasswordResetScreen.tsx
+Mock Data / Example Props: n/a
+Test Instructions: Navigate between auth screens; no header; initial route Login
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.2.0", "integrationNotes": "Navigator id provided to satisfy project types" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
 ]
-
-[ File created/updated:
-Path: src/navigation/AuthStack.tsx
-Description: Native stack for authentication screens (Login, Signup, PasswordReset)
-Related: LoginScreen, SignupScreen, PasswordResetScreen
-Mock Data / Example Props: none
-Test Instructions: navigate through auth screens
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Mounted under RootNavigator", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/AuthStack.tsx
+[
+File updated:
+Path: /src/navigation/MainTabs.tsx
+Description: Bottom tabs with i18n tabBarLabel for Home/Search/Library/Profile
+Related: /src/utils/i18n.ts, /src/screens/*
+Mock Data / Example Props: n/a
+Test Instructions: Switch language via LanguageSelection; tab labels change to t('tabs.*')
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.3", "integrationNotes": "Uses useTranslation; keeps id={undefined} for types" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
 ]
-
-[ File created/updated:
-Path: src/screens/SplashScreen.tsx
-Description: Splash reads language/onboarding/auth and replaces to next route
-Related: RootNavigator, storage
-Mock Data / Example Props: simulate storage flags
-Test Instructions: reset app → should see LanguageSelection, then Auth or Main
-Metadata: { lastUpdated: "2025-08-22", version: "0.3.0", integrationNotes: "Uses replace to avoid stacked nav", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SplashScreen.tsx
+[ File updated:
+Path: /src/screens/SplashScreen.tsx
+Description: Loads language/onboarding flags, then routes to Language or resets to Auth/Main
+Related: /src/utils/storage.ts, /src/utils/i18n.ts, /src/services/firebase.ts, /src/navigation/RootNavigator.tsx
+Mock Data / Example Props: n/a
+Test Instructions: Dev reset → Splash redirects to Language; after setting language → Splash resets parent to Auth/Main based on auth
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Uses onAuthStateChanged; parent reset via CommonActions" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
 ]
-
-[ File created/updated:
-Path: src/screens/LanguageSelectionScreen.tsx
-Description: Language chooser persists selection and routes to Auth or Main (guest)
-Related: RootNavigator, i18n, storage
-Mock Data / Example Props: LANGS = ["en","ro"]
-Test Instructions: choose language → continue → should go to Auth or Main
-Metadata: { lastUpdated: "2025-08-22", version: "0.3.0", integrationNotes: "Saves onboarding_done flag", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LanguageSelectionScreen.tsx
+[
+File updated:
+Path: /src/screens/LanguageSelectionScreen.tsx
+Description: Localized labels; language options use keys; parent reset to Auth/Main
+Related: /src/navigation/OnboardingStack.tsx, /src/utils/i18n.ts, /src/utils/storage.ts
+Mock Data / Example Props: selected="en"
+Test Instructions: Text renders via i18n keys; selecting language persists and routes correctly
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.6.0", "integrationNotes": "Typed to Onboarding stack" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
 ]
-[ File created/updated:
-Path: src/screens/LoginScreen.tsx
-Description: Login UI; temp sets authed and resets root to Main
-Related: AuthStack, storage
-Mock Data / Example Props: email="a@test.com", password="1234"
-Test Instructions: tap sign in → routes to Main tabs
-Metadata: { lastUpdated: "2025-08-22", version: "0.4.0", integrationNotes: "Temporary auth until Firebase integration", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LoginScreen.tsx
+[
+File updated:
+Path: /src/screens/LoginScreen.tsx
+Description: Localized all labels and alerts; kept guest and soft verification flow
+Related: /src/utils/i18n.ts, /src/components/VerifyBanner.tsx
+Mock Data / Example Props: email="user@example.com", password="secret123"
+Test Instructions: Verify all text renders via t(); wrong creds show localized errors
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.7.0", "integrationNotes": "No eslint any; uses FirebaseError" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
 ]
-
-[ File created/updated:
-Path: src/screens/SignupScreen.tsx
-Description: Signup form (display name, email, password)
-Related: AuthStack
-Mock Data / Example Props: displayName="Test"
-Test Instructions: open signup → form visible
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "UI only", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SignupScreen.tsx
+[
+File updated:
+Path: /src/screens/SignupScreen.tsx
+Description: Localized labels, validation, and error messages; verification email flow preserved
+Related: /src/utils/i18n.ts
+Mock Data / Example Props: email, password, confirm
+Test Instructions: Trigger each validation and error; texts localized
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Uses CommonActions.reset back to Auth" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
 ]
-
-[ File created/updated:
-Path: src/screens/PasswordResetScreen.tsx
-Description: Password reset email form
-Related: AuthStack
-Mock Data / Example Props: email="test@test.com"
-Test Instructions: open password reset → form visible
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "UI only", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/PasswordResetScreen.tsx
+[
+File updated:
+Path: /src/screens/PasswordResetScreen.tsx
+Description: Localized labels and alerts; anti-enumeration copy via i18n
+Related: /src/utils/i18n.ts
+Mock Data / Example Props: email
+Test Instructions: Invalid vs valid email flows show localized alerts
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Keeps neutral success text" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
 ]
-
-[ File created/updated:
-Path: src/screens/HomeScreen.tsx
-Description: Placeholder Home screen
-Related: MainTabs
-Mock Data / Example Props: none
-Test Instructions: navigate to Home tab
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/HomeScreen.tsx
+[
+File updated:
+Path: /src/screens/ProfileScreen.tsx
+Description: Localized screen title, sign-out button, and dev reset label
+Related: /src/utils/i18n.ts
+Mock Data / Example Props: n/a
+Test Instructions: Verify localized labels; sign-out still resets to Auth
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Uses CommonActions.reset" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
 ]
-
-[ File created/updated:
-Path: src/screens/SearchScreen.tsx
-Description: Placeholder Search screen
-Related: MainTabs
-Mock Data / Example Props: none
-Test Instructions: navigate to Search tab
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SearchScreen.tsx
-]
-
-[ File created/updated:
-Path: src/screens/LibraryScreen.tsx
-Description: Placeholder Library screen
-Related: MainTabs
-Mock Data / Example Props: none
-Test Instructions: navigate to Library tab
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LibraryScreen.tsx
-]
-
-[ File created/updated:
-Path: src/screens/ProfileScreen.tsx
-Description: Profile with long-press dev reset of onboarding/lang/auth
-Related: MainTabs, storage
-Mock Data / Example Props: none
-Test Instructions: long-press button → reset state, restart app
-Metadata: { lastUpdated: "2025-08-22", version: "0.2.0", integrationNotes: "Dev reset added", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/ProfileScreen.tsx
-]
-
 [ File created/updated:
 Path: src/screens/OnboardingScreen.tsx
 Description: Placeholder Onboarding screen
@@ -916,234 +880,369 @@ Related: RootNavigator
 Mock Data / Example Props: none
 Test Instructions: navigate manually if needed
 Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/OnboardingScreen.tsx
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
 ]
-
+[ File created/updated:
+Path: src/screens/SearchScreen.tsx
+Description: Placeholder Search screen
+Related: MainTabs
+Mock Data / Example Props: none
+Test Instructions: navigate to Search tab
+Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
+]
+[ File created/updated:
+Path: src/screens/LibraryScreen.tsx
+Description: Placeholder Library screen
+Related: MainTabs
+Mock Data / Example Props: none
+Test Instructions: navigate to Library tab
+Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
+]
+[
+File updated:
+Path: /src/screens/HomeScreen.tsx
+Description: Localized header and welcome copy; layout unchanged
+Related: /src/components/VerifyBanner.tsx, /src/utils/i18n.ts
+Mock Data / Example Props: n/a
+Test Instructions: Verify text reflects current language
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.3.0", "integrationNotes": "SafeAreaView container" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
+]
+[
+File updated:
+Path: /src/components/VerifyBanner.tsx
+Description: Banner texts localized; resend/refresh feedback localized
+Related: /src/utils/i18n.ts, /src/screens/HomeScreen.tsx
+Mock Data / Example Props: n/a
+Test Instructions: Sign in unverified; see localized banner; resend/refresh messages localized
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.2.0", "integrationNotes": "Forces re-render on reload()" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
+]
+[ File updated:
+Path: /prompt/checklist.md
+Description: Checklist progress for Phase 3; auth marked done; rules added
+Related: /prompt/mini-manifest.yml
+Mock Data / Example Props: n/a
+Test Instructions: Open to confirm Phase 3 statuses reflect repo
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.3.0", "integrationNotes": "Controls step-by-step execution" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
+]
+[ File updated:
+Path: /prompt/mini-manifest.yml
+Description: Mini manifest with new Onboarding entries, i18n updates, and tab labels
+Related: /src/navigation/, /src/screens/, /src/utils/i18n.ts
+Mock Data / Example Props: n/a
+Test Instructions: Open permalinks; confirm versions and dates match code
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.3.1", "integrationNotes": "Keep in sync after each edit" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
+]
+[ File created:
+Path: /prompt/firestore.rules
+Description: Firestore security rules requiring email_verified for writes + examples
+Related: firebase.json
+Mock Data / Example Props: n/a
+Test Instructions: firebase deploy --only firestore:rules; test writes as verified vs unverified users
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Tighten per roles when user schema lands" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
+]
+[ File created:
+Path: /firebase.json
+Description: Firebase CLI config mapping rules and indexes
+Related: /prompt/firestore.rules, /firestore.indexes.json, /.firebaserc
+Mock Data / Example Props: n/a
+Test Instructions: firebase deploy --only firestore:rules --project <id>
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Project id in .firebaserc" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firebase.json
+]
+[ File created:
+Path: /firestore.indexes.json
+Description: Placeholder Firestore indexes file
+Related: /firebase.json
+Mock Data / Example Props: n/a
+Test Instructions: none
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Populate when queries demand indexes" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firestore.indexes.json
+]
+[ File created:
+Path: /.firebaserc
+Description: Firebase project alias configuration
+Related: /firebase.json
+Mock Data / Example Props: n/a
+Test Instructions: firebase projects:list shows alias; deploy uses default
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "default=gypsify-35447" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/.firebaserc
+]
 [ File updated:
 Path: /package.json
 Description: add firebase@12.1.0 and @react-native-async-storage/async-storage@2.2.0
 Related: Firebase foundation
 Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/package.json
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/package.json
 ]
-
 [ File updated:
 Path: /yarn.lock
 Description: lockfile updated for new deps
 Related: package.json
 Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/yarn.lock
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/yarn.lock
 ]
-
 [ File updated:
 Path: /app.json
 Description: add expo-localization plugin
 Related: i18n setup
 Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/app.json
 ]
-
-
-
 [ File created:
 Path: /src/services/firebase.ts
 Description: Firebase init for app/Auth (RN persistence), Firestore, Storage using .env EXPO_PUBLIC vars
 Related: Firebase foundation
 Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
 ]
-
 [ File created:
 Path: /metro.config.js
 Description: Expo+Firebase bundling tweaks (.cjs support, disable unstable package exports)
 Related: Firebase foundation
 Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/metro.config.js
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/metro.config.js
 ]
-
 [ File created:
 Path: /tsconfig.json
 Description: TS base for Expo; skipLibCheck; RN Firebase typings path; include ts/tsx
 Related: Firebase foundation
 Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/tsconfig.json
 ]
-
 [ File created:
 Path: /src/services/analytics.ts
 Description: dev-only analytics stub (logEvent, setUserId)
 Related: future RNFirebase Analytics integration
 Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
 ]
-
 [ File created:
 Path: /src/services/crashlytics.ts
 Description: dev-only crash logging stub (recordError, setUserId)
 Related: future RNFirebase Crashlytics integration
 Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/crashlytics.ts
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
+]
+[
+File created:
+Path: /src/navigation/OnboardingStack.tsx
+Description: Onboarding stack with Splash and Language selection
+Related: /src/screens/SplashScreen.tsx, /src/screens/LanguageSelectionScreen.tsx, /src/navigation/RootNavigator.tsx
+Mock Data / Example Props: n/a
+Test Instructions: Launch app after dev reset → Splash → Language; selecting language → Auth; guest → Main
+Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Navigator id set; header hidden; initialRouteName=Splash" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
 ]
 
 Mini Manifest (kept in the Master Prompt; user updates at session end):
 
 manifest:
-src/navigation/MainTabs.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/MainTabs.tsx
-description: Bottom tab navigator with Home, Search, Library, Profile (localized titles via i18n)
-lastUpdated: 2025-08-22
-version: 0.1.1
+  App.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
+    description: App entry mounting RootNavigator with i18n init
+    lastUpdated: 2025-08-23
+    version: 0.1.3
 
-src/navigation/RootNavigator.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/RootNavigator.tsx
-description: Root stack (Splash, Onboarding, Auth, Main) with replace-based routing
-lastUpdated: 2025-08-22
-version: 0.4.0
+  babel.config.js:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/babel.config.js
+    description: Babel config with Reanimated plugin
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-src/navigation/AuthStack.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/AuthStack.tsx
-description: Native stack for authentication screens (Login, Signup, PasswordReset)
-lastUpdated: 2025-08-22
-version: 0.1.0
+  eslint.config.cjs:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/eslint.config.cjs
+    description: ESLint v9 flat config for RN + TS + React
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-src/screens/HomeScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/HomeScreen.tsx
-description: Placeholder Home screen
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/utils/i18n.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
+    description: i18next setup with resources; fixed init types
+    lastUpdated: 2025-08-23
+    version: 0.2.1
 
-src/screens/SearchScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SearchScreen.tsx
-description: Placeholder Search screen
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/utils/storage.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
+    description: AsyncStorage helpers (onboarding, language, authed) + dev reset
+    lastUpdated: 2025-08-22
+    version: 0.3.0
 
-src/screens/LibraryScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LibraryScreen.tsx
-description: Placeholder Library screen
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/navigation/RootNavigator.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
+    description: Root stack hosting Onboarding, Auth, Main
+    lastUpdated: 2025-08-23
+    version: 0.7.0
 
-src/screens/ProfileScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/ProfileScreen.tsx
-description: Profile with long-press dev reset of onboarding/lang/auth
-lastUpdated: 2025-08-22
-version: 0.2.0
+  src/navigation/AuthStack.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
+    description: Native stack for Login, Signup, PasswordReset
+    lastUpdated: 2025-08-23
+    version: 0.2.0
 
-src/screens/OnboardingScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/OnboardingScreen.tsx
-description: Placeholder Onboarding screen
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/navigation/OnboardingStack.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
+    description: Onboarding stack with Splash and Language selection
+    lastUpdated: 2025-08-23
+    version: 0.1.0
 
-src/screens/LoginScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LoginScreen.tsx
-description: Login UI; temp sets authed and resets root to Main
-lastUpdated: 2025-08-22
-version: 0.4.0
+  src/navigation/MainTabs.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
+    description: Bottom tabs with i18n tabBarLabel for Home/Search/Library/Profile
+    lastUpdated: 2025-08-23
+    version: 0.1.3
 
-src/screens/SignupScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SignupScreen.tsx
-description: Signup form (display name, email, password)
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/screens/SplashScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
+    description: Loads language/onboarding flags, then routes to Language or resets to Auth/Main
+    lastUpdated: 2025-08-23
+    version: 0.4.0
 
-src/screens/PasswordResetScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/PasswordResetScreen.tsx
-description: Password reset email form
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/screens/LanguageSelectionScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
+    description: Language selection using i18n keys; resets parent to Auth/Main
+    lastUpdated: 2025-08-23
+    version: 0.6.0
 
-src/screens/SplashScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SplashScreen.tsx
-description: Splash reads language/onboarding/auth and replaces to next route
-lastUpdated: 2025-08-22
-version: 0.3.0
+  src/screens/LoginScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
+    description: Email/password login; i18n strings; guest option; soft verification gate
+    lastUpdated: 2025-08-23
+    version: 0.7.0
 
-src/screens/LanguageSelectionScreen.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LanguageSelectionScreen.tsx
-description: Language chooser persists selection and routes to Auth or Main (guest)
-lastUpdated: 2025-08-22
-version: 0.3.0
+  src/screens/SignupScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
+    description: Signup; i18n strings; verification email flow
+    lastUpdated: 2025-08-23
+    version: 0.4.0
 
-src/utils/i18n.ts:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/i18n.ts
-description: i18next setup with expo-localization
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/screens/PasswordResetScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
+    description: Password reset; i18n strings with anti-enumeration copy
+    lastUpdated: 2025-08-23
+    version: 0.4.0
 
-src/utils/storage.ts:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/utils/storage.ts
-description: AsyncStorage helpers (onboarding, language, authed) + dev reset
-lastUpdated: 2025-08-22
-version: 0.3.0
+  src/screens/ProfileScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
+    description: Profile with sign out and dev reset; i18n strings
+    lastUpdated: 2025-08-23
+    version: 0.4.0
 
-App.tsx:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/App.tsx
-description: App entry mounting RootNavigator with i18n init
-lastUpdated: 2025-08-22
-version: 0.1.2
+  src/screens/OnboardingScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
+    description: Placeholder Onboarding screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-babel.config.js:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/babel.config.js
-description: Babel config with Reanimated plugin
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/screens/SearchScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
+    description: Placeholder Search screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-eslint.config.cjs:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/eslint.config.cjs
-description: ESLint v9 flat config for RN + TS + React
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/screens/LibraryScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
+    description: Placeholder Library screen
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-package.json:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/package.json
-description: add firebase and async-storage deps
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/screens/HomeScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
+    description: Home centered; i18n strings; shows VerifyBanner
+    lastUpdated: 2025-08-23
+    version: 0.3.0
 
-yarn.lock:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/yarn.lock
-description: lockfile for new deps
-lastUpdated: 2025-08-22
+  src/components/VerifyBanner.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
+    description: Banner for unverified users; i18n strings; resend and refresh
+    lastUpdated: 2025-08-23
+    version: 0.2.0
 
-app.json:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/app.json
-description: add expo-localization plugin
-lastUpdated: 2025-08-22
+  src/services/firebase.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
+    description: Firebase init (Auth with RN persistence, Firestore, Storage)
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-src/services/firebase.ts:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
-description: Firebase init (Auth with RN persistence, Firestore, Storage)
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/services/analytics.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
+    description: analytics stub (logEvent, setUserId)
+    lastUpdated: 2025-08-22
 
-metro.config.js:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/metro.config.js
-description: Expo+Firebase bundling config
-lastUpdated: 2025-08-22
-version: 0.1.0
+  src/services/crashlytics.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
+    description: crash logging stub (recordError, setUserId)
+    lastUpdated: 2025-08-22
 
-tsconfig.json:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/tsconfig.json
-description: Expo TS config; RN Firebase typings path
-lastUpdated: 2025-08-22
-version: 0.1.0
+  metro.config.js:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/metro.config.js
+    description: Expo+Firebase bundling config
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-README.md:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/README.md
-description: Phase 3 notes
-lastUpdated: 2025-08-22
+  tsconfig.json:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/tsconfig.json
+    description: Expo TS config; RN Firebase typings path
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-src/services/analytics.ts:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
-description: analytics stub (logEvent, setUserId)
-lastUpdated: 2025-08-22
+  package.json:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/package.json
+    description: add firebase and async-storage deps
+    lastUpdated: 2025-08-22
+    version: 0.1.0
 
-src/services/crashlytics.ts:
-permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/crashlytics.ts
-description: crash logging stub (recordError, setUserId)
-lastUpdated: 2025-08-22
+  yarn.lock:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/yarn.lock
+    description: lockfile for new deps
+    lastUpdated: 2025-08-22
+
+  app.json:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/app.json
+    description: add expo-localization plugin
+    lastUpdated: 2025-08-22
+
+  prompt/checklist.md:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
+    description: Project checklist with Phase 3 progress
+    lastUpdated: 2025-08-23
+    version: 0.3.0
+
+  prompt/mini-manifest.yml:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
+    description: Mini manifest with onboarding and i18n updates
+    lastUpdated: 2025-08-23
+    version: 0.3.1
+
+  prompt/firestore.rules:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
+    description: Firestore rules enforcing email_verified for writes
+    lastUpdated: 2025-08-23
+    version: 0.1.0
+
+  firebase.json:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firebase.json
+    description: Firebase CLI config pointing to rules and indexes
+    lastUpdated: 2025-08-23
+    version: 0.1.0
+
+  firestore.indexes.json:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firestore.indexes.json
+    description: Firestore composite indexes placeholder
+    lastUpdated: 2025-08-23
+    version: 0.1.0
+
+  .firebaserc:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/.firebaserc
+    description: Firebase project alias configuration
+    lastUpdated: 2025-08-23
+    version: 0.1.0
 
 Rules
 

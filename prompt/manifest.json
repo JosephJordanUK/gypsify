@@ -126,8 +126,8 @@
   },
   {
     "path": "prompt/changed-in-latest.json",
-    "bytes": 18,
-    "sha256": "74be48ce0e0b20c03d10be144d8ba5bedbd4c222a008bdb2ff7980a95170ac99"
+    "bytes": 35,
+    "sha256": "6a02825259700f2d14830c9e8fce73ea802c16ae5f3848bb7245ad071989af69"
   },
   {
     "path": "prompt/checklist.md",
@@ -142,12 +142,12 @@
   {
     "path": "prompt/latest-sha.txt",
     "bytes": 41,
-    "sha256": "30d262822be89cc15b91d8ded859003cb207d84e8a8d3390bd8a96b35796d287"
+    "sha256": "33011e6246b8650a708d8d7c01c60998b43b00d4be198120e99cd00361954ca6"
   },
   {
     "path": "prompt/manifest.json",
     "bytes": 4080,
-    "sha256": "dd31c223f042b6fd76207d3e38c2b91ca758696f8641f05ede16c7b75858ae12"
+    "sha256": "29277fb1c727339ce9c564aca5a5203d77dd2712521c0c98b01a5d420d9c573a"
   },
   {
     "path": "prompt/mini-manifest.yml",
@@ -206,8 +206,8 @@
   },
   {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 793,
-    "sha256": "54b0332936dd8d949022b75a6e6d4895b23f802d3b195f95959e29de6f58547b"
+    "bytes": 759,
+    "sha256": "04b6a2559996186cd294dc4fd3372afc0dc766d8131748e561c58313b64d7b9d"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",

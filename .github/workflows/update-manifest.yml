@@ -6,7 +6,7 @@ on:
       - 'prompt/latest-sha.txt'
       - 'prompt/manifest.json'
       - 'prompt/changed-in-latest.json'
-      - '.github/workflows/**' # ignore ci
+      - '.github/workflows/**'
 concurrency:
   group: update-manifest-dev
   cancel-in-progress: true

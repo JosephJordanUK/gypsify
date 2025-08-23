@@ -39,8 +39,16 @@ export default function LoginScreen({ navigation }: Props) {
               onPress: async () => {
                 try {
                   await sendEmailVerification(u);
-                } catch {}
-                goMain();
+                  Alert.alert('Verification sent', 'Check your inbox for the link.');
+                } catch (err: unknown) {
+                  const msg =
+                    err instanceof FirebaseError
+                      ? err.message
+                      : 'Failed to send verification email.';
+                  Alert.alert('Error', msg);
+                } finally {
+                  goMain();
+                }
               },
             },
             { text: 'Continue', onPress: goMain },
@@ -116,10 +124,7 @@ export default function LoginScreen({ navigation }: Props) {
         <Text style={{ textDecorationLine: 'underline' }}>Create account</Text>
       </Pressable>
 
-      <Pressable
-        onPress={goMain}
-        style={{ padding: 12, marginTop: 8, alignItems: 'center' }}
-      >
+      <Pressable onPress={goMain} style={{ padding: 12, marginTop: 8, alignItems: 'center' }}>
         <Text style={{ textDecorationLine: 'underline' }}>Continue as Guest</Text>
       </Pressable>
     </View>

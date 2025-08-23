@@ -6,35 +6,38 @@ import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import LibraryScreen from '../screens/LibraryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import '../utils/i18n';
 
-const Tab = createBottomTabNavigator();
+export type MainTabParamList = {
+  Home: undefined;
+  Search: undefined;
+  Library: undefined;
+  Profile: undefined;
+};
+
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export default function MainTabs() {
   const { t } = useTranslation();
 
   return (
-    <Tab.Navigator id={undefined} screenOptions={{ headerShown: false }}>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ title: t('tabs.home', { defaultValue: 'Home' }) }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{ title: t('tabs.search', { defaultValue: 'Search' }) }}
-      />
-      <Tab.Screen
-        name="Library"
-        component={LibraryScreen}
-        options={{ title: t('tabs.library', { defaultValue: 'Library' }) }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ title: t('tabs.profile', { defaultValue: 'Profile' }) }}
-      />
+    <Tab.Navigator
+      id={undefined}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarLabel:
+          route.name === 'Home'
+            ? t('tabs.home')
+            : route.name === 'Search'
+            ? t('tabs.search')
+            : route.name === 'Library'
+            ? t('tabs.library')
+            : t('tabs.profile'),
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Library" component={LibraryScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }

@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import VerifyBanner from '../components/VerifyBanner';
 
-// THIS IS LIKE THE 100TH TIME
+// what you think.. will it work?
 export default function HomeScreen() {
   const { t } = useTranslation();
 
@@ -27,10 +27,7 @@ export default function HomeScreen() {
         <Text>{t('home.welcome')}</Text>
       </View>
 
-      {/* ahh shit here we go again */}
-      {/* this is a test, it better work */}
-      {/* ping */}
+      {/* this should work now :) */}
     </SafeAreaView>
   );
-  
 }

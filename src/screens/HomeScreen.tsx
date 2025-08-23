@@ -1,4 +1,4 @@
-// THIS IS LIKE THE 100TH TIME
+// Does it work now?
 
 import React from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
@@ -30,4 +30,3 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
-// ping

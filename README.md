@@ -20,3 +20,4 @@ test
 // ci ping
 // ci ping
 // ruleset ping
+// ci ping

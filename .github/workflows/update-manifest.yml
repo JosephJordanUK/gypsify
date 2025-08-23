@@ -6,7 +6,7 @@ on:
       - 'prompt/latest-sha.txt'
       - 'prompt/manifest.json'
       - 'prompt/changed-in-latest.json'
-      - '.github/workflows/**'       # ignore CI edits
+      - '.github/workflows/**'
 concurrency:
   group: update-manifest-dev
   cancel-in-progress: true
@@ -69,11 +69,15 @@ jobs:
           echo "---- latest-sha.txt ----"
           cat prompt/latest-sha.txt || true
 
-      - name: Commit and push artifacts (linear-safe)
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: update manifest and latest SHA [skip ci]"
-          file_pattern: |
-            prompt/latest-sha.txt
-            prompt/manifest.json
-            prompt/changed-in-latest.json
+      - name: Commit and push artifacts (explicit)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update manifest and latest SHA [skip ci]"
+            git push origin HEAD:dev
+          else
+            echo "No artifact changes to commit."
+          fi
+

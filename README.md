@@ -14,11 +14,4 @@ npx expo start
 ```
 
 # test commit
-test
-# ping
-// ci ping
-// ci ping
-// ci ping
-// ruleset ping
-// ci ping
-// ci ping
+// test

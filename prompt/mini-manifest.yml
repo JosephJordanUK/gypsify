@@ -5,10 +5,10 @@
 
 meta:
   manifest_version: 2
-baseline_commit: "373d1f8f1b050a2a0a10af654f08cf40bbc03098"
-generated_at: 2025-08-23T00:00:00Z
-session_date: 2025-08-23
-notes: >
+  baseline_commit: "373d1f8f1b050a2a0a10af654f08cf40bbc03098"
+  generated_at: 2025-08-23T00:00:00Z
+  session_date: 2025-08-23
+  notes: >
   Tracks prompt/ and src/. Permalinks pinned to baseline_commit.
 
 files:

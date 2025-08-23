@@ -126,8 +126,8 @@
   },
   {
     "path": "package.json",
-    "bytes": 1653,
-    "sha256": "6c7c9942771e2c7a7f45fb2a6a3ab0e5ec8c6b1331648cf89da724c24166611c"
+    "bytes": 1652,
+    "sha256": "3d0760f45f93d24947c7dd54d21ae533297266b6218cd2acea85e963b004bdb9"
   },
   {
     "path": "prompt/.gitkeep",
@@ -138,6 +138,11 @@
     "path": "prompt/MasterPrompt.md",
     "bytes": 54621,
     "sha256": "a25ca5acd4a26c983bc7ad5443dbec613c7bca851daf6e55f04b3519772299c1"
+  },
+  {
+    "path": "prompt/changed-in-latest.json",
+    "bytes": 18,
+    "sha256": "74be48ce0e0b20c03d10be144d8ba5bedbd4c222a008bdb2ff7980a95170ac99"
   },
   {
     "path": "prompt/checklist.md",
@@ -152,7 +157,12 @@
   {
     "path": "prompt/latest-sha.txt",
     "bytes": 41,
-    "sha256": "fd0f4e2a7d597e51ba920f2d85fdf296b8e11de26be09aed58af071d7f03d46e"
+    "sha256": "cd7e395f810ae6d00b6d53c20cd26a01cb42fba87e83652c4c895d437deca307"
+  },
+  {
+    "path": "prompt/manifest.json",
+    "bytes": 4553,
+    "sha256": "c5ebfdb5917fe43a70715a9b6925d1fdb4d30fc182f48355da33e51e94fa99e4"
   },
   {
     "path": "prompt/mini-manifest.yml",
@@ -211,8 +221,8 @@
   },
   {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 792,
-    "sha256": "e9e46a301e8bf177800eff8889712162cd05c56586a392e44210e79ce77fdace"
+    "bytes": 838,
+    "sha256": "70f4c8daed684112a9555afd5c5929b4ab8b86a1e75ea3984e6836ff8b86c2fe"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",

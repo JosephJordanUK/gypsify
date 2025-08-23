@@ -15,21 +15,6 @@
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
-    "path": ".github/workflows/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
-    "path": ".github/workflows/update-latest-sha.yml",
-    "bytes": 700,
-    "sha256": "3d86a854c7ec50fd88eff09677395a4672312f2f7f57ee5ad3e5924085d8aec8"
-  },
-  {
-    "path": ".github/workflows/update-manifest.yml",
-    "bytes": 2242,
-    "sha256": "8b9765156b9c927841b3be516cd501f9c7e647f4807b48517f88971d81fa6ada"
-  },
-  {
     "path": ".gitignore",
     "bytes": 729,
     "sha256": "d37370b7f637a4a0636f46827aaa0cf959183e4117f8f3aafb456a0eff15e141"
@@ -56,8 +41,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 243,
-    "sha256": "91cf03702854596672bb89665a25753850abc4de63ecb6a88e8bc7197a5fb389"
+    "bytes": 251,
+    "sha256": "b46eb0aaedb402ac09d4a22b520c2b8bcdd9e59fdbf74416c0bdf77f847ad2fd"
   },
   {
     "path": "app.json",
@@ -141,8 +126,8 @@
   },
   {
     "path": "prompt/changed-in-latest.json",
-    "bytes": 18,
-    "sha256": "74be48ce0e0b20c03d10be144d8ba5bedbd4c222a008bdb2ff7980a95170ac99"
+    "bytes": 35,
+    "sha256": "6a02825259700f2d14830c9e8fce73ea802c16ae5f3848bb7245ad071989af69"
   },
   {
     "path": "prompt/checklist.md",
@@ -157,12 +142,12 @@
   {
     "path": "prompt/latest-sha.txt",
     "bytes": 41,
-    "sha256": "cd7e395f810ae6d00b6d53c20cd26a01cb42fba87e83652c4c895d437deca307"
+    "sha256": "27498f25ade3d956b745563212de768779fe3e1970d77899059371a18bd41fb2"
   },
   {
     "path": "prompt/manifest.json",
-    "bytes": 4553,
-    "sha256": "c5ebfdb5917fe43a70715a9b6925d1fdb4d30fc182f48355da33e51e94fa99e4"
+    "bytes": 4080,
+    "sha256": "d871ac614ae08d586969dc7c60c2764137da23462261b37a822602fc6d06451d"
   },
   {
     "path": "prompt/mini-manifest.yml",
@@ -221,13 +206,13 @@
   },
   {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 838,
-    "sha256": "70f4c8daed684112a9555afd5c5929b4ab8b86a1e75ea3984e6836ff8b86c2fe"
+    "bytes": 806,
+    "sha256": "b9444758cbf08d09bc1e266915c14cfcf7dff54ab43f9b92b0086dc0c5c44c92"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",
-    "bytes": 2489,
-    "sha256": "191243ffab306429ffc44a0e247978714d04132ca9a1a9b629f76b9909236060"
+    "bytes": 2521,
+    "sha256": "e600e971ec81667e5e244a113d0b166dde43beadb464f759c4040dbaa854435a"
   },
   {
     "path": "src/screens/LibraryScreen.tsx",

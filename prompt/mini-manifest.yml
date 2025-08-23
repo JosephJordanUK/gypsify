@@ -5,32 +5,61 @@
 
 meta:
   manifest_version: 1
-  session_date: 2025-08-22
+  session_date: 2025-08-23
   author: AI + Joseph
   notes: >
-    Update permalinks after pushing to GitHub.
-    Increment version numbers when logic/behavior changes,
-    not for formatting-only edits.
+    Update permalinks after pushing to GitHub. Increment versions when logic/behavior changes.
 
 manifest:
-  src/navigation/MainTabs.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/MainTabs.tsx
-    description: Bottom tab navigator with Home, Search, Library, Profile (localized titles via i18n)
-    lastUpdated: 2025-08-22
-    version: 0.1.1
+  App.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/App.tsx
+    description: App entry mounting RootNavigator with i18n init
+    lastUpdated: 2025-08-23
+    version: 0.1.3
 
   src/navigation/RootNavigator.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/RootNavigator.tsx
-    description: Root stack (Splash, Onboarding, Auth, Main) with replace-based routing
-    lastUpdated: 2025-08-22
-    version: 0.4.0
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/RootNavigator.tsx
+    description: Root stack with Firebase auth listener and conditional routing (Auth/Main)
+    lastUpdated: 2025-08-23
+    version: 0.5.0
 
   src/navigation/AuthStack.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/navigation/AuthStack.tsx
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/AuthStack.tsx
     description: Native stack for authentication screens (Login, Signup, PasswordReset)
+    lastUpdated: 2025-08-23
+    version: 0.2.0
+
+  src/navigation/MainTabs.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/navigation/MainTabs.tsx
+    description: Bottom tab navigator with Home, Search, Library, Profile (localized titles via i18n)
+    lastUpdated: 2025-08-23
+    version: 0.1.2
+
+  src/screens/LoginScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/LoginScreen.tsx
+    description: Firebase email/password sign-in
+    lastUpdated: 2025-08-23
+    version: 0.5.0
+
+  src/screens/SignupScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/SignupScreen.tsx
+    description: Firebase email/password sign-up with basic validation
+    lastUpdated: 2025-08-23
+    version: 0.2.0
+
+  src/screens/PasswordResetScreen.tsx:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/screens/PasswordResetScreen.tsx
+    description: Firebase password reset email
+    lastUpdated: 2025-08-23
+    version: 0.2.0
+
+  src/services/firebase.ts:
+    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
+    description: Firebase init (Auth with RN persistence, Firestore, Storage)
     lastUpdated: 2025-08-22
     version: 0.1.0
 
+  # Unchanged entries below kept for completeness
   src/screens/HomeScreen.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/HomeScreen.tsx
     description: Placeholder Home screen
@@ -61,24 +90,6 @@ manifest:
     lastUpdated: 2025-08-22
     version: 0.1.0
 
-  src/screens/LoginScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/LoginScreen.tsx
-    description: Login UI; temp sets authed and resets root to Main
-    lastUpdated: 2025-08-22
-    version: 0.4.0
-
-  src/screens/SignupScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SignupScreen.tsx
-    description: Signup form (display name, email, password)
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/PasswordResetScreen.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/PasswordResetScreen.tsx
-    description: Password reset email form
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
   src/screens/SplashScreen.tsx:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/src/screens/SplashScreen.tsx
     description: Splash reads language/onboarding/auth and replaces to next route
@@ -102,12 +113,6 @@ manifest:
     description: AsyncStorage helpers (onboarding, language, authed) + dev reset
     lastUpdated: 2025-08-22
     version: 0.3.0
-
-  App.tsx:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/App.tsx
-    description: App entry mounting RootNavigator with i18n init
-    lastUpdated: 2025-08-22
-    version: 0.1.2
 
   babel.config.js:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/8e0172500b3900b0ffd7c0579255d462821f74e1/babel.config.js
@@ -137,17 +142,6 @@ manifest:
     description: add expo-localization plugin
     lastUpdated: 2025-08-22
 
-  .env.example:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/.env.example
-    description: Firebase env template
-    lastUpdated: 2025-08-22
-
-  src/services/firebase.ts:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/firebase.ts
-    description: Firebase init (Auth with RN persistence, Firestore, Storage)
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
   src/services/analytics.ts:
     permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/src/services/analytics.ts
     description: analytics stub (logEvent, setUserId)
@@ -171,6 +165,4 @@ manifest:
     version: 0.1.0
 
   README.md:
-    permalink: https://github.com/JosephJordanUK/gypsify/blob/dev/README.md
-    description: Phase 3 notes
-    lastUpdated: 2025-08-22
+    permalink: https://github.

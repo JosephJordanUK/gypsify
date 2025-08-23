@@ -29,19 +29,19 @@ export default function VerifyBanner() {
   return (
     <View
       style={{
+        width: '100%',
         borderWidth: 1,
         borderColor: '#f1c40f',
         backgroundColor: '#fffbe6',
         padding: 12,
         borderRadius: 12,
-        marginBottom: 12,
       }}
     >
       <Text style={{ fontWeight: '700', marginBottom: 6 }}>
         Verify your email to unlock all features
       </Text>
       <Text style={{ marginBottom: 10 }}>{user?.email}</Text>
-      <View style={{ flexDirection: 'row', gap: 12 }}>
+      <View style={{ flexDirection: 'row' }}>
         <Pressable
           onPress={handleResend}
           disabled={sending}
@@ -58,19 +58,6 @@ export default function VerifyBanner() {
           ) : (
             <Text style={{ color: '#fff', fontWeight: '600' }}>Resend link</Text>
           )}
-        </Pressable>
-
-        <Pressable
-          // Wired in Step 3 to call reload()
-          disabled
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 14,
-            borderRadius: 10,
-            backgroundColor: '#e0e0e0',
-          }}
-        >
-          <Text style={{ fontWeight: '600' }}>Refresh</Text>
         </Pressable>
       </View>
     </View>

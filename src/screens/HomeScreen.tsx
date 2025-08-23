@@ -19,7 +19,7 @@ export default function HomeScreen() {
           alignItems: 'center',
           paddingHorizontal: 16,
         }}
-        // Bet you will see this now :)
+        // How likely will it view this update
       >
         <Text style={{ fontSize: 24, fontWeight: '700', marginBottom: 8 }}>
           {t('home.title')}

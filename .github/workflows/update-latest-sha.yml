@@ -12,13 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Sync with remote dev
+        run: |
+          git fetch origin dev
+          git pull --rebase origin dev
+
       - name: Write SHA
         run: |
           mkdir -p prompt
           git rev-parse HEAD > prompt/latest-sha.txt
+
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: update latest-sha.txt [skip ci]"
           file_pattern: prompt/latest-sha.txt
+          push_options: --force-with-lease

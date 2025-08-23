@@ -12,7 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Sync with remote dev
+        run: |
+          git fetch origin dev
+          git pull --rebase origin dev
 
       - name: Install jq
         run: |
@@ -65,3 +72,4 @@ jobs:
             prompt/latest-sha.txt
             prompt/manifest.json
             prompt/changed-in-latest.json
+          push_options: --force-with-lease

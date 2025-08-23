@@ -1,14 +1,16 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { auth } from '../services/firebase';
-import { sendEmailVerification } from 'firebase/auth';
+import { sendEmailVerification, reload } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 
 export default function VerifyBanner() {
-  const user = auth.currentUser;
-  const show = useMemo(() => !!user && !user.emailVerified, [user]);
   const [sending, setSending] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [, forceRender] = useState(0);
 
+  const user = auth.currentUser;
+  const show = !!user && !user.emailVerified;
   if (!show) return null;
 
   const handleResend = async () => {
@@ -18,11 +20,27 @@ export default function VerifyBanner() {
       await sendEmailVerification(user);
       Alert.alert('Verification sent', 'Check your inbox for the link.');
     } catch (err: unknown) {
-      let msg = 'Could not send verification.';
-      if (err instanceof FirebaseError) msg = err.message;
+      const msg =
+        err instanceof FirebaseError ? err.message : 'Could not send verification.';
       Alert.alert('Error', msg);
     } finally {
       setSending(false);
+    }
+  };
+
+  const handleRefresh = async () => {
+    if (!auth.currentUser) return;
+    setRefreshing(true);
+    try {
+      await reload(auth.currentUser);
+      // Force a re-render so updated emailVerified is read
+      forceRender((n) => n + 1);
+    } catch (err: unknown) {
+      const msg =
+        err instanceof FirebaseError ? err.message : 'Could not refresh status.';
+      Alert.alert('Error', msg);
+    } finally {
+      setRefreshing(false);
     }
   };
 
@@ -41,7 +59,7 @@ export default function VerifyBanner() {
         Verify your email to unlock all features
       </Text>
       <Text style={{ marginBottom: 10 }}>{user?.email}</Text>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
         <Pressable
           onPress={handleResend}
           disabled={sending}
@@ -51,12 +69,31 @@ export default function VerifyBanner() {
             borderRadius: 10,
             backgroundColor: '#111',
             opacity: sending ? 0.7 : 1,
+            marginRight: 12,
           }}
         >
           {sending ? (
             <ActivityIndicator />
           ) : (
             <Text style={{ color: '#fff', fontWeight: '600' }}>Resend link</Text>
+          )}
+        </Pressable>
+
+        <Pressable
+          onPress={handleRefresh}
+          disabled={refreshing}
+          style={{
+            paddingVertical: 10,
+            paddingHorizontal: 14,
+            borderRadius: 10,
+            backgroundColor: '#e0e0e0',
+            opacity: refreshing ? 0.7 : 1,
+          }}
+        >
+          {refreshing ? (
+            <ActivityIndicator />
+          ) : (
+            <Text style={{ fontWeight: '600' }}>Refresh</Text>
           )}
         </Pressable>
       </View>

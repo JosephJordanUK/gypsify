@@ -3,7 +3,6 @@ import { SafeAreaView, View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import VerifyBanner from '../components/VerifyBanner';
 
-// what you think.. will it work?
 export default function HomeScreen() {
   const { t } = useTranslation();
 
@@ -20,14 +19,13 @@ export default function HomeScreen() {
           alignItems: 'center',
           paddingHorizontal: 16,
         }}
+        // Bet you will see this now :)
       >
         <Text style={{ fontSize: 24, fontWeight: '700', marginBottom: 8 }}>
           {t('home.title')}
         </Text>
         <Text>{t('home.welcome')}</Text>
       </View>
-
-      {/* this should work now :) */}
     </SafeAreaView>
   );
 }

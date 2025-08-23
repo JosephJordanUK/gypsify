@@ -17,3 +17,4 @@ npx expo start
 test
 # ping
 // ci ping
+// ci ping

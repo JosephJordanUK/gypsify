@@ -67,3 +67,17 @@ jobs:
             prompt/latest-sha.txt
             prompt/manifest.json
             prompt/changed-in-latest.json
+
+      - name: Debug print SHAs and diff
+        run: |
+          echo "NEW_SHA=${{ steps.shas.outputs.NEW_SHA }}"
+          echo "OLD_SHA=${{ steps.shas.outputs.OLD_SHA }}"
+          echo "---- DIFF ----"
+          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
+
+      - name: Debug print JSON before commit
+        run: |
+          echo "---- changed-in-latest.json ----"
+          cat prompt/changed-in-latest.json || true
+          echo "---- latest-sha.txt ----"
+          cat prompt/latest-sha.txt || true

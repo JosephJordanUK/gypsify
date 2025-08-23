@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: Sync with remote dev
+      - name: Sync with remote dev (linear history)
         run: |
           git fetch origin dev
           git pull --rebase origin dev
@@ -64,7 +64,7 @@ jobs:
               | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
           fi
 
-      - name: Commit and push artifacts
+      - name: Commit and push artifacts (no force, linear safe)
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: update manifest and latest SHA [skip ci]"
@@ -72,4 +72,3 @@ jobs:
             prompt/latest-sha.txt
             prompt/manifest.json
             prompt/changed-in-latest.json
-          push_options: --force-with-lease

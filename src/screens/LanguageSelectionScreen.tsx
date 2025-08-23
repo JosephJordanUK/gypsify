@@ -8,7 +8,7 @@ import i18n from '../utils/i18n';
 import { setAppLanguage, setOnboardingDone } from '../utils/storage';
 
 type Props = NativeStackScreenProps<OnboardingStackParamList, 'Language'>;
-// felt like swithing it up
+// felt like swithing it up dude
 const LANGS = [
   { code: 'en', labelKey: 'language.english' },
   { code: 'ro', labelKey: 'language.romani' },

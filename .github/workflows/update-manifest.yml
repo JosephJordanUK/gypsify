@@ -2,6 +2,9 @@ name: Update manifest and latest SHA
 on:
   push:
     branches: [dev]
+concurrency:
+  group: update-manifest-dev
+  cancel-in-progress: true
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -48,12 +51,11 @@ jobs:
             jq -r '.[].path' prompt/manifest.json | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
           fi
 
-      - name: Commit artifacts
-        run: |
-          if ! git diff --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json
-            git commit -m "chore: update manifest and latest SHA [skip ci]"
-            git push
-          fi
+      - name: Commit and push artifacts
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update manifest and latest SHA [skip ci]"
+          file_pattern: |
+            prompt/latest-sha.txt
+            prompt/manifest.json
+            prompt/changed-in-latest.json

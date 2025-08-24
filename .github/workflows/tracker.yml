@@ -79,6 +79,13 @@ jobs:
             | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
             | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
+      - name: Debug — print OLD/NEW and diff
+        run: |
+          echo "NEW_SHA=${{ steps.shas.outputs.NEW_SHA }}"
+          echo "OLD_SHA=${{ steps.shas.outputs.OLD_SHA }}"
+          echo "---- DIFF ----"
+          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
+
       - name: Write latest-sha.txt
         run: |
           echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt
@@ -88,7 +95,7 @@ jobs:
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
           mkdir -p "prompt/snapshots/${SHA}"
-          CHANGED=$(cat prompt/changed-in-latest.json | jq -r '.[]')
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
           for f in $CHANGED; do
             mkdir -p "prompt/snapshots/${SHA}/$(dirname "$f")"
             git show "${SHA}:${f}" > "prompt/snapshots/${SHA}/${f}" || true
@@ -98,17 +105,27 @@ jobs:
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
-          mkdir -p prompt
           jq -n --arg sha "$SHA" '{sha:$sha, files:[]}' > prompt/latest-bundle.json
-          for f in $(jq -r '.[]' prompt/changed-in-latest.json); do
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
+          for f in $CHANGED; do
             if git show "$SHA:$f" >/dev/null 2>&1; then
-              # GNU base64 on Ubuntu: -w0 means no line wraps
               CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
               jq --arg p "$f" --arg c "$CONTENT_B64" \
                  '.files += [{"path":$p,"base64":$c}]' \
                  prompt/latest-bundle.json > prompt/tmp.json && mv prompt/tmp.json prompt/latest-bundle.json
             fi
           done
+
+      - name: Verify bundle matches diff
+        run: |
+          DIFF_COUNT=$(jq 'length' prompt/changed-in-latest.json)
+          BUNDLE_COUNT=$(jq '.files | length' prompt/latest-bundle.json)
+          if [ "$DIFF_COUNT" != "$BUNDLE_COUNT" ]; then
+            echo "Mismatch: diff=$DIFF_COUNT bundle=$BUNDLE_COUNT"
+            echo "changed-in-latest.json:" && cat prompt/changed-in-latest.json
+            echo "latest-bundle.json:" && cat prompt/latest-bundle.json
+            exit 1
+          fi
 
       - name: Commit and push artifacts to tracker/dev
         run: |

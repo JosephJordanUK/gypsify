@@ -28,4 +28,3 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
-// verify bundle 5.0 idkk

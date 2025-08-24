@@ -12,5 +12,4 @@ yarn
 yarn lint
 npx expo start
 ```
-# TEST
-// and this is a test for that new bundle.. 5.0 idk
+

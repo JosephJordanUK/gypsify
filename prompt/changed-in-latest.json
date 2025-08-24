@@ -1,3 +1,5 @@
 [
-  "src/screens/HomeScreen.tsx"
+  "README.md",
+  "src/screens/HomeScreen.tsx",
+  "src/screens/ProfileScreen.tsx"
 ]

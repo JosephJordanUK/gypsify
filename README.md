@@ -12,15 +12,5 @@ yarn
 yarn lint
 npx expo start
 ```
-
-// probe
-// probe
-// probe
-// tracker test
-// test chain
-// trigger test
-// snapshot test
-// tracker.yml single workflow test
-// tracker test
-// tracker workflow test
-// bundle test
+# TEST
+// and this is a test for that new bundle .json thingy

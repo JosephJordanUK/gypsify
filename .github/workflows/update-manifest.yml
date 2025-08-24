@@ -72,22 +72,33 @@ jobs:
           mkdir -p prompt
           echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt
 
-      - name: Debug print JSON before commit
+      - name: Snapshot changed files
         run: |
-          echo "---- DIFF ----"
-          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
-          echo "---- changed-in-latest.json ----"
-          cat prompt/changed-in-latest.json || true
+          SNAPSHOT_DIR="prompt/snapshots/${{ steps.shas.outputs.NEW_SHA }}"
+          mkdir -p "$SNAPSHOT_DIR"
+          jq -r '.[]' prompt/changed-in-latest.json | while read -r file; do
+            if [ -f "$file" ]; then
+              mkdir -p "$SNAPSHOT_DIR/$(dirname "$file")"
+              cp "$file" "$SNAPSHOT_DIR/$file"
+            fi
+          done
+
+      - name: Debug print
+        run: |
           echo "---- latest-sha.txt ----"
           cat prompt/latest-sha.txt || true
+          echo "---- changed-in-latest.json ----"
+          cat prompt/changed-in-latest.json || true
+          echo "---- snapshot tree ----"
+          ls -R prompt/snapshots/${{ steps.shas.outputs.NEW_SHA }} || true
 
-      - name: Commit and push artifacts (explicit)
+      - name: Commit and push artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json
+          git add -A prompt/
           if ! git diff --cached --quiet; then
-            git commit -m "chore: update manifest and latest SHA [skip ci]"
+            git commit -m "chore: update manifest, latest SHA and snapshots [skip ci]"
             git push origin HEAD:tracker/dev
           else
             echo "No artifact changes to commit."

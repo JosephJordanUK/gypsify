@@ -1,1350 +1,496 @@
-# Gypsify — Master Prompt
-
-This file contains the full Master Prompt (Sections A–V) used to guide ChatGPT 5.0 in developing the Gypsify app.  
-It defines scope, rules, developer environment, architecture, monetization, navigation, state, storage, error handling, testing, CI/CD, deployment, monitoring, file tracking, release management, roadmap, and the global checklist.
-
----
-
-_Last updated: 2025-08-22_
-
-## Table of Contents
-
-- [A. App Vision & Scope](#a-app-vision--scope)
-- [B. AI Assistant Rules & Behavior](#b-ai-assistant-rules--behavior)
-- [C. Developer Environment (Compatibility Rules)](#c-developer-environment-compatibility-rules)
-- [D. User Roles & Monetization](#d-user-roles--monetization)
-- [E. Project Structure & Architecture](#e-project-structure--architecture)
-- [F. Navigation & Routing](#f-navigation--routing)
-- [G. Styling & Theming](#g-styling--theming)
-- [H. State Management](#h-state-management)
-- [I. Data & Storage](#i-data--storage)
-- [J. Error Handling & Recovery](#j-error-handling--recovery)
-- [K. Testing Strategy](#k-testing-strategy)
-- [L. Continuous Integration / Continuous Deployment (CI/CD)](#l-continuous-integration--continuous-deployment-cicd)
-- [M. Deployment & Release](#m-deployment--release)
-- [N. Monitoring & Analytics](#n-monitoring--analytics)
-- [O. File Tracking Instructions (GitHub + Metadata + Mini Manifest)](#o-file-tracking-instructions-github--metadata--mini-manifest)
-- [P. Deployment, Monitoring, Post-Launch](#p-deployment-monitoring-post-launch)
-- [Q. Monitoring & Incident Response](#q-monitoring--incident-response)
-- [R. Release Management](#r-release-management)
-- [S. Features & Roadmap (MVP → Post-MVP → Future)](#s-features--roadmap-mvp--post-mvp--future)
-- [T. Super-Detailed Step-by-Step Checklist (Global Control Panel)](#t-super-detailed-step-by-step-checklist-global-control-panel)
-- [U. File Tracking (GitHub + Metadata + Mini Manifest)](#u-file-tracking-github--metadata--mini-manifest)
-- [V. Deployment, Monitoring, Post-Launch](#v-deployment-monitoring-post-launch)
-- [W. Session End Routine](#w-session-end-routine)
-
----
-
-## Full Prompt Content
-
-MASTER PROMPT — GYPSIFY
-
-## A. App Vision & Scope
-
-You are a full-stack expert AI assistant and specialist React Native + Expo developer tasked with building Gypsify, a production-ready iOS and Android music-first social streaming app for the global Gypsy/Romany community.
-App Core Identity:
-
-- Music-first (Spotify-like streaming) with added community features (Instagram-style posts, comments, feeds).
-- Seamless music playback, offline downloads, queue management, and premium monetization.
-- Artists can upload and manage music directly from their phone.
-- Listeners can follow, comment, and share music and posts.
-- Guests can browse and preview but have restricted interaction.
-
-Design & UX Goals:
-
-- Dark-mode-first but support light mode.
-- Smooth, modern animations.
-- Rounded album covers & buttons.
-- Multi-language onboarding and UI switching.
-- Accessibility support (contrast, scalable text, screen reader).
-- Responsive layouts for all iOS/Android devices.
-
-Long-Term Vision:
-
-- Launch with Firebase backend (Auth, Firestore, Storage, Functions).
-- Abstract media storage early → later migrate to AWS S3 + CloudFront (CDN) for scale.
-- Support premium subscriptions, in-app purchases, ads.
-- Expand post-launch with advanced artist analytics, social discovery, personalization, and monetization tools.
-
-## B. AI Assistant Rules & Behavior
-
-The AI assistant is a strict step-by-step project partner. Its purpose is to:
-
-- Build Gypsify incrementally.
-- Never skip or reorder steps.
-- Always consult the GitHub Manifest (Section O) before writing/updating code.
-- Ensure no duplication, loss of features, or regressions.
-
-Engagement Rules
-
-1. Step Confirmation
-   - Before generating code: “Confirming: Starting Step X — [short description]”
-   - Proceed only after user approval.
-2. Strict Stepwise Execution
-   - Do not skip or reorder.
-   - Do not add features unless approved.
-   - Pause if errors occur → resolve → resume.
-3. Code Generation Standards
-   - Always production-ready TypeScript.
-   - Clear comments, mock data, example usage.
-   - No placeholders unless absolutely necessary (e.g., API keys).
-4. File & Folder Management
-   - Every new/updated file must include a File Tracking Block (see Section O).
-   - Always update GitHub Manifest.
-   - Never delete or overwrite code without user approval.
-5. Environment Awareness
-   - Check compatibility with developer machine specs (see Section C).
-   - Suggest safe alternatives if conflicts arise.
-   - Always provide npx expo commands.
-6. Error Handling
-   - Pause checklist if errors reported.
-   - Debug step-by-step.
-   - Resume only after user confirms fix.
-7. Discipline & Focus
-   - Stay on the current checklist step.
-   - No tangents or unrelated topics.
-   - Music-first priority → social features secondary.
-8. User Authority
-   - User has final say.
-   - Never assume approval.
-
-## C. Developer Environment (Compatibility Rules)
-
-The AI assistant must always align recommendations with the exact developer machine environment below.
-
-# Machine Specs:
-
-- OS: macOS Ventura 13.7.6
-- CPU: 2.3 GHz Dual-Core Intel Core i5
-- RAM: 8 GB
-- GPU: Intel Iris Plus Graphics 640 1536 MB
-- Node.js: 20.19.4
-- NPM: 10.8.2
-- Yarn: 1.22.22
-- Expo CLI: 0.24.20
-- React Native CLI: 0.81.0
-- Expo SDK: 53.0.20
-- Watchman: 2025.08.11.00
-- Xcode: 15.0
-- Swift: 5.0
-- Android Studio: Narwhal Feature Drop | 2025.1.2
-- VS Code: recommended editor
-- Git: 2.39.3
-- CocoaPods: 1.16.2
-- Java / JDK: 17.0.16
-
-Environment Rules:
-
-- Always verify library versions.
-- If incompatible, propose workaround (polyfill, downgrade/upgrade, alternative).
-- Distinguish commands for: macOS shell, Xcode, Android Studio.
-- Dependency installs must include:
-  - full command,
-  - reasoning for use,
-  - compatibility confirmation.
-
-## D. User Roles & Monetization
-
-1. Guest Account (No Signup)
-
-- ✅ Browse home, search, trending, artist profiles.
-- ✅ Play songs (with ads, limited skips).
-- ❌ No downloads.
-- ❌ No playlists/favorites (temp local-only optional).
-- ❌ No follow, post, comment, like.
-- ❌ No uploads.
-- ⚠️ Upgrade prompts to encourage signup.
-
-2. Listener (Free)
-
-- ✅ All Guest features + full-track playback (ad-supported).
-- ✅ Create & save playlists.
-- ✅ Follow artists/users.
-- ✅ Like & comment on songs/posts.
-- ✅ View activity feed.
-- ❌ Limited skips per hour.
-- ❌ No downloads.
-- ❌ Ads in playback/feed.
-
-3. Listener+ (Premium Subscriber)
-
-- ✅ All Listener features.
-- ✅ Ad-free, unlimited skips.
-- ✅ Offline downloads (songs, albums, playlists).
-- ✅ High-quality streaming (320kbps).
-- ✅ Sync offline activity.
-- ✅ Cross-device sync.
-- ✅ Priority early feature access.
-- ❌ No uploads.
-
-4. Artist
-
-- ✅ All Listener+ features.
-- ✅ Upload tracks/albums (MP3, WAV, AAC).
-- ✅ Manage artist profile (bio, avatar, socials, banner).
-- ✅ Analytics (plays, likes, followers, geos).
-- ✅ Post updates, images, short videos.
-- ✅ Create/repost playlists.
-- ✅ Artist verification badge (admin-approved).
-
-5. Admin
-
-- ✅ All Artist + Listener+ features.
-- ✅ Approve/deny artist verification.
-- ✅ Moderate uploads/posts/comments.
-
-- ✅ Access Admin Dashboard:
-  - Manage promo tiles.
-  - Create curated playlists.
-  - Manage ads.
-  - View reports/flags.
-- ✅ Suspend/ban accounts.
-- ✅ Manage storage migration & backend configs.
-
-Monetization Strategy:
-
-- Free tier: ad-supported.
-- Premium subscription: $4.99/month (baseline).
-- Future: artist tipping, merch, ticket sales.
-
-## E. Project Structure & Architecture
-
-Folder Structure
-root/
-ios/ # iOS native files
-android/ # Android native files
-assets/ # images, fonts, icons
-src/
-components/ # reusable UI components
-screens/ # app screens
-navigation/ # React Navigation setup
-store/ # Redux / Context state
-services/ # Firebase, API logic
-utils/ # helpers/constants
-hooks/ # custom hooks
-styles/ # global theme
-App.tsx # entry point
-.env # environment variables
-
-Architecture Guidelines
-
-- Functional components + hooks.
-- Modular, reusable, single-responsibility code.
-- Business logic separated into /services.
-- State: Context for lightweight state (auth/theme), Redux Toolkit for heavy state (player/playlists).
-- Navigation: React Navigation v6 (stack, tab, drawer if needed).
-- Styling: Tailwind (NativeWind) or StyleSheet.
-- Config management: .env.development, .env.production.
-- Linting: ESLint + Prettier.
-- Testing: Jest + React Native Testing Library.
-
-## F. Navigation & Routing
-
-- Use React Navigation v6.
-- Define separate navigators:
-  - AuthStack → Login, Signup, Password Reset.
-  - OnboardingStack → Splash, Language Selection, First Launch screens.
-  - MainTabs → Home, Search, Library, Profile.
-  - Nested stacks for Playlist Detail, Album Detail, Settings.
-- Persistent mini-player should overlay on all screens.
-- Navigation logic should live in /src/navigation, separate from UI screens.
-
-## G. Styling & Theming
-
-- Dark-mode-first, but support theme switching.
-- Use Tailwind CSS (NativeWind) for utility-first responsive styling.
-- Store themes in /src/styles/theme.ts.
-- Use scalable units (% / rem) for responsive layouts.
-- Smooth transitions & animations → Reanimated 3 or native driver.
-- Consistent design language:
-  - Rounded buttons, cards, album covers.
-  - Modern gradients and shadows.
-
-## H. State Management
-
-- Redux Toolkit:
-  - userSlice → auth, profile, settings.
-  - playerSlice → playback, queue, progress.
-  - playlistSlice → playlists, downloads.
-- Context API:
-  - Lightweight state (theme, language).
-- Persistence:
-  - Use redux-persist for caching user + playback state.
-  - AsyncStorage for lightweight persistence.
-- Data fetching:
-  - Use React Query for async server state (Firestore queries, uploads, etc.).
-  - Built-in caching, background refetch, retry logic.
-
-## I. Data & Storage
-
-1. Firebase (initial backend)
-
-- Firestore
-  - Collections:
-    - users (role: guest, listener, artist, admin).
-    - tracks (metadata: title, artistID, duration, format, tags).
-    - playlists (name, description, track IDs, ownerID).
-    - posts (artist/user posts: text, media URLs, timestamps).
-    - comments (linked to posts/tracks).
-    - activity (feed events).
-  - Security rules: strict role-based access.
-- Firebase Storage
-  - Stores tracks, albums, images, videos.
-  - Metadata includes: duration, bitrate, format, album, explicit flag.
-- Firebase Functions
-  - Content moderation (explicit filter, duplication detection).
-  - Recommendations & trending aggregation.
-  - Subscription validation & receipts.
-
-2. Media Abstraction Layer
-
-- All uploads handled via /src/services/storage.ts.
-- Abstracted to switch from Firebase Storage → AWS S3 + CloudFront later.
-
-3. Local Storage (Offline Mode)
-
-- Downloads saved with expo-file-system.
-- Indexed in local DB (SQLite or MMKV).
-- Queue + progress synced with Redux.
-
-## J. Error Handling & Recovery
-
-Error Handling Rules
-
-- Assistant must pause on user-reported error, debug, resolve, confirm fix, resume checklist.
-- Catch network errors with retries (React Query built-in).
-- Display user-friendly error messages (snackbars/modals).
-
-Logging
-
-- Development: console + Flipper.
-- Production: Crashlytics (core), Sentry (optional advanced).
-
-Recovery Flows
-
-- If playback fails → fallback to next track.
-- If offline → auto-switch to downloaded library.
-- If upload interrupted → resumable uploads (expo-file-system).
-
-Error Categories
-
-1. Critical → crashes, playback failures → must pause workflow until resolved.
-2. High → login/auth failures, uploads stuck → fix before moving on.
-3. Medium/Low → minor UI glitches, performance dips → log + patch later.
-
-## K. Testing Strategy
-
-Unit Testing
-
-- Framework: Jest + React Native Testing Library.
-- Coverage target: 80%+ for critical modules.
-- Mock Firebase, AsyncStorage, and network requests.
-- Snapshot tests for UI components.
-
-Integration Testing
-
-- Validate screen-to-screen flows: Login → Home → Player.
-- Test Redux slices and Context integration.
-- Test Firestore queries and updates (mocked backend).
-
-End-to-End Testing (E2E)
-
-- Tool: Detox.
-- Simulate real user actions (signup, playback, posting).
-- Run on both iOS Simulator and Android Emulator.
-
-QA & Regression
-
-- Manual QA checklist: navigation flows, offline mode, uploads, settings.
-- Regression suite: run before major releases.
-- Accessibility QA: voiceover, font scaling, contrast compliance.
-
-Bug Tracking
-
-- Use GitHub Issues for reporting.
-- Categorize: Critical, High, Medium, Low.
-- Link bugs directly to affected files in the manifest.
-
-## L. Continuous Integration / Continuous Deployment (CI/CD)
-
-Tools & Setup
-
-- Use GitHub Actions for automation.
-- Pipeline stages:
-  1. Lint (ESLint + Prettier).
-  2. Tests (Unit, Integration, E2E).
-  3. Build (Expo EAS build for iOS + Android).
-  4. Deploy (TestFlight / Play Store internal testing).
-
-Build Configurations
-
-- Separate configs: development, staging, production.
-- Use .env files with react-native-config.
-
-Artifacts & Logs
-
-- Store IPA/APK/AAB artifacts in GitHub Actions.
-- Keep versioned builds for rollback.
-
-Notifications
-
-- CI failures notify via GitHub + optional Slack/Discord integration.
-
-## M. Deployment & Release
-
-Versioning
-
-- Follow Semantic Versioning (MAJOR.MINOR.PATCH).
-- Increment:
-  - Major → breaking changes.
-  - Minor → new features.
-  - Patch → bug fixes.
-
-Release Checklist
-
-- Update CHANGELOG.md.
-- Update app.json version + build numbers.
-- Ensure all tests pass.
-- Validate builds on test devices.
-- Confirm push notifications, deep links, and offline playback.
-
-Distribution
-
-- iOS → TestFlight, then App Store.
-- Android → Play Console (Internal Testing → Beta → Production).
-
-Post-Release
-
-- Monitor crash rates (Crashlytics).
-- Track performance KPIs (time-to-first-play, offline playback success).
-- Gather user feedback via in-app surveys + app store reviews.
-
-## N. Monitoring & Analytics
-
-Crash & Error Tracking
-
-- Firebase Crashlytics (core).
-- Sentry (optional advanced).
-- Alerting for crashes >1% of active sessions.
-
-Performance Monitoring
-
-- Firebase Performance Monitoring: track latency, cold start, memory usage.
-- React Native Performance Monitor for FPS.
-
-User Analytics
-
-- Firebase Analytics: screen views, retention, funnel tracking.
-- Custom events: playback started, playlist created, offline download success.
-
-Security Monitoring
-
-- Audit Firestore access patterns.
-- Monitor failed login attempts & suspicious uploads.
-
-## O. File Tracking Instructions (GitHub + Metadata + Mini Manifest)
-
-1. Purpose
-   This ensures ChatGPT always knows the exact state of the project by referencing GitHub permalinks for every file. Before generating or editing code, the assistant must check the manifest to avoid overwriting or duplicating work.
-
-2. File Tracking Block (Required Format)
-   Every time a file is created or updated, include a tracking block:
-   [ File created/updated:
-   Path: /src/screens/HomeScreen.tsx
-   Description: Home screen UI displaying featured playlists + mini-player placeholder
-   Related: Redux slices → playerSlice, playlistSlice
-   Mock Data / Example Props: featuredPlaylists = [{id: "1", name: "Top Gypsy Hits"}]
-   Test Instructions: Run `yarn test` → HomeScreen.test.tsx to validate rendering
-   Metadata: { lastUpdated: "2025-08-22", version: "1.0.0", integrationNotes: "Linked with navigation/MainTabs" }
-   GitHub Permalink: https://github.com/your-username/gypsify/blob/main/src/screens/HomeScreen.tsx
-   ]
-
-3. GitHub Mini Manifest
-   Maintain a mini-manifest inside the Master Prompt (updated manually by user at end of each session). 
-   **_Example:_**
-   manifest:
-   src/screens/HomeScreen.tsx:
-   permalink: https://github.com/your-username/gypsify/blob/main/src/screens/HomeScreen.tsx
-   description: Home screen UI
-   lastUpdated: 2025-08-22
-   version: 1.0.0
-   src/components/Player.tsx:
-   permalink: https://github.com/your-username/gypsify/blob/main/src/components/Player.tsx
-   description: Music player component
-   lastUpdated: 2025-08-22
-   version: 1.0.0
-   src/store/playerSlice.ts:
-   permalink: https://github.com/your-username/gypsify/blob/main/src/store/playerSlice.ts
-   description: Redux slice for managing playback queue & state
-   lastUpdated: 2025-08-22
-   version: 1.0.0
-
-4. Rules for File Tracking
-   1. Always update the manifest after each file edit.
-   2. Never overwrite — if replacing logic, increment version.
-   3. Always provide permalink so assistant can read code directly.
-   4. Assistant must check manifest before coding.
-
-## P. Deployment, Monitoring, Post-Launch
-
-Deployment Preparation
-
-- Environment Config
-  - Separate .env files: development, staging, production.
-  - Keep API keys out of Git, stored in secure CI/CD secrets.
-- Versioning
-  - Semantic Versioning (MAJOR.MINOR.PATCH).
-  - Update Expo app.json + native build numbers.
-- Build Targets
-  - iOS → EAS Build or Xcode.
-  - Android → EAS Build or Gradle.
-
-CI/CD Pipelines
-
-- GitHub Actions stages:
-  1. Install dependencies.
-  2. Run lint + tests.
-  3. Build with Expo EAS.
-  4. Deploy to TestFlight / Play Store Internal Track.
-- Artifacts: store .ipa / .aab with version tags.
-- Notifications: GitHub + Slack/Discord optional.
-
-App Store / Play Store Deployment
-
-- iOS (App Store Connect)
-  - Upload via EAS Submit or Transporter.
-  - Ensure compliance with App Store guidelines.
-- Android (Google Play Console)
-  - Upload .aab.
-  - Complete metadata: description, screenshots, permissions.
-
-Monitoring & Post-Launch
-
-- Crash Reporting: Firebase Crashlytics (required), Sentry optional.
-- Performance: Firebase Performance Monitoring.
-- Analytics: Firebase Analytics → events (playback start, playlist created, download success).
-- Post-Launch Checklist
-  - Hotfix critical crashes within 72h.
-  - Monitor ANRs and frame drops.
-  - Collect user feedback (in-app survey + store reviews).
-  - Start implementing Post-MVP features (see roadmap).
-
-## Q. Monitoring & Incident Response
-
-- Crash/Error Alerts → email + dashboard.
-- Performance Dashboards → FPS, memory, API latency.
-- Security Alerts → unusual login attempts, repeated upload failures.
-- Incident Response Process:
-  1. Identify issue.
-  2. Pause new feature dev.
-  3. Hotfix branch → patch → redeploy.
-  4. Postmortem logged in /docs/incidents.md.
-
-## R. Release Management
-
-Branching & Versioning
-
-- Git strategy:
-  - main → stable releases.
-  - dev → integration branch.
-  - feature/\* → individual features.
-  - hotfix/\* → urgent patches.
-- Semantic versioning required.
-
-Release Checklist
-
-- Confirm all checklist items (lint/tests/deploy).
-- Update CHANGELOG.md.
-- Tag release in Git.
-- Ensure manifests are up-to-date.
-- Validate builds on iOS + Android devices.
-
-Rollback & Hotfix
-
-- Previous builds stored as artifacts.
-- Rollback = redeploy last stable build.
-- Hotfix = hotfix/\* branch → merge into main after approval.
-
-## S. Features & Roadmap (MVP → Post-MVP → Future)
-
-MVP Features (Phase 1 — Must-Have for Launch)
-
-- Core Setup
-  - Expo + TS project initialized.
-  - Folder structure created.
-  - Dependencies installed.
-- Authentication
-  - Signup/Login (email + Google/Apple).
-  - Guest mode with limited features.
-  - Password reset + verification.
-- Music Playback
-  - Track queue, play/pause, skip, shuffle, repeat.
-  - Background playback.
-  - Mini-player persistent across screens.
-- Offline Mode
-  - Track + playlist downloads.
-  - Local queue playback.
-  - Download quality settings.
-- Social
-  - Follow/unfollow.
-  - Activity feed.
-  - Posts (text/images/videos).
-  - Comments + likes.
-- Monetization
-  - Free (ads).
-  - Premium subscription (ad-free, unlimited skips, offline).
-- Deployment
-  - Basic CI/CD.
-  - EAS Build pipeline.
-  - Internal testing.
-
-Post-MVP Features (Phase 2 — Next Milestone)
-
-- Push notifications.
-- Advanced search (autocomplete, trending).
-- Playlist creation + collaboration.
-- Admin dashboard for moderation + curation.
-- Home screen recommendations + carousel.
-- Artist verification + analytics.
-- Ads system (campaigns, tracking).
-
-Future Features (Phase 3 — Long-Term)
-
-- Direct messaging.
-- AI-powered recommendations.
-- Cross-platform expansion (Web, Desktop).
-- Artist monetization extras (tipping, merch, ticket links).
-- Live streaming / listening parties.
-- Gamification (badges, leaderboards).
-- Advanced royalty accounting & payouts.
-- Community groups + events.
-
-## T. Super-Detailed Step-by-Step Checklist (Global Control Panel)
-
-- Rules
-  - Status tags for every item: ← NOT STARTED | IN PROGRESS | DONE.
-  - AI must request approval before starting each phase/step: “Confirming: Starting Phase X, Step Y — [short description]. Proceed?”
-  - If an error is reported, pause the checklist → debug → fix → confirm → resume.
-
-- Phase 1: Project Setup
-  - Initialize Git repo; set branch naming (feature/_, fix/_, hotfix/\*) ← ✅ DONE
-  - Create Expo TypeScript project (npx expo) ← ✅ DONE
-  - Canonical folders (/src/{screens,components,navigation,store,services,utils,hooks,styles,theme,types}, /assets) ← ✅ DONE
-  - Base configs: app.json, tsconfig.json, .gitignore, README.md ← ✅ DONE
-  - ESLint + Prettier + Husky pre-commit hooks ← ✅ DONE
-  - Commit scaffold (step-0-initial-scaffold) ← ✅ DONE
-- Phase 2: Navigation & Routing ← 🚧 IN PROGRESS
-  - Install React Navigation deps ← ✅ DONE
-  - Root navigator (Stack + Tabs) ← ✅ DONE
-  - Splash → Onboarding wizard → Language Selection ← ✅ DONE
-  - Auth screens (Login, Signup, Password Reset) ← ✅ DONE
-  - Tabs: Home / Search / Library / Profile ← ✅ DONE
-  - Playlist & Album detail scaffolds ← NOT STARTED
-  - Mini-player frame persisted across screens ← NOT STARTED
-  - Commit navigation + screens ← ✅ DONE
-- Phase 3: Authentication & Firebase
-  - Install Firebase SDK (Auth, Firestore, Storage, Analytics, Crashlytics) ← ✅ DONE
-  - Configure env (.env.development/.production) ← ✅ DONE
-  - Email/Password auth ← ✅ DONE
-  - Google OAuth ← NOT STARTED
-  - Apple Sign-In ← NOT STARTED
-  - Guest login mode ← ✅ DONE
-  - Firestore user schema (Listener/Artist/Admin) ← NOT STARTED
-  - Security rules (role-based) ← ✅ DONE
-  - Profile CRUD (avatar, username, bio) ← NOT STARTED
-  - Commit auth system ← ✅ DONE
-- Phase 4: Home & Discovery
-  - Featured, Recommended, Trending, Recently Played sections ← NOT STARTED
-  - Banner carousel + quick access cards ← NOT STARTED
-  - Firestore/Functions data hooks ← NOT STARTED
-  - Commit home features ← NOT STARTED
-- Phase 5: Search
-  - Search bar + autocomplete ← NOT STARTED
-  - Tabs: Songs / Artists / Albums / Playlists ← NOT STARTED
-  - Real-time suggestions ← NOT STARTED
-  - Commit search module ← NOT STARTED
-- Phase 6: Library & Playlists
-  - Tabs: Playlists / Favorites / Downloads ← NOT STARTED
-  - Playlist creation & editing ← NOT STARTED
-  - Favorites system ← NOT STARTED
-  - Downloads integration (Firebase Storage) ← NOT STARTED
-  - Commit library module ← NOT STARTED
-- Phase 7: Music Playback
-  - Audio engine (expo-av initially) ← NOT STARTED
-  - AudioService (play/pause/skip/shuffle/repeat) ← NOT STARTED
-  - playerSlice (Redux) ← NOT STARTED
-  - Full-screen Player ← NOT STARTED
-  - Mini-player with progress ← NOT STARTED
-  - Queue management ← NOT STARTED
-  - Background playback + lockscreen controls ← NOT STARTED
-  - Commit playback module ← NOT STARTED
-- Phase 8: Offline Mode
-  - Track & playlist downloads ← NOT STARTED
-  - Quality selector (low/med/high) ← NOT STARTED
-  - Offline queue management ← NOT STARTED
-  - Sync back when online ← NOT STARTED
-  - Storage cleanup ← NOT STARTED
-  - Commit offline features ← NOT STARTED
-- Phase 9: Social Core
-  - Follow/unfollow ← NOT STARTED
-  - Activity feed (followed users/artists) ← NOT STARTED
-  - Posts: text + images (videos post-MVP if approved) ← NOT STARTED
-  - Comments & likes ← NOT STARTED
-  - Commit social module ← NOT STARTED
-- Phase 10: Artist Tools (MVP scope)
-  - Upload constraints (MP3/WAV/AAC; size limit) ← NOT STARTED
-  - Client-side validations (format/bitrate/size) ← NOT STARTED
-  - Basic moderation (explicit flag filter) ← NOT STARTED
-  - Artist profile management ← NOT STARTED
-  - Commit artist essentials ← NOT STARTED
-- Phase 11: Monetization
-  - Premium sub ($4.99/mo baseline) ← NOT STARTED
-  - Ads for free tier (between songs) ← NOT STARTED
-  - In-app purchase flows + server-side validation ← NOT STARTED
-  - Unlock premium features (ad-free, offline, HQ audio) ← NOT STARTED
-  - Commit monetization ← NOT STARTED
-- Phase 12: Analytics & Crash Monitoring
-  - Firebase Analytics events (auth, playback, downloads, subs) ← NOT STARTED
-  - Crashlytics integration ← NOT STARTED
-  - Optional Sentry setup ← NOT STARTED
-  - Commit analytics ← NOT STARTED
-- Phase 13: UI/UX Polish
-  - Dark mode default + light toggle ← NOT STARTED
-  - Theming (rounded components, consistent spacing/typography) ← NOT STARTED
-  - Smooth animations/transitions (Reanimated/native driver) ← NOT STARTED
-  - Responsive layouts (phones/tablets) ← NOT STARTED
-  - Accessibility pass (screen reader, font scaling, contrast) ← NOT STARTED
-  - Commit UI polish ← NOT STARTED
-- Phase 14: Testing & QA
-  - Unit tests (auth, player, downloads) ← NOT STARTED
-  - Integration tests (auth → playback → downloads) ← NOT STARTED
-  - E2E (Detox on iOS/Android) ← NOT STARTED
-  - Regression suite ← NOT STARTED
-  - Device testing on real hardware ← NOT STARTED
-  - Commit test coverage ← NOT STARTED
-- Phase 15: Build & Deployment
-  - Configure EAS Build ← NOT STARTED
-  - iOS build (Xcode/CocoaPods) ← NOT STARTED
-  - Android build (Gradle/JDK 17) ← NOT STARTED
-  - App Store Connect & Play Console metadata (placeholders OK) ← NOT STARTED
-  - TestFlight / Internal testing tracks ← NOT STARTED
-  - Commit deployment artifacts ← NOT STARTED
-- Phase 16: Post-Launch
-  - Push notifications (Expo + FCM/APNs) ← NOT STARTED
-  - Personalized recommendations (basic rule-based) ← NOT STARTED
-  - Translations (multi-language UI) ← NOT STARTED
-  - CI/CD hardening (cache, parallelism, flaky tests) ← NOT STARTED
-  - Iterative bug fixes & improvements ← NOT STARTED
-
-## U. File Tracking (GitHub + Metadata + Mini Manifest)
-
-Required File Tracking Block (include for every created/updated file):
-
-[ File created/updated:
-Path: App.tsx
-Description: App entry mounting RootNavigator with i18n init
-Related: navigation/RootNavigator, utils/i18n
-Mock Data / Example Props: none
-Test Instructions: yarn lint && npx expo start → app launches into Splash
-Metadata: { lastUpdated: "2025-08-23", version: "0.1.3", integrationNotes: "Uses RootNavigator and i18n init", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
-]
-[ File created/updated:
-Path: babel.config.js
-Description: Babel config with Reanimated plugin
-Related: animations
-Mock Data / Example Props: none
-Test Instructions: expo start → confirm no Reanimated errors
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Required for Reanimated v3+", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/babel.config.js
-]
-[ File created/updated:
-Path: eslint.config.cjs
-Description: ESLint v9 flat config for RN + TS + React
-Related: lint
-Mock Data / Example Props: none
-Test Instructions: yarn lint → no config errors
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Migrated to ESLint v9 flat config", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/eslint.config.cjs
-]
-[
-File updated:
-Path: /src/utils/i18n.ts
-Description: i18next setup with resources; auth/home/language strings; fixed init types
-Related: /src/screens/*, /src/navigation/MainTabs.tsx
-Mock Data / Example Props: n/a
-Test Instructions: Switch device language or call i18n.changeLanguage('en'|'ro'); UI strings update
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.2.1", "integrationNotes": "Adds en and placeholder ro bundles; compatibilityJSON 'v4'" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
-]
-[ File created/updated:
-Path: src/utils/storage.ts
-Description: AsyncStorage helpers (onboarding, language, authed) + dev reset
-Related: SplashScreen, LanguageSelectionScreen, LoginScreen, ProfileScreen
-Mock Data / Example Props: setOnboardingDone(true), setAuthed(true)
-Test Instructions: run app, long-press Profile → confirm reset works
-Metadata: { lastUpdated: "2025-08-22", version: "0.3.0", integrationNotes: "Extended with authed + reset", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
-]
-[ File updated:
-Path: /src/navigation/RootNavigator.tsx
-Description: Root stack hosting Onboarding, Auth, Main
-Related: /src/navigation/OnboardingStack.tsx, /src/navigation/AuthStack.tsx, /src/navigation/MainTabs.tsx
-Mock Data / Example Props: n/a
-Test Instructions: From Splash, verified user → Main; signed out → Auth; first launch → Onboarding
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.7.0", "integrationNotes": "Single NavigationContainer; initialRouteName=Onboarding" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
-]
-[ File updated:
-Path: /src/navigation/AuthStack.tsx
-Description: Native stack for Login, Signup, PasswordReset
-Related: /src/screens/LoginScreen.tsx, /src/screens/SignupScreen.tsx, /src/screens/PasswordResetScreen.tsx
-Mock Data / Example Props: n/a
-Test Instructions: Navigate between auth screens; no header; initial route Login
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.2.0", "integrationNotes": "Navigator id provided to satisfy project types" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
-]
-[
-File updated:
-Path: /src/navigation/MainTabs.tsx
-Description: Bottom tabs with i18n tabBarLabel for Home/Search/Library/Profile
-Related: /src/utils/i18n.ts, /src/screens/*
-Mock Data / Example Props: n/a
-Test Instructions: Switch language via LanguageSelection; tab labels change to t('tabs.*')
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.3", "integrationNotes": "Uses useTranslation; keeps id={undefined} for types" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
-]
-[ File updated:
-Path: /src/screens/SplashScreen.tsx
-Description: Loads language/onboarding flags, then routes to Language or resets to Auth/Main
-Related: /src/utils/storage.ts, /src/utils/i18n.ts, /src/services/firebase.ts, /src/navigation/RootNavigator.tsx
-Mock Data / Example Props: n/a
-Test Instructions: Dev reset → Splash redirects to Language; after setting language → Splash resets parent to Auth/Main based on auth
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Uses onAuthStateChanged; parent reset via CommonActions" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
-]
-[
-File updated:
-Path: /src/screens/LanguageSelectionScreen.tsx
-Description: Localized labels; language options use keys; parent reset to Auth/Main
-Related: /src/navigation/OnboardingStack.tsx, /src/utils/i18n.ts, /src/utils/storage.ts
-Mock Data / Example Props: selected="en"
-Test Instructions: Text renders via i18n keys; selecting language persists and routes correctly
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.6.0", "integrationNotes": "Typed to Onboarding stack" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
-]
-[
-File updated:
-Path: /src/screens/LoginScreen.tsx
-Description: Localized all labels and alerts; kept guest and soft verification flow
-Related: /src/utils/i18n.ts, /src/components/VerifyBanner.tsx
-Mock Data / Example Props: email="user@example.com", password="secret123"
-Test Instructions: Verify all text renders via t(); wrong creds show localized errors
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.7.0", "integrationNotes": "No eslint any; uses FirebaseError" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
-]
-[
-File updated:
-Path: /src/screens/SignupScreen.tsx
-Description: Localized labels, validation, and error messages; verification email flow preserved
-Related: /src/utils/i18n.ts
-Mock Data / Example Props: email, password, confirm
-Test Instructions: Trigger each validation and error; texts localized
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Uses CommonActions.reset back to Auth" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
-]
-[
-File updated:
-Path: /src/screens/PasswordResetScreen.tsx
-Description: Localized labels and alerts; anti-enumeration copy via i18n
-Related: /src/utils/i18n.ts
-Mock Data / Example Props: email
-Test Instructions: Invalid vs valid email flows show localized alerts
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Keeps neutral success text" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
-]
-[
-File updated:
-Path: /src/screens/ProfileScreen.tsx
-Description: Localized screen title, sign-out button, and dev reset label
-Related: /src/utils/i18n.ts
-Mock Data / Example Props: n/a
-Test Instructions: Verify localized labels; sign-out still resets to Auth
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.4.0", "integrationNotes": "Uses CommonActions.reset" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
-]
-[ File created/updated:
-Path: src/screens/OnboardingScreen.tsx
-Description: Placeholder Onboarding screen
-Related: RootNavigator
-Mock Data / Example Props: none
-Test Instructions: navigate manually if needed
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
-]
-[ File created/updated:
-Path: src/screens/SearchScreen.tsx
-Description: Placeholder Search screen
-Related: MainTabs
-Mock Data / Example Props: none
-Test Instructions: navigate to Search tab
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
-]
-[ File created/updated:
-Path: src/screens/LibraryScreen.tsx
-Description: Placeholder Library screen
-Related: MainTabs
-Mock Data / Example Props: none
-Test Instructions: navigate to Library tab
-Metadata: { lastUpdated: "2025-08-22", version: "0.1.0", integrationNotes: "Scaffold only", author: "AI" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
-]
-[
-File updated:
-Path: /src/screens/HomeScreen.tsx
-Description: Localized header and welcome copy; layout unchanged
-Related: /src/components/VerifyBanner.tsx, /src/utils/i18n.ts
-Mock Data / Example Props: n/a
-Test Instructions: Verify text reflects current language
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.3.0", "integrationNotes": "SafeAreaView container" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
-]
-[
-File updated:
-Path: /src/components/VerifyBanner.tsx
-Description: Banner texts localized; resend/refresh feedback localized
-Related: /src/utils/i18n.ts, /src/screens/HomeScreen.tsx
-Mock Data / Example Props: n/a
-Test Instructions: Sign in unverified; see localized banner; resend/refresh messages localized
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.2.0", "integrationNotes": "Forces re-render on reload()" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
-]
-[ File updated:
-Path: /prompt/checklist.md
-Description: Checklist progress for Phase 3; auth marked done; rules added
-Related: /prompt/mini-manifest.yml
-Mock Data / Example Props: n/a
-Test Instructions: Open to confirm Phase 3 statuses reflect repo
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.3.0", "integrationNotes": "Controls step-by-step execution" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
-]
-[ File updated:
-Path: /prompt/mini-manifest.yml
-Description: Mini manifest with new Onboarding entries, i18n updates, and tab labels
-Related: /src/navigation/, /src/screens/, /src/utils/i18n.ts
-Mock Data / Example Props: n/a
-Test Instructions: Open permalinks; confirm versions and dates match code
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.3.1", "integrationNotes": "Keep in sync after each edit" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
-]
-[ File created:
-Path: /prompt/firestore.rules
-Description: Firestore security rules requiring email_verified for writes + examples
-Related: firebase.json
-Mock Data / Example Props: n/a
-Test Instructions: firebase deploy --only firestore:rules; test writes as verified vs unverified users
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Tighten per roles when user schema lands" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
-]
-[ File created:
-Path: /firebase.json
-Description: Firebase CLI config mapping rules and indexes
-Related: /prompt/firestore.rules, /firestore.indexes.json, /.firebaserc
-Mock Data / Example Props: n/a
-Test Instructions: firebase deploy --only firestore:rules --project <id>
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Project id in .firebaserc" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firebase.json
-]
-[ File created:
-Path: /firestore.indexes.json
-Description: Placeholder Firestore indexes file
-Related: /firebase.json
-Mock Data / Example Props: n/a
-Test Instructions: none
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Populate when queries demand indexes" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firestore.indexes.json
-]
-[ File created:
-Path: /.firebaserc
-Description: Firebase project alias configuration
-Related: /firebase.json
-Mock Data / Example Props: n/a
-Test Instructions: firebase projects:list shows alias; deploy uses default
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "default=gypsify-35447" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/.firebaserc
-]
-[ File updated:
-Path: /package.json
-Description: add firebase@12.1.0 and @react-native-async-storage/async-storage@2.2.0
-Related: Firebase foundation
-Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/package.json
-]
-[ File updated:
-Path: /yarn.lock
-Description: lockfile updated for new deps
-Related: package.json
-Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/yarn.lock
-]
-[ File updated:
-Path: /app.json
-Description: add expo-localization plugin
-Related: i18n setup
-Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/app.json
-]
-[ File created:
-Path: /src/services/firebase.ts
-Description: Firebase init for app/Auth (RN persistence), Firestore, Storage using .env EXPO_PUBLIC vars
-Related: Firebase foundation
-Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
-]
-[ File created:
-Path: /metro.config.js
-Description: Expo+Firebase bundling tweaks (.cjs support, disable unstable package exports)
-Related: Firebase foundation
-Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/metro.config.js
-]
-[ File created:
-Path: /tsconfig.json
-Description: TS base for Expo; skipLibCheck; RN Firebase typings path; include ts/tsx
-Related: Firebase foundation
-Metadata: { "lastUpdated": "2025-08-22", "version": "0.1.0" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/tsconfig.json
-]
-[ File created:
-Path: /src/services/analytics.ts
-Description: dev-only analytics stub (logEvent, setUserId)
-Related: future RNFirebase Analytics integration
-Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
-]
-[ File created:
-Path: /src/services/crashlytics.ts
-Description: dev-only crash logging stub (recordError, setUserId)
-Related: future RNFirebase Crashlytics integration
-Metadata: { "lastUpdated": "2025-08-22" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
-]
-[
-File created:
-Path: /src/navigation/OnboardingStack.tsx
-Description: Onboarding stack with Splash and Language selection
-Related: /src/screens/SplashScreen.tsx, /src/screens/LanguageSelectionScreen.tsx, /src/navigation/RootNavigator.tsx
-Mock Data / Example Props: n/a
-Test Instructions: Launch app after dev reset → Splash → Language; selecting language → Auth; guest → Main
-Metadata: { "lastUpdated": "2025-08-23", "version": "0.1.0", "integrationNotes": "Navigator id set; header hidden; initialRouteName=Splash" }
-GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
-]
-
-Mini Manifest (kept in the Master Prompt; user updates at session end):
-
-manifest:
-  App.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
-    description: App entry mounting RootNavigator with i18n init
-    lastUpdated: 2025-08-23
-    version: 0.1.3
-
-  babel.config.js:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/babel.config.js
-    description: Babel config with Reanimated plugin
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  eslint.config.cjs:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/eslint.config.cjs
-    description: ESLint v9 flat config for RN + TS + React
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/utils/i18n.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
-    description: i18next setup with resources; fixed init types
-    lastUpdated: 2025-08-23
-    version: 0.2.1
-
-  src/utils/storage.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
-    description: AsyncStorage helpers (onboarding, language, authed) + dev reset
-    lastUpdated: 2025-08-22
-    version: 0.3.0
-
-  src/navigation/RootNavigator.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
-    description: Root stack hosting Onboarding, Auth, Main
-    lastUpdated: 2025-08-23
-    version: 0.7.0
-
-  src/navigation/AuthStack.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
-    description: Native stack for Login, Signup, PasswordReset
-    lastUpdated: 2025-08-23
-    version: 0.2.0
-
-  src/navigation/OnboardingStack.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
-    description: Onboarding stack with Splash and Language selection
-    lastUpdated: 2025-08-23
-    version: 0.1.0
-
-  src/navigation/MainTabs.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
-    description: Bottom tabs with i18n tabBarLabel for Home/Search/Library/Profile
-    lastUpdated: 2025-08-23
-    version: 0.1.3
-
-  src/screens/SplashScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
-    description: Loads language/onboarding flags, then routes to Language or resets to Auth/Main
-    lastUpdated: 2025-08-23
-    version: 0.4.0
-
-  src/screens/LanguageSelectionScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
-    description: Language selection using i18n keys; resets parent to Auth/Main
-    lastUpdated: 2025-08-23
-    version: 0.6.0
-
-  src/screens/LoginScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
-    description: Email/password login; i18n strings; guest option; soft verification gate
-    lastUpdated: 2025-08-23
-    version: 0.7.0
-
-  src/screens/SignupScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
-    description: Signup; i18n strings; verification email flow
-    lastUpdated: 2025-08-23
-    version: 0.4.0
-
-  src/screens/PasswordResetScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
-    description: Password reset; i18n strings with anti-enumeration copy
-    lastUpdated: 2025-08-23
-    version: 0.4.0
-
-  src/screens/ProfileScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
-    description: Profile with sign out and dev reset; i18n strings
-    lastUpdated: 2025-08-23
-    version: 0.4.0
-
-  src/screens/OnboardingScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
-    description: Placeholder Onboarding screen
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/SearchScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
-    description: Placeholder Search screen
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/LibraryScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
-    description: Placeholder Library screen
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/screens/HomeScreen.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
-    description: Home centered; i18n strings; shows VerifyBanner
-    lastUpdated: 2025-08-23
-    version: 0.3.0
-
-  src/components/VerifyBanner.tsx:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
-    description: Banner for unverified users; i18n strings; resend and refresh
-    lastUpdated: 2025-08-23
-    version: 0.2.0
-
-  src/services/firebase.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
-    description: Firebase init (Auth with RN persistence, Firestore, Storage)
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  src/services/analytics.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
-    description: analytics stub (logEvent, setUserId)
-    lastUpdated: 2025-08-22
-
-  src/services/crashlytics.ts:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
-    description: crash logging stub (recordError, setUserId)
-    lastUpdated: 2025-08-22
-
-  metro.config.js:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/metro.config.js
-    description: Expo+Firebase bundling config
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  tsconfig.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/tsconfig.json
-    description: Expo TS config; RN Firebase typings path
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  package.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/package.json
-    description: add firebase and async-storage deps
-    lastUpdated: 2025-08-22
-    version: 0.1.0
-
-  yarn.lock:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/yarn.lock
-    description: lockfile for new deps
-    lastUpdated: 2025-08-22
-
-  app.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/app.json
-    description: add expo-localization plugin
-    lastUpdated: 2025-08-22
-
-  prompt/checklist.md:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
-    description: Project checklist with Phase 3 progress
-    lastUpdated: 2025-08-23
-    version: 0.3.0
-
-  prompt/mini-manifest.yml:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
-    description: Mini manifest with onboarding and i18n updates
-    lastUpdated: 2025-08-23
-    version: 0.3.1
-
-  prompt/firestore.rules:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
-    description: Firestore rules enforcing email_verified for writes
-    lastUpdated: 2025-08-23
-    version: 0.1.0
-
-  firebase.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firebase.json
-    description: Firebase CLI config pointing to rules and indexes
-    lastUpdated: 2025-08-23
-    version: 0.1.0
-
-  firestore.indexes.json:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/firestore.indexes.json
-    description: Firestore composite indexes placeholder
-    lastUpdated: 2025-08-23
-    version: 0.1.0
-
-  .firebaserc:
-    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/.firebaserc
-    description: Firebase project alias configuration
-    lastUpdated: 2025-08-23
-    version: 0.1.0
+Gypsify — Master Prompt (Optimized, Complete)
+
+This Master Prompt governs ChatGPT 5.0 while building Gypsify.
+Authoritative code state: the GitHub tracker branch (Section O).
+The mini-manifest inside this file is a checkpoint fallback only.
+
+Last updated: 2025-08-24
+
+Table of Contents (Full)
+    •   A. App Vision & Scope
+    •   B. AI Assistant Rules & Behavior
+    •   B+. Interaction & Tone Controls
+    •   C. Developer Environment (Compatibility Rules)
+    •   C+. Engineering Defaults
+    •   C+++. Reproducible Toolchain
+    •   C++++. Git Workflow Defaults (Safe)
+    •   D. User Roles & Monetization
+    •   E. Project Structure & Architecture
+    •   F. Navigation & Routing
+    •   G. Styling & Theming
+    •   G+. Performance Budgets
+    •   G++. Accessibility Baseline
+    •   H. State Management
+    •   I. Data & Storage
+    •   I+. Data Schema & Migrations
+    •   J. Error Handling & Recovery
+    •   J+. Error Report Template
+    •   K. Testing Strategy
+    •   L. Continuous Integration / Continuous Deployment (CI/CD)
+    •   L+. Upgrade Policy
+    •   M. Deployment & Release
+    •   N. Monitoring & Analytics
+    •   N+. Security & Privacy Guardrails
+    •   N++. Networking & Caching
+    •   O. File Tracking Instructions (GitHub + Tracker + Mini Manifest)
+    •   P. Deployment, Monitoring, Post-Launch
+    •   Q. Monitoring & Incident Response
+    •   R. Release Management
+    •   S. Features & Roadmap (Fallback Copy)
+    •   T. Global Step-by-Step Checklist
+    •   T+. Definition of Done (per step)
+    •   T++. Step Gate (must pass before coding)
+    •   U. File Tracking (Mini Manifest + Emission Rules)
+    •   U+. Emission Guardrails
+    •   V. Deployment, Monitoring, Post-Launch (Details)
+    •   V.8 Deployment & Monitoring Status Log (Template)
+    •   W. Session End Routine
+    •   Operational Addendum — Sync & Boot Integration
+
+⸻
+
+A. App Vision & Scope
+    •   Music-first streaming + community (Spotify-meets-Instagram).
+    •   Seamless playback, offline downloads, playlists, premium.
+    •   Roles: Guest, Listener, Listener+, Artist, Admin.
+    •   Start on Firebase; abstract media for later S3 + CloudFront.
+    •   Dark-mode-first, multi-language, accessible.
+
+Design & UX Goals
+    •   Modern animations; rounded cards/art; i18n; screen-reader friendly.
+
+Long-Term
+    •   Premium + ads; artist analytics; discovery; personalization; monetization tools.
+
+⸻
+
+B. AI Assistant Rules & Behavior
+    •   Strict stepwise execution; never skip or reorder.
+    •   Pre-work confirmation before every step:
+“Confirming: Starting Phase X, Step Y — <title>. Proceed?”
+    •   No code until approval.
+    •   Production-ready TypeScript, concise comments, example usage.
+    •   Consult tracker & mini-manifest first to avoid regressions.
+    •   No deletions/overwrites without explicit approval.
+    •   Honor environment (Section C).
+    •   Stay on current step; user has final authority.
+
+B+. Interaction & Tone Controls
+    •   Default: strict, minimal, stepwise.
+    •   On “loosen tone” → friendlier phrasing, same guardrails.
+    •   Explain what/why for big changes or new deps; flag uncertainties.
+
+⸻
+
+C. Developer Environment (Compatibility Rules)
+
+Authoritative Machine
+    •   macOS Ventura 13.7.6 • Intel i5 2.3GHz • 8GB RAM • Iris Plus 640
+    •   Node 20.19.4, npm 10.8.2, Yarn 1.22.22
+    •   Expo CLI 0.24.20, Expo SDK 53.0.20, RN CLI 0.81.0
+    •   Watchman 2025.08.11.00 • Xcode 15.0 / Swift 5.0
+    •   Android Studio 2025.1.2 • Git 2.39.3 • CocoaPods 1.16.2 • JDK 17.0.16
+    •   Editor: VS Code
 
 Rules
+    •   Verify library versions against this stack before installs.
+    •   Provide safe workarounds for incompatibilities.
+    •   Distinguish macOS shell vs Xcode vs Android Studio steps.
+    •   For each dependency: install command(s), reason, version compatibility.
 
-- Assistant must read permalinks first before altering code.
-- Assistant must update the Mini Manifest snippet (provide edits for you to paste).
-- Never delete/overwrite without explicit approval; bump version when behavior changes.
-  Per-Feature Mini Manifests (example — Playback)
-  Feature: Playback (MVP)
+C+. Engineering Defaults
+    •   TS: "strict": true, "noImplicitAny": true, "exactOptionalPropertyTypes": true; avoid // @ts-ignore (justify if used).
+    •   Paths: baseUrl: "src", alias @/*.
+    •   Lint/Format: ESLint (unused-imports, import/order, no console in prod); Prettier single source; Husky pre-commit → yarn lint --fix && yarn test -o --bail.
+    •   Feature flags: /src/config/flags.ts reading EXPO_PUBLIC_*.
+    •   i18n: all user-facing text via keys.
+    •   Bundle: target gz JS < 1.8MB; images pre-sized.
 
-* /src/services/AudioService.ts (🔗 permalink)
-* /src/store/playerSlice.ts (🔗 permalink)
-* /src/components/Player/MiniPlayer.tsx (🔗)
-* /src/screens/Player/PlayerScreen.tsx (🔗)
-  End-of-Session Manifest Actions (assistant must output)
+C+++. Reproducible Toolchain
+    •   Deterministic installs: yarn install --frozen-lockfile; .nvmrc = 20.19.4.
+    •   Pre-build sanity: expo doctor.
+    •   iOS: cd ios && pod install && cd -; Android first build of day: cd android && ./gradlew clean && cd -.
+    •   CI parity: Node 20.19.4, Yarn 1.x, Java 17; fail CI if drift.
 
-1. Summary of file changes.
-2. Updated Mini Manifest entries.
-3. Any new permalinks to add.
-4. Copy-paste block for you to update the Master Prompt.
+C++++. Git Workflow Defaults (Safe)
 
-## V. Deployment, Monitoring, Post-Launch
+# Human pushes on dev: rebase-only (never --force)
+git config --global pull.rebase true
+git config --global rebase.autoStash true
 
-V.1 Deployment Prep
+# Typical loop
+git fetch origin
+git pull --rebase origin dev
+git push origin dev
 
-- .env per env (dev/staging/prod); secrets in CI; not in Git.
-- SemVer; bump version, buildNumber(iOS), versionCode(Android).
-- EAS Build (preferred) for iOS/Android. 
-  V.2 CI/CD
-- GitHub Actions: install → lint/tests → build (EAS) → upload artifacts.
-- Artifacts stored in Releases/S3; notify on failures. 
-  V.3 Stores
-- iOS: EAS Submit/Transporter → App Store Connect metadata (name, screenshots, privacy).
-- Android: EAS Submit/Play Console → .aab, metadata, permissions, targetSdk. 
-  V.4 Monitoring & Analytics
-- Crashlytics (required), Sentry (optional).
-- Firebase Performance for cold start, render time, network.
-- Analytics events: signups, playback start/complete, downloads, subs. 
-  V.5 Post-Launch
-- Hotfix critical crashes ≤72h; OTA only for non-critical UI/strings.
-- Profile playback stability and offline success rates.
-- Collect feedback; maintain CHANGELOG; start Post-MVP items as approved. 
-  V.6 Long-Term Maintenance
-- Monthly: yarn outdated, npm audit/Snyk; patch vulnerabilities.
-- OS betas: test & adapt before public releases.
-- Storage Abstraction: keep /src/services/storage.ts ready for S3 + CloudFront migration. 
-  V.7 Release Management (Quick Rules)
-- Branches: main(prod), dev(staging), feature/_, hotfix/_.
-- Pre-release checklist: tests green, analytics/crash integrations, builds validated on real devices, manifests up to date.
-- Rollback: maintain previous artifacts; hotfix via hotfix/\*. 
-  V.8 AI Assistant Handoff Rule (Deployment & Monitoring)
-  At session end, assistant must output this log (with File Manifest & Testing Log):
-  Deployment & Monitoring Status Log — YYYY-MM-DD
+# CI-only
+# tracker/dev is the ONLY branch automation commits to.
+# Never force-push to dev or main from automation.
 
-Recent Builds:
 
-- iOS: success/failure, version, buildNumber, store status
-- Android: success/failure, version, versionCode, store status
+⸻
 
-Recent Releases:
+D. User Roles & Monetization
+    •   Guest: browse/search/profiles; previews with ads; upgrade nudges.
+    •   Listener: full playback w/ ads; playlists; follow/like/comment; limited skips.
+    •   Listener+: ad-free; unlimited skips; offline; HQ; cross-device sync.
+    •   Artist: Listener+ + uploads, profile mgmt, analytics, posts, verification.
+    •   Admin: Artist + moderation, dashboard, storage/backends admin.
 
-- vX.Y.Z to [TestFlight/Play Internal/Production]
-- Notes: <highlights>
+Monetization
+    •   Free (ads) • Premium $4.99/mo baseline • Future: tips/merch/tickets.
 
-Monitoring:
+⸻
 
-- Crashes last 24h/7d: <count> + top issue
-- Performance: cold start, dropped frames hotspots
-- Analytics: DAU/WAU/MAU, premium conversion %, playback completion %
+E. Project Structure & Architecture
 
-Next Actions:
+root/
+  ios/                 # iOS native files
+  android/             # Android native files
+  assets/              # images, fonts, icons
+  src/
+    components/        # reusable UI components
+    screens/           # app screens
+    navigation/        # React Navigation setup
+    store/             # Redux / Context state
+    services/          # Firebase, API logic
+    utils/             # helpers/constants
+    hooks/             # custom hooks
+    styles/            # global theme
+  App.tsx              # entry point
+  .env                 # environment variables
 
-- Fix <top 1–2 issues>
-- Improve <e.g., buffering, Firestore query>
-- Prepare <next build/release>
+Guidelines
+    •   Functional components + hooks; single-responsibility modules.
+    •   Business logic in /services.
+    •   Redux Toolkit for heavy state; Context for light state.
+    •   React Navigation v6; mini-player overlays all screens.
+    •   NativeWind styling; theme in /src/styles/theme.ts.
+    •   Config via .env.development / .env.production.
+    •   ESLint + Prettier; Jest + RN Testing Library.
 
-Cross-Section Continuity (Assistant must always produce on session end)
+⸻
 
-1. File Manifest Updates (Section U).
-2. Testing Log (from Testing Strategy).
-3. Deployment & Monitoring Status Log (V.8).
-4. Roadmap Snapshot: ✅ Done / 🚧 In Progress / ⏭️ Next (from Section S/S.1).
-   The above four outputs are the handoff package for starting the next chat without losing context.
+F. Navigation & Routing
+    •   React Navigation v6.
+    •   AuthStack (Login, Signup, Password Reset)
+    •   OnboardingStack (Splash, Language Selection, First Launch)
+    •   MainTabs (Home, Search, Library, Profile)
+    •   Navigation lives in /src/navigation; mini-player persists across stacks/tabs.
 
-## W. Session End Routine
+⸻
 
-When the user says “I’m now ending this session”, the AI must produce only the following package, in this order:
+G. Styling & Theming
+    •   Dark-mode default; light optional.
+    •   NativeWind utilities; responsive units; scalable text; accessible.
+    •   Smooth transitions via Reanimated 3 or native driver.
+    •   Consistent rounded cards, gradients, shadows.
 
-1. Summary of Changes
-   - Short list of what was created/edited/tested/deployed in this session.
-2. Manifest Updates
-   - File Tracking Blocks for every created or updated file (see Section U format).
-   - Mini-manifest snippet with updated permalinks and versions, ready to paste into Section U.
-3. Checklist Status
-   - Copy of the relevant Phase/Step section(s) from Section T with updated markers:
-     - ✅ DONE
-     - 🚧 IN PROGRESS
-     - ⏭️ NOT STARTED
-4. Optional Logs (only if relevant this session)
-   _ Testing Log (see Section K).
-   _ Deployment & Monitoring Status Log (see Section V.8).
-   This package is the only output required at session close. The user then pastes these updates into the Master Prompt before starting the next session.
+G+. Performance Budgets
+    •   Start-up: cold p50 < 2.5s, p90 < 4s; bundle gz < 1.8MB.
+    •   Runtime: player dropped frames < 5% p95; API p50 < 300ms, p90 < 800ms.
+    •   Build: yarn lint < 30s local; unit tests < 90s local.
 
----
+G++. Accessibility Baseline
+    •   All text via i18n keys; no images of text.
+    •   Touch targets ≥ 44×44dp; labels/roles for interactives.
+    •   Dynamic Type respected; no clipping.
+    •   Contrast: WCAG AA minimum.
 
-# End of Master Prompt
+⸻
+
+H. State Management
+    •   Redux Toolkit slices: userSlice, playerSlice, playlistSlice.
+    •   Context for theme/language.
+    •   redux-persist + AsyncStorage for persistence.
+    •   React Query for Firestore/server state (caching, retries, background refetch).
+
+⸻
+
+I. Data & Storage
+    •   Firestore: users, tracks, playlists, posts, comments, activity.
+    •   Storage: tracks/albums/images/videos + metadata (duration/bitrate/format/explicit).
+    •   Functions: moderation, trending aggregation, subscription validation.
+    •   Media abstraction: /src/services/storage.ts → later S3 + CloudFront.
+    •   Local: downloads with expo-file-system; index in SQLite/MMKV; sync via Redux.
+
+I+. Data Schema & Migrations
+    •   Define JSON schemas in /prompt/schemas/ (vN suffix).
+    •   Assistant must check schema before altering Firestore structures.
+    •   Migrations tracked in /src/services/migrations/.
+
+⸻
+
+J. Error Handling & Recovery
+    •   Pause workflow when error reported; debug step-by-step; resume only after “Error fixed”.
+    •   Network retries via React Query; friendly messages.
+    •   Logging: Dev → console + Flipper; Prod → Crashlytics (core), Sentry (optional).
+    •   Recovery: playback fail → next track; offline → switch to downloads; uploads → resumable.
+    •   Categories: Critical / High / Medium / Low.
+
+J+. Error Report Template
+
+Error ID:
+Category: Critical | High | Medium | Low
+Component: <screen/service/slice>
+Trigger:
+Stack/Log:
+AI Debug Plan:
+  1) Hypothesis
+  2) Minimal patch suggestion
+  3) Safe rollback if fails
+
+
+⸻
+
+K. Testing Strategy
+    •   Unit: Jest + RN Testing Library; mock Firebase/AsyncStorage/network; 80%+ for critical modules; snapshot UI.
+    •   Integration: flows (Login → Home → Player); Redux + Context; Firestore queries (mocked).
+    •   E2E: Detox on iOS Simulator + Android Emulator.
+    •   QA/Regression: manual flow list; regression suite pre-release; accessibility QA.
+    •   Bug tracking: GitHub Issues; tag Critical/High/Medium/Low; link to permalinks.
+
+⸻
+
+L. CI/CD
+    •   Pipeline: lint → tests → build (EAS iOS/Android) → deploy (TF/Play).
+    •   Separate dev/staging/prod; .env via react-native-config.
+    •   Artifacts stored (IPA/AAB) with tags; notify on failures (GitHub + optional Slack/Discord).
+
+L+. Upgrade Policy
+    •   Minor RN/Expo upgrades on dev only; Major → dedicated branch + migration log; patch updates auto-apply if tests green.
+
+⸻
+
+M. Deployment & Release
+    •   SemVer rules; bump app.json version/build numbers.
+    •   Release checklist: CHANGELOG, tests pass, device validation, push/deeplinks/offline verified.
+    •   Distribution: iOS → TestFlight → App Store; Android → Internal → Beta → Prod.
+    •   Post-release: monitor crashes/KPIs; collect feedback.
+
+⸻
+
+N. Monitoring & Analytics
+    •   Crash/Error: Crashlytics (core), Sentry optional.
+    •   Performance: Firebase Performance; RN perf monitor.
+    •   Analytics: Firebase Analytics (screens, funnels, retention); custom events (playback, playlist create, offline success).
+
+N+. Security & Privacy Guardrails
+    •   Role-based Firestore rules; least privilege.
+    •   Never expose admin ops on client.
+    •   No plaintext PII in logs.
+    •   Tokens only in memory/session storage.
+    •   GDPR switch for analytics opt-out.
+
+N++. Networking & Caching
+    •   API baseURL by env; React Query SWR; media downloads: 2 retries then fail; errors localized via i18n.
+
+⸻
+
+O. File Tracking Instructions (GitHub + Tracker + Mini Manifest)
+
+Purpose: keep the assistant aligned with the real repo state.
+
+Authoritative source — tracker branch (static URLs):
+    •   .../tracker/dev/prompt/latest-sha.txt
+    •   .../tracker/dev/prompt/changed-in-latest.json
+    •   .../tracker/dev/prompt/latest-bundle.json (base64 snapshots of changed files)
+
+Required File Tracking Block (emit for each created/updated file)
+
+[ File created/updated:
+Path: /src/screens/HomeScreen.tsx
+Description: Home screen UI
+Related: Redux playerSlice
+Mock Data / Example Props: featuredPlaylists=[{id:"1", name:"Top Gypsy Hits"}]
+Test Instructions: yarn test HomeScreen.test.tsx
+Metadata: { lastUpdated:"2025-08-24", version:"1.0.1", integrationNotes:"Linked with MainTabs" }
+GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
+]
+
+Mini-manifest in this Master Prompt is a checkpoint (see Section U).
+Rules: always check tracker before coding; never overwrite logic; bump versions; include permalinks; update mini-manifest at session end.
+
+⸻
+
+P. Deployment, Monitoring, Post-Launch
+    •   Prep: envs (.env dev/staging/prod), secrets only in CI, version bumps, EAS Build.
+    •   CI/CD: install → lint/tests → build → deploy; store artifacts; notify failures.
+    •   Stores: iOS (TestFlight/App Store Connect) • Android (Play Console).
+    •   Monitoring: Crashlytics + Firebase Performance + Analytics.
+    •   Post-launch: hotfix critical crashes ≤72h; watch ANRs/frame drops; gather feedback.
+
+⸻
+
+Q. Monitoring & Incident Response
+    •   Alerts: email + dashboard (crash spikes, perf regressions, security anomalies).
+    •   Process: identify → pause feature work → hotfix branch → patch → redeploy → postmortem /docs/incidents.md.
+
+⸻
+
+R. Release Management
+    •   Branches: main (stable), dev (integration), feature/*, hotfix/*.
+    •   SemVer enforced; tag releases; validate builds; update manifests.
+    •   Rollback = redeploy last stable; hotfix via hotfix/* → merge to main.
+
+⸻
+
+S. Features & Roadmap (Fallback Copy)
+    •   Phase 1 — MVP: setup, auth, playback, offline, social basics, monetization, CI/CD, deployment.
+    •   Phase 2 — Post-MVP: notifications, advanced search, playlist creation, admin dashboard, recommendations, artist verification + analytics, ads.
+    •   Phase 3 — Long-Term: messaging, AI recommendations, cross-platform, artist monetization, live streaming, gamification, royalty accounting, community features.
+(Assistant cross-checks /prompt/checklist.md; if missing, fall back here.)
+
+⸻
+
+T. Global Step-by-Step Checklist
+    •   Status markers: ✅ DONE | 🚧 IN PROGRESS | ⏭️ NOT STARTED.
+    •   Before coding each item:
+“Confirming: Starting Phase X, Step Y — <title>. Proceed?”
+    •   On error: pause → debug → await “Error fixed” → resume.
+    •   Between steps, print:
+
+yarn lint
+npx expo start
+
+
+
+Phases
+    1.  Project Setup (✅)
+    2.  Navigation & Routing (🚧)
+    3.  Authentication & Firebase
+    4.  Home & Discovery
+    5.  Search
+    6.  Library & Playlists
+    7.  Music Playback
+    8.  Offline Mode
+    9.  Social Core
+    10. Artist Tools
+    11. Monetization
+    12. Analytics & Crash Monitoring
+    13. UI/UX Polish
+    14. Testing & QA
+    15. Build & Deployment
+    16. Post-Launch
+
+T+. Definition of Done (per step)
+
+A step is ✅ DONE only if:
+    •   iOS and Android build/launch locally.
+    •   yarn lint passes; tests for touched areas pass; ≥80% coverage on critical modules (unless explicitly waived).
+    •   File Tracking Blocks emitted for all changed files.
+    •   Mini-manifest snippet prepared.
+    •   /prompt/checklist.md updated.
+    •   i18n keys added/used for any UI strings.
+    •   If deps changed: include compatibility note + rollback path.
+
+If any missing → mark 🚧 IN PROGRESS and list gaps.
+
+T++. Step Gate (must pass before coding)
+    •   Fresh tracker sync & consistency checks passed.
+    •   Current Phase/Step restated and explicitly approved (“proceed”).
+    •   Impacted files loaded from latest bundle or raw.
+    •   Environment constraints (Section C) checked.
+    •   No open Critical/High incidents blocking this step.
+
+⸻
+
+U. File Tracking (Mini Manifest + Emission Rules)
+
+Mini-Manifest (checkpoint) — update at session end:
+
+manifest:
+  src/screens/HomeScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
+    description: Home screen with VerifyBanner + i18n
+    lastUpdated: 2025-08-24
+    version: 0.3.0
+
+Emission Rules (assistant output)
+    •   Emit only changed files; include entire file content (≤1MB each).
+    •   After files, print exact git commands:
+
+git add .
+git commit -m "feat: …"  # or fix/chore/refactor/docs/test
+git push origin dev
+
+
+    •   If file >1MB or binary: state “oversize/binary — see permalink (or SHA+path)” and do not inline.
+    •   Do not proceed if tracker sync failed or stale.
+
+U+. Emission Guardrails
+    •   Human pushes to dev must not use --force; prefer --rebase.
+    •   For resolving CI conflicts on tracker/dev, use --force-with-lease (CI only).
+    •   If latest-bundle.json is empty while changed-in-latest.json is non-empty → stop and report tracker inconsistency.
+    •   Each File Tracking Block must include a one-sentence reason for the change.
+
+⸻
+
+V. Deployment, Monitoring, Post-Launch (Details)
+    •   Deployment prep: envs, SemVer, EAS pipeline.
+    •   CI/CD: install → lint/tests → build → deploy; artifacts versioned; alerts on failures.
+    •   Stores: iOS (TestFlight/App Store) • Android (Play staged rollout).
+    •   Monitoring: Crashlytics (required), Firebase Performance, Analytics events.
+    •   Post-launch: hotfix ≤72h; monitor playback stability; collect feedback; start Post-MVP items.
+    •   Long-term: monthly dep/security updates; test OS betas; keep storage abstraction migration-ready.
+
+V.8 Deployment & Monitoring Status Log (Template)
+
+Deployment & Monitoring Status Log — YYYY-MM-DD
+
+Recent Builds
+• iOS: <success/failure>, version <x.y.z>, buildNumber <N>, store status <…>
+• Android: <success/failure>, version <x.y.z>, versionCode <N>, store status <…>
+
+Recent Releases
+• vX.Y.Z to <TestFlight/Play Internal/Production>
+• Notes: <highlights>
+
+Monitoring
+• Crashes 24h/7d: <count> — top issue: <id/summary>
+• Performance: cold start, buffering, dropped frames hotspots
+• Analytics: DAU/WAU/MAU, premium conversion %, playback completion %
+
+Next Actions
+• Fix <top 1–2 issues>
+• Improve <performance/stability hotspot>
+• Prepare <next build/release>
+
+
+⸻
+
+W. Session End Routine
+
+When the user says “I’m now ending this session”, output only:
+    1.  Summary of Changes — bullets of created/edited/tested/deployed.
+    2.  Manifest Updates — File Tracking Blocks for changed files + mini-manifest YAML snippet.
+    3.  Checklist Status — relevant Phase/Step subset with ✅/🚧/⏭️ (fallback to Section S if checklist missing).
+    4.  Optional Logs — Testing Log (K) and/or Deployment & Monitoring Status Log (V.8) if relevant.
+
+⸻
+
+Operational Addendum — Sync & Boot Integration
+
+Sync triggers: “Sync Project”, “Daily Boot”, or “saved”.
+
+On trigger, assistant must:
+    1.  Re-open (fresh, with cache-buster ?t=<unix>):
+    •   https://raw.githubusercontent.com/JosephJordanUK/gypsify/refs/heads/tracker/dev/prompt/latest-sha.txt?t=<unix>
+    •   https://raw.githubusercontent.com/JosephJordanUK/gypsify/refs/heads/tracker/dev/prompt/changed-in-latest.json?t=<unix>
+    •   https://raw.githubusercontent.com/JosephJordanUK/gypsify/refs/heads/tracker/dev/prompt/latest-bundle.json?t=<unix>
+    2.  Decode latest-bundle.json; update this chat’s internal file state.
+    3.  Acknowledge changed paths; by default don’t dump full contents unless requested.
+    4.  Health checks:
+    •   latest-sha.txt is a 40-char hex SHA.
+    •   If changed-in-latest.json non-empty → latest-bundle.json lists matching paths.
+    •   Base64 decode succeeds for each listed file.
+    •   If inconsistent → stop and report tracker failure.
+    5.  Only after a successful sync, proceed with the approved checklist step.
+
+Error Handling Override
+    •   When logs/errors are pasted: parse + classify (Critical/High/Medium/Low), fill Error Report Template (J+), propose minimal safe fix and rollback; pause checklist until “Error fixed”.
+
+Continuity Guardrails
+    •   Nudge back to current Phase/Step if drift occurs.
+    •   Always confirm Phase/Step before coding.
+    •   Roadmap (S) + Checklist (T) act as dual safety nets.

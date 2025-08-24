@@ -26,7 +26,6 @@ export default function HomeScreen() {
         <Text>{t('home.welcome')}</Text>
       </View>
     </SafeAreaView>
-    // this is a test with the updated bundle thing now
   );
 }
-// verify bundle 3.0 , this better work
+// verify bundle 5.0 idkk

@@ -1,7 +1,7 @@
 name: Update manifest and latest SHA
 on:
   push:
-    branches: [dev]
+    branches: [tracker/dev]
     paths-ignore:
       - 'prompt/latest-sha.txt'
       - 'prompt/manifest.json'
@@ -76,7 +76,7 @@ jobs:
           git add -A prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: update manifest and latest SHA [skip ci]"
-            git push origin HEAD:dev
+            git push origin HEAD:tracker/dev
           else
             echo "No artifact changes to commit."
           fi

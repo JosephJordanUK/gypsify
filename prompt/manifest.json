@@ -131,8 +131,8 @@
   },
   {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 815,
-    "sha256": "ab4cdc44901d0e6d3d307d2a285981a6f0eee52475ad23bdef60aace50a55a08"
+    "bytes": 855,
+    "sha256": "31d16ac5b670b30f8df1d5a7a9f6cccac6212c9f531bd7cb2af46e289b9aaf56"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",

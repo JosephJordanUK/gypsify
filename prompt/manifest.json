@@ -36,8 +36,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 406,
-    "sha256": "e76862155ea0a67415de83c9b5a557b7232dab6274fc8a20fe673a4e6ab7c8f2"
+    "bytes": 285,
+    "sha256": "db980dc37d6e702ba4d66a6f82b850d00e4b864891bc0321d456478b614515d9"
   },
   {
     "path": "app.json",
@@ -131,8 +131,8 @@
   },
   {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 799,
-    "sha256": "48c15b8e52ccbbcd5ca688672d8b2ef44fc92b5314e21f8c64291728ce8315dc"
+    "bytes": 815,
+    "sha256": "ab4cdc44901d0e6d3d307d2a285981a6f0eee52475ad23bdef60aace50a55a08"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",

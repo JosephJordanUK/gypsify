@@ -3,7 +3,9 @@ name: Update manifest and latest SHA
 on:
   workflow_run:
     workflows: ["Sync tracker/dev to dev"]
+    branches: [dev]
     types: [completed]
+  workflow_dispatch: {}
 
 concurrency:
   group: update-manifest-dev
@@ -56,15 +58,13 @@ jobs:
                 SHA256=$(sha256sum "$f" | cut -d" " -f1)
                 jq --arg path "$f" --argjson bytes "$BYTES" --arg sha "$SHA256" \
                    '. + [{"path":$path,"bytes":$bytes,"sha256":$sha}]' \
-                   prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp 
-prompt/manifest.json
+                   prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
               done
 
       - name: Build changed-in-latest.json (diff OLD -> NEW)
         run: |
           git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' 
-\
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
             | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
       - name: Write latest-sha.txt
@@ -92,4 +92,3 @@ prompt/manifest.json
           else
             echo "No artifact changes to commit."
           fi
-

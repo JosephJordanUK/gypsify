@@ -1,15 +1,16 @@
 name: Update manifest and latest SHA
+
 on:
-  push:
-    branches: [tracker/dev]
-    paths-ignore:
-      - 'prompt/latest-sha.txt'
-      - 'prompt/manifest.json'
-      - 'prompt/changed-in-latest.json'
-      - '.github/workflows/**'
+  workflow_run:
+    workflows: ["Sync tracker/dev to dev"]
+    branches: [dev]
+    types: [completed]
+  workflow_dispatch: {}
+
 concurrency:
   group: update-manifest-dev
   cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -20,20 +21,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.ref }}
+          ref: refs/heads/tracker/dev
 
       - name: Install jq
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Resolve SHAs from event
+      - name: Resolve SHAs from repo state
         id: shas
+        shell: bash
         run: |
-          echo "NEW_SHA=${{ github.sha }}" >> $GITHUB_OUTPUT
-          echo "OLD_SHA=${{ github.event.before }}" >> $GITHUB_OUTPUT
-          echo "New: ${{ github.sha }}"
-          echo "Old: ${{ github.event.before }}"
+          NEW_SHA="$(git rev-parse HEAD)"
+          if git cat-file -e HEAD:prompt/latest-sha.txt 2>/dev/null; then
+            OLD_SHA="$(git show HEAD:prompt/latest-sha.txt | tr -d '\n')"
+          else
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              OLD_SHA="$(git rev-parse HEAD^)"
+            else
+              OLD_SHA="$NEW_SHA"
+            fi
+          fi
+          echo "NEW_SHA=$NEW_SHA" >> "$GITHUB_OUTPUT"
+          echo "OLD_SHA=$OLD_SHA" >> "$GITHUB_OUTPUT"
+          echo "New: $NEW_SHA"
+          echo "Old: $OLD_SHA"
 
       - name: Build manifest.json (all tracked files)
         run: |
@@ -80,4 +92,3 @@ jobs:
           else
             echo "No artifact changes to commit."
           fi
-

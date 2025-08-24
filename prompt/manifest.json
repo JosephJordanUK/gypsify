@@ -36,8 +36,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 282,
-    "sha256": "8a8ee78e4d76e8f0e43fd2fbfa19a3755fcf5dbf47329beaae5fd1527c4a8e21"
+    "bytes": 224,
+    "sha256": "09e0b4d947a980e66a66c054df23487335935af9a65e2aa24b0098899cc0fb30"
   },
   {
     "path": "app.json",
@@ -131,8 +131,8 @@
   },
   {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 785,
-    "sha256": "3559cdb5930ace4b54317e2ecac50ef222281531a98453e7f06a7b24a50c09b3"
+    "bytes": 758,
+    "sha256": "c00efefe7bebdaa25716805618e6c77692098c09416730a37f1d7e44b6cbc9e4"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",
@@ -161,13 +161,13 @@
   },
   {
     "path": "src/screens/ProfileScreen.tsx",
-    "bytes": 2330,
-    "sha256": "ed7b53c255e9c3e37ad69f68d1e01bffe81df02d8339501d3428b8d35666d9bd"
+    "bytes": 2310,
+    "sha256": "9a0a16224bec19217e4e07c0d8c18352a2ba6217a63bf0cc0253c2a227aa91c1"
   },
   {
     "path": "src/screens/SearchScreen.tsx",
-    "bytes": 247,
-    "sha256": "01d5f7c2adbafda3ed80cf642b6d64b0d69edb73e2e7818289b349fccf7c815e"
+    "bytes": 266,
+    "sha256": "6028249303ec78dc03173f480d5b31dcc7c620612d44d51e556529aa64fbb3d7"
   },
   {
     "path": "src/screens/SignupScreen.tsx",

@@ -142,12 +142,12 @@
   {
     "path": "prompt/latest-sha.txt",
     "bytes": 41,
-    "sha256": "33011e6246b8650a708d8d7c01c60998b43b00d4be198120e99cd00361954ca6"
+    "sha256": "692b6364f27042fd1d58be9ebf5fe876a32b36c5aab91f3c121891e356d3da99"
   },
   {
     "path": "prompt/manifest.json",
     "bytes": 4080,
-    "sha256": "29277fb1c727339ce9c564aca5a5203d77dd2712521c0c98b01a5d420d9c573a"
+    "sha256": "c7e857349da518ce14a4447a9b135faf985522635472996db939570591c4de74"
   },
   {
     "path": "prompt/mini-manifest.yml",
@@ -298,6 +298,11 @@
     "path": "src/utils/storage.ts",
     "bytes": 1086,
     "sha256": "635c1fafc9c3e338a745f048f80d38275eaea70ea7e4943da5bf4e30e698564e"
+  },
+  {
+    "path": "test.txt",
+    "bytes": 7,
+    "sha256": "e621bcce928241db8b0609ac56504cd1e81a1d7d9625d6c00eca21d2de76295d"
   },
   {
     "path": "tsconfig.json",

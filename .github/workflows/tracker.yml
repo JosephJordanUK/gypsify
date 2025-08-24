@@ -7,6 +7,7 @@ on:
       - 'prompt/latest-sha.txt'
       - 'prompt/manifest.json'
       - 'prompt/changed-in-latest.json'
+      - 'prompt/latest-bundle.json'
       - 'prompt/snapshots/**'
       - '.github/workflows/**'
 
@@ -93,9 +94,25 @@ jobs:
             git show "${SHA}:${f}" > "prompt/snapshots/${SHA}/${f}" || true
           done
 
+      - name: Write latest-bundle.json (paths + base64 contents)
+        run: |
+          set -e
+          SHA="${{ steps.shas.outputs.NEW_SHA }}"
+          mkdir -p prompt
+          jq -n --arg sha "$SHA" '{sha:$sha, files:[]}' > prompt/latest-bundle.json
+          for f in $(jq -r '.[]' prompt/changed-in-latest.json); do
+            if git show "$SHA:$f" >/dev/null 2>&1; then
+              # GNU base64 on Ubuntu: -w0 means no line wraps
+              CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
+              jq --arg p "$f" --arg c "$CONTENT_B64" \
+                 '.files += [{"path":$p,"base64":$c}]' \
+                 prompt/latest-bundle.json > prompt/tmp.json && mv prompt/tmp.json prompt/latest-bundle.json
+            fi
+          done
+
       - name: Commit and push artifacts to tracker/dev
         run: |
-          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/snapshots
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/latest-bundle.json prompt/snapshots
           if ! git diff --cached --quiet; then
             git -c "user.name=github-actions[bot]" -c "user.email=41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push origin HEAD:tracker/dev

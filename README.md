@@ -19,3 +19,4 @@ npx expo start
 // tracker test
 // test chain
 // trigger test
+// snapshot test

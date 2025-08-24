@@ -49,9 +49,7 @@ jobs:
             rm -rf .
             mkdir -p prompt
             git add prompt
-            git -c user.name="github-actions[bot]" -c 
-user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              commit -m "chore(tracker): init branch"
+            git -c "user.name=github-actions[bot]" -c "user.email=41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(tracker): init branch"
           fi
 
       - name: Reset workspace for prompt only
@@ -63,24 +61,21 @@ user.email="41898282+github-actions[bot]@users.noreply.github.com" \
         run: |
           jq -n '[]' > prompt/manifest.json
           git ls-files --with-tree=origin/dev \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' 
-\
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
             | while read -r f; do
                 BYTES=$(git cat-file -s "origin/dev:$f" || echo 0)
                 if [ "$BYTES" != "0" ]; then
                   SHA256=$(git show "origin/dev:$f" | sha256sum | cut -d" " -f1)
                   jq --arg path "$f" --argjson bytes "$BYTES" --arg sha "$SHA256" \
                      '. + [{"path":$path,"bytes":$bytes,"sha256":$sha}]' \
-                     prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp 
-prompt/manifest.json
+                     prompt/manifest.json > prompt/manifest.tmp && mv prompt/manifest.tmp prompt/manifest.json
                 fi
               done
 
       - name: Build changed-in-latest.json (diff OLD -> NEW on dev)
         run: |
           git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' 
-\
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
             | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
       - name: Write latest-sha.txt
@@ -100,15 +95,10 @@ prompt/manifest.json
 
       - name: Commit and push artifacts to tracker/dev
         run: |
-          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json 
-prompt/snapshots
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/snapshots
           if ! git diff --cached --quiet; then
-            git -c user.name="github-actions[bot]" -c 
-user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip 
-ci]"
+            git -c "user.name=github-actions[bot]" -c "user.email=41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push origin HEAD:tracker/dev
           else
             echo "No changes to publish."
           fi
-

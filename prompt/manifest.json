@@ -10,11 +10,6 @@
     "sha256": "63d11c7c89daca4ce80214974df559bfc4c6ba708a1ee428a0d0156ae4cebcdc"
   },
   {
-    "path": ".github/ISSUE_TEMPLATE/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
     "path": ".gitignore",
     "bytes": 729,
     "sha256": "d37370b7f637a4a0636f46827aaa0cf959183e4117f8f3aafb456a0eff15e141"
@@ -41,18 +36,13 @@
   },
   {
     "path": "README.md",
-    "bytes": 251,
-    "sha256": "b46eb0aaedb402ac09d4a22b520c2b8bcdd9e59fdbf74416c0bdf77f847ad2fd"
+    "bytes": 391,
+    "sha256": "045aaeee59a83a9acf98effadb5edd55f7c43a8aed18b98dd325bedd651b267a"
   },
   {
     "path": "app.json",
     "bytes": 678,
     "sha256": "4e859590cf8ab9dba9322f0c2a17d70bab92fed1b31e33d7183410e10e6cd241"
-  },
-  {
-    "path": "assets/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "assets/adaptive-icon.png",
@@ -115,69 +105,9 @@
     "sha256": "3d0760f45f93d24947c7dd54d21ae533297266b6218cd2acea85e963b004bdb9"
   },
   {
-    "path": "prompt/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
-    "path": "prompt/MasterPrompt.md",
-    "bytes": 54621,
-    "sha256": "a25ca5acd4a26c983bc7ad5443dbec613c7bca851daf6e55f04b3519772299c1"
-  },
-  {
-    "path": "prompt/changed-in-latest.json",
-    "bytes": 35,
-    "sha256": "6a02825259700f2d14830c9e8fce73ea802c16ae5f3848bb7245ad071989af69"
-  },
-  {
-    "path": "prompt/checklist.md",
-    "bytes": 5789,
-    "sha256": "8510ba3cba2a00452e50788204c8c8ad03c2b8c834d2c354de1546d0705ded5c"
-  },
-  {
-    "path": "prompt/firestore.rules",
-    "bytes": 1181,
-    "sha256": "ebf5a99df8a61c374ecd8bc040b00b54207d70c39131fe424684b661c93005e2"
-  },
-  {
-    "path": "prompt/latest-sha.txt",
-    "bytes": 41,
-    "sha256": "692b6364f27042fd1d58be9ebf5fe876a32b36c5aab91f3c121891e356d3da99"
-  },
-  {
-    "path": "prompt/manifest.json",
-    "bytes": 4080,
-    "sha256": "c7e857349da518ce14a4447a9b135faf985522635472996db939570591c4de74"
-  },
-  {
-    "path": "prompt/mini-manifest.yml",
-    "bytes": 9431,
-    "sha256": "23e660a55b3879f592b8299331a4c93ede13e3efde3f6292d0341eafbb1f4949"
-  },
-  {
-    "path": "prompt/project-overview.txt",
-    "bytes": 1416,
-    "sha256": "3b711ebceadbc1c3b59f990739347ecd74237fe19e60ad85190d095b6ea111d7"
-  },
-  {
-    "path": "src/components/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
     "path": "src/components/VerifyBanner.tsx",
     "bytes": 3001,
     "sha256": "94a0c229b1b874836a5e5b3e76700e9037dc45bca20c231205f1062c684ebe20"
-  },
-  {
-    "path": "src/hooks/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
-    "path": "src/navigation/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "src/navigation/AuthStack.tsx",
@@ -200,14 +130,9 @@
     "sha256": "e7140f6ef2cbddf4f93d409db3eb123dcdd5dbfcf2553e382916ca86dd98015e"
   },
   {
-    "path": "src/screens/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 759,
-    "sha256": "04b6a2559996186cd294dc4fd3372afc0dc766d8131748e561c58313b64d7b9d"
+    "bytes": 799,
+    "sha256": "48c15b8e52ccbbcd5ca688672d8b2ef44fc92b5314e21f8c64291728ce8315dc"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",
@@ -255,11 +180,6 @@
     "sha256": "2535024ebf7b5e0d8631bfc9c8b02657e0520058558953ae4bfce156d9dd26f0"
   },
   {
-    "path": "src/services/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
     "path": "src/services/analytics.ts",
     "bytes": 305,
     "sha256": "290e6ffe7d922f00726d67538b5a325c573af1a546b9efa436ea48d384b06b20"
@@ -273,21 +193,6 @@
     "path": "src/services/firebase.ts",
     "bytes": 1183,
     "sha256": "1e78d1d91edbd95b6da514c0c9d72dd2c853af5d38e925ebe24b6d71699626ca"
-  },
-  {
-    "path": "src/store/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
-    "path": "src/styles/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  {
-    "path": "src/utils/.gitkeep",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "src/utils/i18n.ts",

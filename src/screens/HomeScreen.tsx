@@ -29,3 +29,4 @@ export default function HomeScreen() {
     // this is a test with the updated bundle thing now
   );
 }
+// verify bundle 3.0 , this better work

@@ -356,8 +356,8 @@ npx expo start
 
 
 Phases
-    1.  Project Setup (✅)
-    2.  Navigation & Routing (🚧)
+    1.  Project Setup
+    2.  Navigation & Routing
     3.  Authentication & Firebase
     4.  Home & Discovery
     5.  Search

@@ -127,12 +127,23 @@ jobs:
             exit 1
           fi
 
+      - name: Configure SSH for deploy key
+        env:
+          DEPLOY_KEY: ${{ secrets.TRACKER_DEPLOY_KEY }}
+        run: |
+          install -d -m 700 ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config user.name "tracker-bot"
+          git config user.email "tracker-bot@users.noreply.github.com"
+
       - name: Commit and push artifacts to tracker/dev
         run: |
           git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/latest-bundle.json prompt/snapshots
           if ! git diff --cached --quiet; then
-            git -c "user.name=github-actions[bot]" -c "user.email=41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
-            git push origin HEAD:tracker/dev
+            git commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
+            git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev
           else
             echo "No changes to publish."
           fi

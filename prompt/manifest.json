@@ -10,6 +10,11 @@
     "sha256": "63d11c7c89daca4ce80214974df559bfc4c6ba708a1ee428a0d0156ae4cebcdc"
   },
   {
+    "path": ".github/dependabot.yml",
+    "bytes": 214,
+    "sha256": "8505cc3aa1e2cfcef9044345a9f93f25868ad563141ad60dadae180df8a4cee1"
+  },
+  {
     "path": ".gitignore",
     "bytes": 729,
     "sha256": "d37370b7f637a4a0636f46827aaa0cf959183e4117f8f3aafb456a0eff15e141"
@@ -18,6 +23,11 @@
     "path": ".husky/pre-commit",
     "bytes": 16,
     "sha256": "e2b7c9733375d7182af2033bda9a7d2a05d0db5eef5be53d26eb7b5f3df8fbc3"
+  },
+  {
+    "path": ".nvmrc",
+    "bytes": 8,
+    "sha256": "9e4a98495fccf30bb42ef14acad25fde8d2d550d87c66120ae0478a5cfe2cce1"
   },
   {
     "path": ".prettierignore",
@@ -95,14 +105,9 @@
     "sha256": "8f672286bdb5c5fed3719c3e241911d7ad5ece17fc122a6df2a8202993e31f4d"
   },
   {
-    "path": "package-lock.json",
-    "bytes": 309366,
-    "sha256": "6a1f4a81ba2e919e7a2e455d79cece4a84a9d519d73d0d2985db88fd55661e4f"
-  },
-  {
     "path": "package.json",
-    "bytes": 1652,
-    "sha256": "3d0760f45f93d24947c7dd54d21ae533297266b6218cd2acea85e963b004bdb9"
+    "bytes": 1832,
+    "sha256": "b3183c4b3cbea8f7223b680767a43bbd0576d3d7bd4ba83c51c524322862c054"
   },
   {
     "path": "src/components/VerifyBanner.tsx",
@@ -211,8 +216,8 @@
   },
   {
     "path": "test.txt",
-    "bytes": 7,
-    "sha256": "e621bcce928241db8b0609ac56504cd1e81a1d7d9625d6c00eca21d2de76295d"
+    "bytes": 19,
+    "sha256": "32c18e0f105c739e5cedbd635daed06039d79015c468016f32b1ac83da6cb80e"
   },
   {
     "path": "tsconfig.json",
@@ -221,7 +226,7 @@
   },
   {
     "path": "yarn.lock",
-    "bytes": 330594,
-    "sha256": "8fdea99b19dfc8ff32117209446cf2ee7182a3886a2a820aad58535f726a11a9"
+    "bytes": 330863,
+    "sha256": "2938752f620c5862decb7fed9157839a5d684ae897d1ddf9465494de7f52ebae"
   }
 ]

@@ -13,9 +13,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.19.4'
-      - run: corepack enable
+          cache: 'yarn'
+      - run: corepack enable && corepack prepare yarn@1.22.22 --activate
       - run: yarn --version
       - run: yarn install --frozen-lockfile
-      - run: yarn doctor
+      - run: npx expo-doctor --fix --ci
       - run: yarn typecheck
       - run: yarn lint

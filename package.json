@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "doctor": "expo-doctor --ci",
+    "doctor": "expo-doctor . --ci",
     "format": "prettier --write .",
     "prepare": "husky"
   },

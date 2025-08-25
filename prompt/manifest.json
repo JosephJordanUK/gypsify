@@ -200,6 +200,11 @@
     "sha256": "17c2771e626da0b66180737d0eb94b58746768db46d0b62ed5331c3f9099966e"
   },
   {
+    "path": "src/utils/index.ts",
+    "bytes": 32,
+    "sha256": "1dd325b76b1270749b54007797a29aa722844c919a8719475999c50708596ed6"
+  },
+  {
     "path": "src/utils/storage.ts",
     "bytes": 1086,
     "sha256": "635c1fafc9c3e338a745f048f80d38275eaea70ea7e4943da5bf4e30e698564e"

@@ -106,8 +106,8 @@
   },
   {
     "path": "package.json",
-    "bytes": 1832,
-    "sha256": "b3183c4b3cbea8f7223b680767a43bbd0576d3d7bd4ba83c51c524322862c054"
+    "bytes": 1834,
+    "sha256": "2d7d394f2cde848ef156d027006681ec6a7179de4372b6b486603110688ec562"
   },
   {
     "path": "src/components/VerifyBanner.tsx",

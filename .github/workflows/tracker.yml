@@ -58,6 +58,12 @@ jobs:
           find . -mindepth 1 -maxdepth 1 ! -name ".git" ! -name "prompt" -exec rm -rf {} +
           mkdir -p prompt
 
+      - name: Copy dependency snapshots
+        run: |
+          mkdir -p prompt/deps
+          cp package.json prompt/deps/package.json
+          cp yarn.lock prompt/deps/yarn.lock || true
+
       - name: Build manifest.json (from dev tree)
         run: |
           jq -n '[]' > prompt/manifest.json

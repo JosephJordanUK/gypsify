@@ -99,3 +99,4 @@ Notes
 - Typo likely: `src/docs/ssession-closeout.md` → `session-closeout.md`.
 - Consider moving `src/docs/` to `/docs` so it stays excluded per scope rules.
 # trigger
+# tracker trigger 2025-08-25T16:05:09Z

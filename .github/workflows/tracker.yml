@@ -166,7 +166,7 @@ jobs:
 
       - name: Commit and push artifacts to tracker/dev
         run: |
-          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/latest-bundle.json prompt/snapshots
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/latest-bundle.json prompt/snapshots prompt/deps
           if ! git diff --cached --quiet; then
             git commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev

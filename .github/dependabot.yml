@@ -11,5 +11,6 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "09:00"
+    target-branch: "dev"
     open-pull-requests-limit: 5
     versioning-strategy: increase

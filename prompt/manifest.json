@@ -11,8 +11,8 @@
   },
   {
     "path": ".github/dependabot.yml",
-    "bytes": 214,
-    "sha256": "8505cc3aa1e2cfcef9044345a9f93f25868ad563141ad60dadae180df8a4cee1"
+    "bytes": 213,
+    "sha256": "704c35e9fccbff7c5fc54262c9b061d707b76efdd78c9856484d62faa9070d2d"
   },
   {
     "path": ".gitignore",

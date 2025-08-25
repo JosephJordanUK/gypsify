@@ -9,6 +9,8 @@
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "doctor": "npx expo-doctor --fix --ci",
     "format": "prettier --write .",
     "prepare": "husky"
   },
@@ -54,5 +56,9 @@
     "*.{json,md,css,yml,yaml}": [
       "prettier --write"
     ]
+  },
+    "engines": {
+    "node": "20.19.4",
+    "yarn": "1.22.22"
   }
 }

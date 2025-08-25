@@ -85,6 +85,24 @@ jobs:
             | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
             | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
+      - name: Enforce tracker caps and exclusions
+        run: |
+          set -e
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
+          MAX=$((1024*1024)) # 1 MB
+          BAD='(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'
+          fail=0
+          for f in $CHANGED; do
+            if echo "$f" | grep -Eiq "$BAD"; then
+              echo "FORBIDDEN: $f" && fail=1
+            fi
+            size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
+            if [ "$size" -gt "$MAX" ]; then
+              echo "TOO LARGE: $f (${size} bytes)" && fail=1
+            fi
+          done
+          [ $fail -eq 0 ] || { echo "Tracker policy violation"; exit 1; }
+
       - name: Debug — print OLD/NEW and diff
         run: |
           echo "NEW_SHA=${{ steps.shas.outputs.NEW_SHA }}"

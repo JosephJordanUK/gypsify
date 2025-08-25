@@ -129,14 +129,16 @@ jobs:
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
-          jq -n --arg sha "$SHA" '{sha:$sha, files:[]}' > prompt/latest-bundle.json
+          echo "{\"sha\":\"$SHA\",\"files\":[]}" > prompt/latest-bundle.json
           CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
           for f in $CHANGED; do
             if git show "$SHA:$f" >/dev/null 2>&1; then
               CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
+              tmp=$(mktemp)
               jq --arg p "$f" --arg c "$CONTENT_B64" \
-                 '.files += [{"path":$p,"base64":$c}]' \
-                 prompt/latest-bundle.json > prompt/tmp.json && mv prompt/tmp.json prompt/latest-bundle.json
+                '.files += [{"path":$p,"base64":$c}]' \
+                prompt/latest-bundle.json > "$tmp"
+              mv "$tmp" prompt/latest-bundle.json
             fi
           done
 

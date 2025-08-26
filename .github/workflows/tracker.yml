@@ -211,6 +211,10 @@ jobs:
           rsync -av --exclude='snapshots/' prompt/ hosting/prompt/
           if [ -f firebase.json ]; then cp firebase.json hosting/; fi
 
+          find hosting -type f \( -name "*.json" -o -name "*.md" \) | while read f; do
+            mv "$f" "$f.txt"
+          done
+
       - name: Generate index.html of hosted files
         run: |
           {

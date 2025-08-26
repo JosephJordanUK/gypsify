@@ -86,8 +86,8 @@
   },
   {
     "path": "firebase.json",
-    "bytes": 241,
-    "sha256": "120a72da9b6c24d0ad2a59c1269e86309d30e1b05dded95f10d4b70d42172f3f"
+    "bytes": 1361,
+    "sha256": "1a27eca0b791a917db2078794ea4adf0b7cf3c72328e8bcbb0e1c13d769a9981"
   },
   {
     "path": "firestore.indexes.json",

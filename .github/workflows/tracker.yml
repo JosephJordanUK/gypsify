@@ -211,6 +211,25 @@ jobs:
           cp -r prompt hosting/
           if [ -f firebase.json ]; then cp firebase.json hosting/; fi
 
+      - name: Generate index.html of hosted files
+        run: |
+          {
+            echo "<html><body><h1>Gypsify Tracker Files</h1><ul>"
+            find hosting -type f | while read f; do
+              REL="${f#hosting/}"
+              echo "<li><a href='/$REL'>$REL</a></li>"
+            done
+            echo "</ul></body></html>"
+          } > hosting/index.html
+
+      - name: List hosted URLs
+        run: |
+          echo "Hosted files available at:"
+          find hosting -type f | while read f; do
+            URL="https://gypsify-35447.web.app/${f#hosting/}"
+            echo "$URL"
+          done
+
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:

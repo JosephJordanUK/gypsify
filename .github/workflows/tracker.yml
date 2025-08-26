@@ -10,6 +10,7 @@ on:
       - 'prompt/latest-bundle.json'
       - 'prompt/snapshots/**'
       - '.github/workflows/**'
+  workflow_dispatch:
 
 concurrency:
   group: tracker-dev
@@ -80,14 +81,30 @@ jobs:
                 fi
               done
 
-      # ===== FULL SNAPSHOT MODE START =====
+      # ===== FULL SNAPSHOT MODE =====
 
-      - name: Build full file list (src + prompt) from dev
+      - name: Build full file list (src + prompt + root allowlist)
         run: |
           set -e
+          # 1) src + prompt (exclude tests/docs anywhere, .gitkeep, and tracker artifacts)
           git ls-tree -r --name-only origin/dev -- src prompt \
-            | grep -Ev '^(tests/|docs/)$' \
+            | grep -Eiv '(^|/)(tests|docs)(/|$)' \
+            | grep -Ev '\.gitkeep$' \
+            | grep -Ev '^prompt/(changed-in-latest\.json|latest-sha\.txt|manifest\.json|file-list\.txt|latest-bundle\.json|snapshots/)' \
             > prompt/file-list.txt
+
+          # 2) root allowlist
+          git ls-tree --name-only origin/dev -- . \
+            | grep -E '(\.editorconfig|\.nvmrc|\.prettierignore|\.prettierrc\.json|app\.json|App\.tsx|index\.ts|babel\.config\.(js|cjs|mjs|ts)|eslint\.config\.cjs|metro\.config\.(js|cjs|mjs|ts)|package\.json|tsconfig\.json|README\.md|LICENSE|firebase\.json|firestore\.indexes\.json|\.firebaserc)$' \
+            >> prompt/file-list.txt
+
+          # 3) global excludes
+          sed -i '/^\.env$/d' prompt/file-list.txt
+          sed -i '/^yarn\.lock$/d' prompt/file-list.txt
+          sed -i '/^\.github\//d' prompt/file-list.txt
+
+          # 4) de-dup and clean
+          sort -u prompt/file-list.txt -o prompt/file-list.txt
           sed -i '/^$/d' prompt/file-list.txt
 
       - name: Build changed-in-latest.json (full snapshot mode)
@@ -158,7 +175,7 @@ jobs:
             exit 1
           fi
 
-      # ===== FULL SNAPSHOT MODE END =====
+      # ===== END FULL SNAPSHOT MODE =====
 
       - name: Configure SSH for deploy key
         env:

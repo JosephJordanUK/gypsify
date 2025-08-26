@@ -45,55 +45,68 @@ Repo Tree (current)
 ├─ .env
 ├─ .firebaserc
 ├─ .gitignore
+├─ .nvmrc
 ├─ .prettierignore
 ├─ .prettierrc.json
 ├─ app.json
+├─ App.tsx
 ├─ babel.config.js
 ├─ eslint.config.cjs
 ├─ firebase.json
 ├─ firestore.indexes.json
+├─ index.ts
 ├─ metro.config.js
-├─ package-lock.json
 ├─ package.json
+├─ README.md
 ├─ tsconfig.json
 ├─ yarn.lock
+├─ .github/
+│  ├─ workflows.md
+│  │  ├─ ci.yml
+│  │  ├─ tracker.yml
+│  └─ dependabot.yml
 ├─ prompt/
+│  ├─ changed-in-latest.json
 │  ├─ checklist.md
+│  ├─ file-list.txt
 │  ├─ firestore.rules
+│  ├─ latest-sha.txt
+│  ├─ manifest.json
 │  ├─ MasterPrompt.md
-│  └─ mini-manifest.yml
-├─ src/
-│  ├─ components/
-│  │  └─ VerifyBanner.tsx
-│  ├─ navigation/
-│  │  ├─ AuthStack.tsx
-│  │  ├─ MainTabs.tsx
-│  │  ├─ OnboardingStack.tsx
-│  │  └─ RootNavigator.tsx
-│  ├─ screens/
-│  │  ├─ HomeScreen.tsx
-│  │  ├─ LanguageSelectionScreen.tsx
-│  │  ├─ LibraryScreen.tsx
-│  │  ├─ LoginScreen.tsx
-│  │  ├─ OnboardingScreen.tsx
-│  │  ├─ PasswordResetScreen.tsx
-│  │  ├─ ProfileScreen.tsx
-│  │  ├─ SearchScreen.tsx
-│  │  ├─ SignupScreen.tsx
-│  │  └─ SplashScreen.tsx
-│  ├─ services/
-│  │  ├─ analytics.ts
-│  │  ├─ crashlytics.ts
-│  │  └─ firebase.ts
-│  ├─ utils/
-│  │  ├─ i18n.ts
-│  │  └─ storage.ts
-│  ├─ docs/
-│  │  └─ ssession-closeout.md
-│  ├─ hooks/
-│  ├─ store/
-│  ├─ styles/
-└─ App.tsx
+│  ├─ mini-manifest.yml
+│  └─ project-overview.txt
+└─ src/
+   ├─ components/
+   │  └─ VerifyBanner.tsx
+   ├─ navigation/
+   │  ├─ AuthStack.tsx
+   │  ├─ MainTabs.tsx
+   │  ├─ OnboardingStack.tsx
+   │  └─ RootNavigator.tsx
+   ├─ screens/
+   │  ├─ HomeScreen.tsx
+   │  ├─ LanguageSelectionScreen.tsx
+   │  ├─ LibraryScreen.tsx
+   │  ├─ LoginScreen.tsx
+   │  ├─ OnboardingScreen.tsx
+   │  ├─ PasswordResetScreen.tsx
+   │  ├─ ProfileScreen.tsx
+   │  ├─ SearchScreen.tsx
+   │  ├─ SignupScreen.tsx
+   │  └─ SplashScreen.tsx
+   ├─ services/
+   │  ├─ analytics.ts
+   │  ├─ crashlytics.ts
+   │  └─ firebase.ts
+   ├─ utils/
+   │  ├─ i18n.ts
+   │  └─ storage.ts
+   ├─ docs/
+   │  └─ ssession-closeout.md
+   ├─ hooks/
+   ├─ store/
+   └─ styles/
+
 
 Notes
 - Typo likely: `src/docs/ssession-closeout.md` → `session-closeout.md`.

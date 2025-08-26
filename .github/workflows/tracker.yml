@@ -107,6 +107,39 @@ jobs:
           done
 
       - name: Write per-file JSONs for ALL files (rebuild bundle) and index
+      # NEW: per-file JSONs + index (keeps legacy bundle for now)
+      - name: Write per-file JSONs (bundle/by-path) and index
+        run: |
+          set -e
+          SHA="${{ steps.shas.outputs.NEW_SHA }}"
+          mkdir -p bundle/by-path
+          INDEX="bundle/index.json"
+          echo '{"sha":"'"$SHA"'","files":[]}' > "$INDEX"
+
+          b64() { printf '%s' "$1" | base64 -w0; }
+
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
+          for f in $CHANGED; do
+            if git show "$SHA:$f" >/dev/null 2>&1; then
+              if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
+                continue
+              fi
+              size=$(git cat-file -s "$SHA:$f" || echo 0)
+              if [ "$size" -gt $((1024*1024)) ]; then
+                continue
+              fi
+
+              CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
+              OUT="bundle/by-path/$(b64 "$f").json"
+              printf '{"path":"%s","encoding":"base64","content":"%s"}' "$f" "$CONTENT_B64" > "$OUT"
+
+              tmp=$(mktemp)
+              jq --arg path "$f" --arg href "bundle/by-path/$(b64 "$f").json" \
+                 '.files += [{"path":$path,"href":$href}]' "$INDEX" > "$tmp" && mv "$tmp" "$INDEX"
+            fi
+          done
+
+      - name: Write latest-bundle.json (paths + base64 contents)
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
@@ -162,6 +195,7 @@ jobs:
       - name: Commit and push artifacts to tracker/dev
         run: |
           git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps prompt/latest-bundle.json
           if ! git diff --cached --quiet; then
             git commit -m "chore(tracker): publish per-file artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev

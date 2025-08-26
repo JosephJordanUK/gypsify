@@ -188,9 +188,14 @@ jobs:
           git config user.name "tracker-bot"
           git config user.email "tracker-bot@users.noreply.github.com"
 
+      - name: Copy firebase.json from dev
+        run: |
+          git show origin/dev:firebase.json > firebase.json
+          git add firebase.json
+
       - name: Commit and push artifacts to tracker/dev
         run: |
-          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps firebase.json
           if ! git diff --cached --quiet; then
             git commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev
@@ -204,7 +209,7 @@ jobs:
           mkdir -p hosting
           cp -r bundle hosting/
           cp -r prompt hosting/
-          cp firebase.json hosting/
+          if [ -f firebase.json ]; then cp firebase.json hosting/; fi
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

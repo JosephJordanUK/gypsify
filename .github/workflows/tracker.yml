@@ -218,3 +218,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           projectId: gypsify-35447
           entryPoint: ./
+          channelId: live

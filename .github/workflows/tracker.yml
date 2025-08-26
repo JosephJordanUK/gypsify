@@ -208,6 +208,6 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@v2.2.0
         with:
-          args: deploy --only hosting
+          aargs: deploy --only hosting:gypsify-35447
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

@@ -1,5 +1,5 @@
 {
-  "sha": "f5400f532eaf6d01bc436a6d2641674912fd029d",
+  "sha": "9c794cbe47c603585e430f65a2a205f3bc7efcec",
   "files": [
     {
       "path": ".editorconfig",
@@ -59,7 +59,7 @@
     },
     {
       "path": "firebase.json",
-      "content": "ewogICJmaXJlc3RvcmUiOiB7CiAgICAicnVsZXMiOiAicHJvbXB0L2ZpcmVzdG9yZS5ydWxlcyIsCiAgICAiaW5kZXhlcyI6ICJmaXJlc3RvcmUuaW5kZXhlcy5qc29uIgogIH0sCiAgImhvc3RpbmciOiB7CiAgICAicHVibGljIjogImhvc3RpbmciLAogICAgImlnbm9yZSI6IFsiZmlyZWJhc2UuanNvbiIsICIqKi8uKiIsICIqKi9ub2RlX21vZHVsZXMvKioiXQogIH0KfQo="
+      "content": "ewogICJmaXJlc3RvcmUiOiB7CiAgICAicnVsZXMiOiAicHJvbXB0L2ZpcmVzdG9yZS5ydWxlcyIsCiAgICAiaW5kZXhlcyI6ICJmaXJlc3RvcmUuaW5kZXhlcy5qc29uIgogIH0sCiAgImhvc3RpbmciOiB7CiAgICAic2l0ZSI6ICJneXBzaWZ5LTM1NDQ3IiwKICAgICJwdWJsaWMiOiAiaG9zdGluZyIsCiAgICAiaWdub3JlIjogWyJmaXJlYmFzZS5qc29uIiwgIioqLy4qIiwgIioqL25vZGVfbW9kdWxlcy8qKiJdCiAgfQp9Cg=="
     },
     {
       "path": "firestore.indexes.json",

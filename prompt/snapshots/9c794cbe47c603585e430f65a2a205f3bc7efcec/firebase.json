@@ -1,0 +1,11 @@
+{
+  "firestore": {
+    "rules": "prompt/firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "site": "gypsify-35447",
+    "public": "hosting",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

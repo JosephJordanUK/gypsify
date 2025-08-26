@@ -18,3 +18,4 @@ npx expo start
 Test Firebase deploy
 Test Firebase deploy 2.0
 Test Firebase deploy 3.0
+Test Firebase deploy 4.0

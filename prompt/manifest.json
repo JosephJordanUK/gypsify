@@ -221,8 +221,8 @@
   },
   {
     "path": "test.txt",
-    "bytes": 87,
-    "sha256": "b6e8263567dd3737421dd8309bd3d99da682f2041293598efed92b1d93161629"
+    "bytes": 104,
+    "sha256": "eb982b1c5bf254d62da17ccd67d295eef2146b887643438943a9cfebac184def"
   },
   {
     "path": "tsconfig.json",

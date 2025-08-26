@@ -60,7 +60,7 @@ jobs:
           fi
           # Clean everything except .git and prompt/
           find . -mindepth 1 -maxdepth 1 ! -name ".git" ! -name "prompt" -exec rm -rf {} +
-          mkdir -p prompt
+          mkdir -p prompt bundle
 
       - name: Copy dependency snapshots from dev
         run: |
@@ -106,23 +106,19 @@ jobs:
             git show "${SHA}:${f}" > "prompt/snapshots/${SHA}/${f}" || true
           done
 
-      - name: Write per-file JSONs for ALL files (rebuild bundle) and index
+      - name: Write per-file JSONs and index
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
-          MANIFEST="prompt/manifest.json"
           ROOT_DIR="bundle/by-path"
           INDEX="bundle/index.json"
 
           mkdir -p "$ROOT_DIR"
-          # Clean old payloads to reflect deletions
-          find "$ROOT_DIR" -type f -name '*.json' -print -delete || true
-
           echo '{"sha":"'"$SHA"'","files":[]}' > "$INDEX"
 
           b64() { printf '%s' "$1" | base64 -w0; }
 
-          jq -r '.[].path' "$MANIFEST" | while read -r f; do
+          jq -r '.[].path' prompt/manifest.json | while read -r f; do
             # skip secrets/binaries and >1MB
             if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
               continue
@@ -144,6 +140,57 @@ jobs:
                '.files += [{"path":$path,"href":$href}]' "$INDEX" > "$tmp" && mv "$tmp" "$INDEX"
           done
 
+      - name: Build multi-part all-files bundles (512 KB max each)
+        run: |
+          set -e
+          SHA="${{ steps.shas.outputs.NEW_SHA }}"
+          OUT_DIR="bundle"
+          mkdir -p "$OUT_DIR"
+
+          # Clean old parts
+          find "$OUT_DIR" -maxdepth 1 -type f -name 'all-files-part*.json' -delete || true
+
+          PART=1
+          SIZE=0
+          TMP=$(mktemp)
+          echo '{"sha":"'"$SHA"'","files":[]}' > "$TMP"
+
+          flush_part() {
+            if [ -s "$TMP" ]; then
+              cp "$TMP" "$OUT_DIR/all-files-part${PART}.json"
+              echo "Wrote part $PART"
+              PART=$((PART+1))
+              echo '{"sha":"'"$SHA"'","files":[]}' > "$TMP"
+              SIZE=0
+            fi
+          }
+
+          while read -r f; do
+            if ! git show "origin/dev:$f" >/dev/null 2>&1; then
+              continue
+            fi
+            size=$(git cat-file -s "origin/dev:$f" || echo 0)
+            if [ "$size" -gt $((1024*1024)) ]; then
+              continue
+            fi
+            if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
+              continue
+            fi
+
+            CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
+            ENTRY=$(printf '{"path":"%s","encoding":"base64","content":"%s"}' "$f" "$CONTENT_B64")
+            LEN=${#ENTRY}
+            if [ $((SIZE+LEN)) -gt $((512*1024)) ]; then
+              flush_part
+            fi
+            tmp2=$(mktemp)
+            jq --argjson entry "$ENTRY" '.files += [$entry]' "$TMP" > "$tmp2"
+            mv "$tmp2" "$TMP"
+            SIZE=$((SIZE+LEN))
+          done < <(jq -r '.[].path' prompt/manifest.json)
+
+          flush_part
+
       - name: Remove legacy latest-bundle.json if present
         run: |
           git rm -f prompt/latest-bundle.json || true
@@ -163,7 +210,7 @@ jobs:
         run: |
           git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps
           if ! git diff --cached --quiet; then
-            git commit -m "chore(tracker): publish per-file artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
+            git commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev
           else
             echo "No changes to publish."

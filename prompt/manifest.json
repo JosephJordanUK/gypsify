@@ -46,8 +46,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 224,
-    "sha256": "09e0b4d947a980e66a66c054df23487335935af9a65e2aa24b0098899cc0fb30"
+    "bytes": 223,
+    "sha256": "6f99593a9b89bd4bed0a8bf2bc163306dcff380e9a675b8b08ba4dbf968d691a"
   },
   {
     "path": "app.json",
@@ -106,8 +106,8 @@
   },
   {
     "path": "package.json",
-    "bytes": 1834,
-    "sha256": "2d7d394f2cde848ef156d027006681ec6a7179de4372b6b486603110688ec562"
+    "bytes": 1833,
+    "sha256": "aba5fe44175f5926e4f9d764b25a9a00dcd7eea0917332ce546a3c7bb34be803"
   },
   {
     "path": "src/__tracker_ping__.ts",
@@ -231,7 +231,7 @@
   },
   {
     "path": "yarn.lock",
-    "bytes": 330863,
-    "sha256": "2938752f620c5862decb7fed9157839a5d684ae897d1ddf9465494de7f52ebae"
+    "bytes": 331231,
+    "sha256": "e89388b0a66b24934968d067847c94f43a2dc3845cfe2de2d9690b80d3792c72"
   }
 ]

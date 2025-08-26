@@ -14,3 +14,5 @@ npx expo start
 ```
 
 # test
+
+Test Firebase deploy

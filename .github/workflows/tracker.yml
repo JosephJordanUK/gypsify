@@ -140,7 +140,7 @@ jobs:
           BUNDLE_DIR="bundle/multipart"
           mkdir -p "$BUNDLE_DIR"
 
-          MAX_SIZE=$((512*1024)) # 512 KB
+          MAX_SIZE=$((256*1024)) # 256 KB
           PART=0
           CURRENT_SIZE=0
           OUT_FILE="$BUNDLE_DIR/part-$PART.json"

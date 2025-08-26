@@ -144,52 +144,36 @@ jobs:
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
-          OUT_DIR="bundle"
-          mkdir -p "$OUT_DIR"
+          MANIFEST="prompt/manifest.json"
+          BUNDLE_DIR="bundle/multipart"
+          mkdir -p "$BUNDLE_DIR"
 
-          # Clean old parts
-          find "$OUT_DIR" -maxdepth 1 -type f -name 'all-files-part*.json' -delete || true
+          MAX_SIZE=$((512*1024)) # 512 KB
+          PART=0
+          CURRENT_SIZE=0
+          OUT_FILE="$BUNDLE_DIR/part-$PART.json"
+          echo '{"sha":"'"$SHA"'","files":[]}' > "$OUT_FILE"
 
-          PART=1
-          SIZE=0
-          TMP=$(mktemp)
-          echo '{"sha":"'"$SHA"'","files":[]}' > "$TMP"
+          # Stream paths one-by-one instead of all at once
+          jq -r '.[].path' "$MANIFEST" | while read -r f; do
+            if git show "origin/dev:$f" >/dev/null 2>&1; then
+              CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
+              ENTRY=$(printf '{"path":"%s","content":"%s"}' "$f" "$CONTENT_B64")
+              SIZE=$(printf %s "$ENTRY" | wc -c)
 
-          flush_part() {
-            if [ -s "$TMP" ]; then
-              cp "$TMP" "$OUT_DIR/all-files-part${PART}.json"
-              echo "Wrote part $PART"
-              PART=$((PART+1))
-              echo '{"sha":"'"$SHA"'","files":[]}' > "$TMP"
-              SIZE=0
+              if [ $((CURRENT_SIZE + SIZE)) -gt $MAX_SIZE ]; then
+                # Start new part
+                PART=$((PART+1))
+                OUT_FILE="$BUNDLE_DIR/part-$PART.json"
+                echo '{"sha":"'"$SHA"'","files":[]}' > "$OUT_FILE"
+                CURRENT_SIZE=0
+              fi
+
+              tmp=$(mktemp)
+              jq --argjson entry "$ENTRY" '.files += [$entry]' "$OUT_FILE" > "$tmp" && mv "$tmp" "$OUT_FILE"
+              CURRENT_SIZE=$((CURRENT_SIZE + SIZE))
             fi
-          }
-
-          while read -r f; do
-            if ! git show "origin/dev:$f" >/dev/null 2>&1; then
-              continue
-            fi
-            size=$(git cat-file -s "origin/dev:$f" || echo 0)
-            if [ "$size" -gt $((1024*1024)) ]; then
-              continue
-            fi
-            if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
-              continue
-            fi
-
-            CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
-            ENTRY=$(printf '{"path":"%s","encoding":"base64","content":"%s"}' "$f" "$CONTENT_B64")
-            LEN=${#ENTRY}
-            if [ $((SIZE+LEN)) -gt $((512*1024)) ]; then
-              flush_part
-            fi
-            tmp2=$(mktemp)
-            jq --argjson entry "$ENTRY" '.files += [$entry]' "$TMP" > "$tmp2"
-            mv "$tmp2" "$TMP"
-            SIZE=$((SIZE+LEN))
-          done < <(jq -r '.[].path' prompt/manifest.json)
-
-          flush_part
+          done
 
       - name: Remove legacy latest-bundle.json if present
         run: |

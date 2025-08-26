@@ -12,4 +12,3 @@ yarn
 yarn lint
 npx expo start
 ```
-

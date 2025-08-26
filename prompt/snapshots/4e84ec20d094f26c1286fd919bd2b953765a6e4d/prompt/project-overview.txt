@@ -1,0 +1,102 @@
+Gypsify — Project Overview (dev)
+2025-08-24
+
+Status
+- Current phase: Phase 3 — Authentication & Firebase
+- Recent changes: MasterPrompt updated; checklist.md v1.2.0; mini-manifest normalized to raw permalinks
+- Scope guardrails: Only /src and /prompt in scope (tests/ and docs/ excluded)
+
+Next Actions (Phase 3)
+- Firestore user schema doc + seed stub (admin, artist, listener)
+- Google OAuth (web client ID, iOS URL scheme, Android SHA-256)
+- Apple Sign-In (capability, Services ID, return URL)
+- Profile CRUD (avatar upload validation, username unique, bio limits; optimistic UI)
+- VerifyBanner integrated when !emailVerified; CTA opens mail; resend throttled
+- Security rules tests on emulator (role × action matrix)
+- Analytics DebugView check (auth funnel); Crashlytics non-fatal smoke
+- userSlice with redux-persist; migrations stub at src/services/migrations/
+
+Environment & Keys
+- EXPO_PUBLIC_* flags
+- Firebase web config
+- Google: web client ID + reversed iOS URL scheme + Android SHA-256
+- Apple: Services ID + return URL
+- .env.development / .env.production present
+
+Toolchain
+- Node 20.19.4 • Yarn 1.22.22 • Expo SDK 53.x
+- TS strict + @/* alias • ESLint + Prettier • NativeWind/Tailwind
+
+Quality Gates
+- Step Gate + Definition of Done from checklist.md
+- Accessibility quick pass • Bundle gz < 1.8 MB • Least-privilege rules • No PII in logs
+
+Key Links
+- MasterPrompt: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/MasterPrompt.md
+- Checklist:     https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
+- Mini-manifest: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
+
+Tracker
+- Refresh tracker/dev artifacts after the next commit (latest-sha.txt, changed-in-latest.json, latest-bundle.json)
+
+Repo Tree (current)
+/
+├─ .editorconfig
+├─ .env
+├─ .firebaserc
+├─ .gitignore
+├─ .prettierignore
+├─ .prettierrc.json
+├─ app.json
+├─ babel.config.js
+├─ eslint.config.cjs
+├─ firebase.json
+├─ firestore.indexes.json
+├─ metro.config.js
+├─ package-lock.json
+├─ package.json
+├─ tsconfig.json
+├─ yarn.lock
+├─ prompt/
+│  ├─ checklist.md
+│  ├─ firestore.rules
+│  ├─ MasterPrompt.md
+│  └─ mini-manifest.yml
+├─ src/
+│  ├─ components/
+│  │  └─ VerifyBanner.tsx
+│  ├─ navigation/
+│  │  ├─ AuthStack.tsx
+│  │  ├─ MainTabs.tsx
+│  │  ├─ OnboardingStack.tsx
+│  │  └─ RootNavigator.tsx
+│  ├─ screens/
+│  │  ├─ HomeScreen.tsx
+│  │  ├─ LanguageSelectionScreen.tsx
+│  │  ├─ LibraryScreen.tsx
+│  │  ├─ LoginScreen.tsx
+│  │  ├─ OnboardingScreen.tsx
+│  │  ├─ PasswordResetScreen.tsx
+│  │  ├─ ProfileScreen.tsx
+│  │  ├─ SearchScreen.tsx
+│  │  ├─ SignupScreen.tsx
+│  │  └─ SplashScreen.tsx
+│  ├─ services/
+│  │  ├─ analytics.ts
+│  │  ├─ crashlytics.ts
+│  │  └─ firebase.ts
+│  ├─ utils/
+│  │  ├─ i18n.ts
+│  │  └─ storage.ts
+│  ├─ docs/
+│  │  └─ ssession-closeout.md
+│  ├─ hooks/
+│  ├─ store/
+│  ├─ styles/
+└─ App.tsx
+
+Notes
+- Typo likely: `src/docs/ssession-closeout.md` → `session-closeout.md`.
+- Consider moving `src/docs/` to `/docs` so it stays excluded per scope rules.
+# trigger
+# tracker trigger 2025-08-25T16:05:09Z

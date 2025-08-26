@@ -10,9 +10,9 @@
     "sha256": "63d11c7c89daca4ce80214974df559bfc4c6ba708a1ee428a0d0156ae4cebcdc"
   },
   {
-    "path": ".github/dependabot.yml",
-    "bytes": 213,
-    "sha256": "704c35e9fccbff7c5fc54262c9b061d707b76efdd78c9856484d62faa9070d2d"
+    "path": ".github/ISSUE_TEMPLATE/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": ".gitignore",
@@ -23,11 +23,6 @@
     "path": ".husky/pre-commit",
     "bytes": 16,
     "sha256": "e2b7c9733375d7182af2033bda9a7d2a05d0db5eef5be53d26eb7b5f3df8fbc3"
-  },
-  {
-    "path": ".nvmrc",
-    "bytes": 8,
-    "sha256": "9e4a98495fccf30bb42ef14acad25fde8d2d550d87c66120ae0478a5cfe2cce1"
   },
   {
     "path": ".prettierignore",
@@ -46,13 +41,18 @@
   },
   {
     "path": "README.md",
-    "bytes": 224,
-    "sha256": "09e0b4d947a980e66a66c054df23487335935af9a65e2aa24b0098899cc0fb30"
+    "bytes": 251,
+    "sha256": "b46eb0aaedb402ac09d4a22b520c2b8bcdd9e59fdbf74416c0bdf77f847ad2fd"
   },
   {
     "path": "app.json",
     "bytes": 678,
     "sha256": "4e859590cf8ab9dba9322f0c2a17d70bab92fed1b31e33d7183410e10e6cd241"
+  },
+  {
+    "path": "assets/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "assets/adaptive-icon.png",
@@ -105,19 +105,79 @@
     "sha256": "8f672286bdb5c5fed3719c3e241911d7ad5ece17fc122a6df2a8202993e31f4d"
   },
   {
-    "path": "package.json",
-    "bytes": 1834,
-    "sha256": "2d7d394f2cde848ef156d027006681ec6a7179de4372b6b486603110688ec562"
+    "path": "package-lock.json",
+    "bytes": 309366,
+    "sha256": "6a1f4a81ba2e919e7a2e455d79cece4a84a9d519d73d0d2985db88fd55661e4f"
   },
   {
-    "path": "src/__tracker_ping__.ts",
-    "bytes": 45,
-    "sha256": "6a7bae6dcdf61120270a88eaa05cea08587960c1d99a0d9f81665f9998a7c833"
+    "path": "package.json",
+    "bytes": 1652,
+    "sha256": "3d0760f45f93d24947c7dd54d21ae533297266b6218cd2acea85e963b004bdb9"
+  },
+  {
+    "path": "prompt/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "prompt/MasterPrompt.md",
+    "bytes": 54621,
+    "sha256": "a25ca5acd4a26c983bc7ad5443dbec613c7bca851daf6e55f04b3519772299c1"
+  },
+  {
+    "path": "prompt/changed-in-latest.json",
+    "bytes": 35,
+    "sha256": "6a02825259700f2d14830c9e8fce73ea802c16ae5f3848bb7245ad071989af69"
+  },
+  {
+    "path": "prompt/checklist.md",
+    "bytes": 5789,
+    "sha256": "8510ba3cba2a00452e50788204c8c8ad03c2b8c834d2c354de1546d0705ded5c"
+  },
+  {
+    "path": "prompt/firestore.rules",
+    "bytes": 1181,
+    "sha256": "ebf5a99df8a61c374ecd8bc040b00b54207d70c39131fe424684b661c93005e2"
+  },
+  {
+    "path": "prompt/latest-sha.txt",
+    "bytes": 41,
+    "sha256": "692b6364f27042fd1d58be9ebf5fe876a32b36c5aab91f3c121891e356d3da99"
+  },
+  {
+    "path": "prompt/manifest.json",
+    "bytes": 4080,
+    "sha256": "c7e857349da518ce14a4447a9b135faf985522635472996db939570591c4de74"
+  },
+  {
+    "path": "prompt/mini-manifest.yml",
+    "bytes": 9431,
+    "sha256": "23e660a55b3879f592b8299331a4c93ede13e3efde3f6292d0341eafbb1f4949"
+  },
+  {
+    "path": "prompt/project-overview.txt",
+    "bytes": 1416,
+    "sha256": "3b711ebceadbc1c3b59f990739347ecd74237fe19e60ad85190d095b6ea111d7"
+  },
+  {
+    "path": "src/components/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "src/components/VerifyBanner.tsx",
     "bytes": 3001,
     "sha256": "94a0c229b1b874836a5e5b3e76700e9037dc45bca20c231205f1062c684ebe20"
+  },
+  {
+    "path": "src/hooks/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "src/navigation/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "src/navigation/AuthStack.tsx",
@@ -140,9 +200,14 @@
     "sha256": "e7140f6ef2cbddf4f93d409db3eb123dcdd5dbfcf2553e382916ca86dd98015e"
   },
   {
+    "path": "src/screens/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
     "path": "src/screens/HomeScreen.tsx",
-    "bytes": 758,
-    "sha256": "c00efefe7bebdaa25716805618e6c77692098c09416730a37f1d7e44b6cbc9e4"
+    "bytes": 759,
+    "sha256": "04b6a2559996186cd294dc4fd3372afc0dc766d8131748e561c58313b64d7b9d"
   },
   {
     "path": "src/screens/LanguageSelectionScreen.tsx",
@@ -176,8 +241,8 @@
   },
   {
     "path": "src/screens/SearchScreen.tsx",
-    "bytes": 266,
-    "sha256": "6028249303ec78dc03173f480d5b31dcc7c620612d44d51e556529aa64fbb3d7"
+    "bytes": 247,
+    "sha256": "01d5f7c2adbafda3ed80cf642b6d64b0d69edb73e2e7818289b349fccf7c815e"
   },
   {
     "path": "src/screens/SignupScreen.tsx",
@@ -188,6 +253,11 @@
     "path": "src/screens/SplashScreen.tsx",
     "bytes": 1683,
     "sha256": "2535024ebf7b5e0d8631bfc9c8b02657e0520058558953ae4bfce156d9dd26f0"
+  },
+  {
+    "path": "src/services/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   {
     "path": "src/services/analytics.ts",
@@ -205,14 +275,24 @@
     "sha256": "1e78d1d91edbd95b6da514c0c9d72dd2c853af5d38e925ebe24b6d71699626ca"
   },
   {
+    "path": "src/store/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "src/styles/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "src/utils/.gitkeep",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
     "path": "src/utils/i18n.ts",
     "bytes": 6551,
     "sha256": "17c2771e626da0b66180737d0eb94b58746768db46d0b62ed5331c3f9099966e"
-  },
-  {
-    "path": "src/utils/index.ts",
-    "bytes": 32,
-    "sha256": "1dd325b76b1270749b54007797a29aa722844c919a8719475999c50708596ed6"
   },
   {
     "path": "src/utils/storage.ts",
@@ -221,8 +301,8 @@
   },
   {
     "path": "test.txt",
-    "bytes": 19,
-    "sha256": "32c18e0f105c739e5cedbd635daed06039d79015c468016f32b1ac83da6cb80e"
+    "bytes": 7,
+    "sha256": "e621bcce928241db8b0609ac56504cd1e81a1d7d9625d6c00eca21d2de76295d"
   },
   {
     "path": "tsconfig.json",
@@ -231,7 +311,7 @@
   },
   {
     "path": "yarn.lock",
-    "bytes": 330863,
-    "sha256": "2938752f620c5862decb7fed9157839a5d684ae897d1ddf9465494de7f52ebae"
+    "bytes": 330594,
+    "sha256": "8fdea99b19dfc8ff32117209446cf2ee7182a3886a2a820aad58535f726a11a9"
   }
 ]

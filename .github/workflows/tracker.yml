@@ -206,3 +206,18 @@ jobs:
       - name: Trigger Vercel deploy
         run: |
           curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_pvH6K5tIiYvOqe6NIm7dxU9jc4sC/FyFmZnKjlj"
+
+      - name: Prepare Firebase hosting folder
+        run: |
+          rm -rf hosting
+          mkdir -p hosting
+          cp -r bundle hosting/
+          cp -r prompt hosting/
+          cp vercel.json hosting/ || true
+
+      - name: Deploy to Firebase Hosting
+        uses: w9jds/firebase-action@v2.2.0
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

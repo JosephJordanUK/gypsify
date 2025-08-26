@@ -1,9 +1,177 @@
 {
-  "sha": "fddc93db026b27d97f2a6f5f060ec6f80e91f01f",
+  "sha": "a55f21c24013213f201ad863d5492dd9d413ad2c",
   "files": [
+    {
+      "path": ".editorconfig",
+      "href": "bundle/by-path/LmVkaXRvcmNvbmZpZw==.json"
+    },
+    {
+      "path": ".firebaserc",
+      "href": "bundle/by-path/LmZpcmViYXNlcmM=.json"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "href": "bundle/by-path/LmdpdGh1Yi9kZXBlbmRhYm90LnltbA==.json"
+    },
+    {
+      "path": ".gitignore",
+      "href": "bundle/by-path/LmdpdGlnbm9yZQ==.json"
+    },
+    {
+      "path": ".husky/pre-commit",
+      "href": "bundle/by-path/Lmh1c2t5L3ByZS1jb21taXQ=.json"
+    },
+    {
+      "path": ".nvmrc",
+      "href": "bundle/by-path/Lm52bXJj.json"
+    },
+    {
+      "path": ".prettierignore",
+      "href": "bundle/by-path/LnByZXR0aWVyaWdub3Jl.json"
+    },
+    {
+      "path": ".prettierrc.json",
+      "href": "bundle/by-path/LnByZXR0aWVycmMuanNvbg==.json"
+    },
+    {
+      "path": "App.tsx",
+      "href": "bundle/by-path/QXBwLnRzeA==.json"
+    },
+    {
+      "path": "README.md",
+      "href": "bundle/by-path/UkVBRE1FLm1k.json"
+    },
+    {
+      "path": "app.json",
+      "href": "bundle/by-path/YXBwLmpzb24=.json"
+    },
+    {
+      "path": "babel.config.js",
+      "href": "bundle/by-path/YmFiZWwuY29uZmlnLmpz.json"
+    },
+    {
+      "path": "eslint.config.cjs",
+      "href": "bundle/by-path/ZXNsaW50LmNvbmZpZy5janM=.json"
+    },
+    {
+      "path": "firebase.json",
+      "href": "bundle/by-path/ZmlyZWJhc2UuanNvbg==.json"
+    },
+    {
+      "path": "firestore.indexes.json",
+      "href": "bundle/by-path/ZmlyZXN0b3JlLmluZGV4ZXMuanNvbg==.json"
+    },
+    {
+      "path": "index.ts",
+      "href": "bundle/by-path/aW5kZXgudHM=.json"
+    },
+    {
+      "path": "metro.config.js",
+      "href": "bundle/by-path/bWV0cm8uY29uZmlnLmpz.json"
+    },
+    {
+      "path": "package.json",
+      "href": "bundle/by-path/cGFja2FnZS5qc29u.json"
+    },
+    {
+      "path": "src/__tracker_ping__.ts",
+      "href": "bundle/by-path/c3JjL19fdHJhY2tlcl9waW5nX18udHM=.json"
+    },
+    {
+      "path": "src/components/VerifyBanner.tsx",
+      "href": "bundle/by-path/c3JjL2NvbXBvbmVudHMvVmVyaWZ5QmFubmVyLnRzeA==.json"
+    },
+    {
+      "path": "src/navigation/AuthStack.tsx",
+      "href": "bundle/by-path/c3JjL25hdmlnYXRpb24vQXV0aFN0YWNrLnRzeA==.json"
+    },
+    {
+      "path": "src/navigation/MainTabs.tsx",
+      "href": "bundle/by-path/c3JjL25hdmlnYXRpb24vTWFpblRhYnMudHN4.json"
+    },
+    {
+      "path": "src/navigation/OnboardingStack.tsx",
+      "href": "bundle/by-path/c3JjL25hdmlnYXRpb24vT25ib2FyZGluZ1N0YWNrLnRzeA==.json"
+    },
+    {
+      "path": "src/navigation/RootNavigator.tsx",
+      "href": "bundle/by-path/c3JjL25hdmlnYXRpb24vUm9vdE5hdmlnYXRvci50c3g=.json"
+    },
+    {
+      "path": "src/screens/HomeScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvSG9tZVNjcmVlbi50c3g=.json"
+    },
+    {
+      "path": "src/screens/LanguageSelectionScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvTGFuZ3VhZ2VTZWxlY3Rpb25TY3JlZW4udHN4.json"
+    },
+    {
+      "path": "src/screens/LibraryScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvTGlicmFyeVNjcmVlbi50c3g=.json"
+    },
+    {
+      "path": "src/screens/LoginScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvTG9naW5TY3JlZW4udHN4.json"
+    },
+    {
+      "path": "src/screens/OnboardingScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvT25ib2FyZGluZ1NjcmVlbi50c3g=.json"
+    },
+    {
+      "path": "src/screens/PasswordResetScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvUGFzc3dvcmRSZXNldFNjcmVlbi50c3g=.json"
+    },
+    {
+      "path": "src/screens/ProfileScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvUHJvZmlsZVNjcmVlbi50c3g=.json"
+    },
+    {
+      "path": "src/screens/SearchScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvU2VhcmNoU2NyZWVuLnRzeA==.json"
+    },
+    {
+      "path": "src/screens/SignupScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvU2lnbnVwU2NyZWVuLnRzeA==.json"
+    },
+    {
+      "path": "src/screens/SplashScreen.tsx",
+      "href": "bundle/by-path/c3JjL3NjcmVlbnMvU3BsYXNoU2NyZWVuLnRzeA==.json"
+    },
+    {
+      "path": "src/services/analytics.ts",
+      "href": "bundle/by-path/c3JjL3NlcnZpY2VzL2FuYWx5dGljcy50cw==.json"
+    },
+    {
+      "path": "src/services/crashlytics.ts",
+      "href": "bundle/by-path/c3JjL3NlcnZpY2VzL2NyYXNobHl0aWNzLnRz.json"
+    },
+    {
+      "path": "src/services/firebase.ts",
+      "href": "bundle/by-path/c3JjL3NlcnZpY2VzL2ZpcmViYXNlLnRz.json"
+    },
+    {
+      "path": "src/utils/i18n.ts",
+      "href": "bundle/by-path/c3JjL3V0aWxzL2kxOG4udHM=.json"
+    },
+    {
+      "path": "src/utils/index.ts",
+      "href": "bundle/by-path/c3JjL3V0aWxzL2luZGV4LnRz.json"
+    },
+    {
+      "path": "src/utils/storage.ts",
+      "href": "bundle/by-path/c3JjL3V0aWxzL3N0b3JhZ2UudHM=.json"
+    },
     {
       "path": "test.txt",
       "href": "bundle/by-path/dGVzdC50eHQ=.json"
+    },
+    {
+      "path": "tsconfig.json",
+      "href": "bundle/by-path/dHNjb25maWcuanNvbg==.json"
+    },
+    {
+      "path": "yarn.lock",
+      "href": "bundle/by-path/eWFybi5sb2Nr.json"
     }
   ]
 }

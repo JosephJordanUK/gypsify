@@ -1,5 +1,5 @@
 {
-  "sha": "4943115315a1dc46209d7ba146d2673ef1c68bd0",
+  "sha": "ed312173262a841afb7df05a9a11fbbac55b69b4",
   "files": [
     {
       "path": ".editorconfig",
@@ -44,6 +44,22 @@
     {
       "path": "app.json",
       "href": "bundle/by-path/YXBwLmpzb24=.json"
+    },
+    {
+      "path": "assets/adaptive-icon.png",
+      "href": "bundle/by-path/YXNzZXRzL2FkYXB0aXZlLWljb24ucG5n.json"
+    },
+    {
+      "path": "assets/favicon.png",
+      "href": "bundle/by-path/YXNzZXRzL2Zhdmljb24ucG5n.json"
+    },
+    {
+      "path": "assets/icon.png",
+      "href": "bundle/by-path/YXNzZXRzL2ljb24ucG5n.json"
+    },
+    {
+      "path": "assets/splash-icon.png",
+      "href": "bundle/by-path/YXNzZXRzL3NwbGFzaC1pY29uLnBuZw==.json"
     },
     {
       "path": "babel.config.js",

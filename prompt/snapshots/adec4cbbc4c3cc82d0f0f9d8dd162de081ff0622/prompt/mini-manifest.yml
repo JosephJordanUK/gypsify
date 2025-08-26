@@ -1,0 +1,157 @@
+manifest:
+  prompt/checklist.md:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
+    description: Execution checklist
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  prompt/firestore.rules:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/firestore.rules
+    description: Firestore security rules (reference copy)
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  prompt/MasterPrompt.md:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/MasterPrompt.md
+    description: Master system prompt defining workflow
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  prompt/mini-manifest.yml:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
+    description: File tracking checkpoint for prompt/ and src/
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  prompt/project-overview.txt:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/project-overview.txt
+    description: High-level project overview
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  App.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/App.tsx
+    description: Application entrypoint
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/components/VerifyBanner.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/components/VerifyBanner.tsx
+    description: Banner prompting email verification
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/navigation/AuthStack.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/AuthStack.tsx
+    description: Authentication flow stack
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/navigation/MainTabs.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/MainTabs.tsx
+    description: Main application tab navigator
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/navigation/OnboardingStack.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/OnboardingStack.tsx
+    description: Onboarding flow stack
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/navigation/RootNavigator.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/navigation/RootNavigator.tsx
+    description: Root navigation container and gate
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/HomeScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/HomeScreen.tsx
+    description: Home feed surface
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/LanguageSelectionScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LanguageSelectionScreen.tsx
+    description: Language selection UI
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/LibraryScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LibraryScreen.tsx
+    description: Saved items and library
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/LoginScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/LoginScreen.tsx
+    description: Login UI and handlers
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/OnboardingScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/OnboardingScreen.tsx
+    description: Onboarding carousel or intro
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/PasswordResetScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/PasswordResetScreen.tsx
+    description: Password reset UI and flow
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/ProfileScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/ProfileScreen.tsx
+    description: User profile and settings
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/SearchScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SearchScreen.tsx
+    description: Search UI and results
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/SignupScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SignupScreen.tsx
+    description: Signup UI and handlers
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/screens/SplashScreen.tsx:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/screens/SplashScreen.tsx
+    description: App splash and bootstrap logic
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/services/analytics.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/analytics.ts
+    description: Analytics helpers and wrappers
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/services/crashlytics.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/crashlytics.ts
+    description: Crashlytics helpers and wrappers
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/services/firebase.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/services/firebase.ts
+    description: Firebase initialization and exports
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/utils/i18n.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/i18n.ts
+    description: i18n setup and resources loader
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+
+  src/utils/storage.ts:
+    permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/src/utils/storage.ts
+    description: Async storage helpers
+    lastUpdated: 2025-08-24
+    version: 1.0.0
+    

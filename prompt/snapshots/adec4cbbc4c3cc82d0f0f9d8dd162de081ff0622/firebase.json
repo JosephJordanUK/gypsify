@@ -1,0 +1,6 @@
+{
+  "firestore": {
+    "rules": "prompt/firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}

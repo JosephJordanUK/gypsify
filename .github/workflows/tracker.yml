@@ -208,7 +208,7 @@ jobs:
           rm -rf hosting
           mkdir -p hosting
           cp -r bundle hosting/
-          cp -r prompt hosting/
+          rsync -av --exclude='snapshots/' prompt/ hosting/prompt/
           if [ -f firebase.json ]; then cp firebase.json hosting/; fi
 
       - name: Generate index.html of hosted files

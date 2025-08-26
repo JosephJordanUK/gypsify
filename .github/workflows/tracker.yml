@@ -154,15 +154,13 @@ jobs:
           OUT_FILE="$BUNDLE_DIR/part-$PART.json"
           echo '{"sha":"'"$SHA"'","files":[]}' > "$OUT_FILE"
 
-          # Stream paths one-by-one instead of all at once
           jq -r '.[].path' "$MANIFEST" | while read -r f; do
             if git show "origin/dev:$f" >/dev/null 2>&1; then
               CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
-              ENTRY=$(printf '{"path":"%s","content":"%s"}' "$f" "$CONTENT_B64")
-              SIZE=$(printf %s "$ENTRY" | wc -c)
+              ENTRY=$(jq -n --arg path "$f" --arg content "$CONTENT_B64" '{path:$path, content:$content}')
+              SIZE=$(echo "$ENTRY" | wc -c)
 
               if [ $((CURRENT_SIZE + SIZE)) -gt $MAX_SIZE ]; then
-                # Start new part
                 PART=$((PART+1))
                 OUT_FILE="$BUNDLE_DIR/part-$PART.json"
                 echo '{"sha":"'"$SHA"'","files":[]}' > "$OUT_FILE"

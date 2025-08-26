@@ -3,7 +3,7 @@
   "files": [
     {
       "path": "test.txt",
-      "base64": "IyB0ZXN0CmFub3RoZXIgdGVzdDE3NTYxODE5NDAK"
+      "href": "bundle/by-path/dGVzdC50eHQ=.json"
     }
   ]
 }

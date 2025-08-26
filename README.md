@@ -16,3 +16,4 @@ npx expo start
 # test
 
 Test Firebase deploy
+Test Firebase deploy 2.0

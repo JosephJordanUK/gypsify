@@ -1,5 +1,5 @@
 {
-  "sha": "84edbf47f3b5616711041458923e4daba561795c",
+  "sha": "05c715aee7d9a3c5ffa08236cd729a234fcc7c3e",
   "files": [
     {
       "path": "src/services/firebase.ts",
@@ -20,6 +20,10 @@
     {
       "path": "tsconfig.json",
       "content": "ewogICJleHRlbmRzIjogImV4cG8vdHNjb25maWcuYmFzZSIsCiAgImNvbXBpbGVyT3B0aW9ucyI6IHsKICAgICJza2lwTGliQ2hlY2siOiB0cnVlLAogICAgIm1vZHVsZVJlc29sdXRpb24iOiAiYnVuZGxlciIsCiAgICAicGF0aHMiOiB7CiAgICAgICJmaXJlYmFzZS9hdXRoIjogWyIuL25vZGVfbW9kdWxlcy9AZmlyZWJhc2UvYXV0aC9kaXN0L2luZGV4LnJuLmQudHMiXQogICAgfQogIH0sCiAgImluY2x1ZGUiOiBbIioqLyoudHMiLCAiKiovKi50c3giXQp9Cg=="
+    },
+    {
+      "path": "vercel.json",
+      "content": "ewogICJ2ZXJzaW9uIjogMiwKICAiYnVpbGRzIjogW3sgInNyYyI6ICIqKiIsICJ1c2UiOiAiQHZlcmNlbC9zdGF0aWMiIH1dCn0K"
     }
   ]
 }

@@ -230,6 +230,11 @@
     "sha256": "03b84398d25ca671401b7a605dcab6326c5c032e48ecc79f4cd606613ff30959"
   },
   {
+    "path": "vercel.json",
+    "bytes": 75,
+    "sha256": "2d711d471ef0e8ee96fb19efc9eefa83b0eb3555f35b9b960607dc38f171e1fd"
+  },
+  {
     "path": "yarn.lock",
     "bytes": 330862,
     "sha256": "a854cde258a0af6875ca71585ae0c1003a29707f2a5b831414c6c9d9134e437d"

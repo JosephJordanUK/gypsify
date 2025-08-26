@@ -204,6 +204,7 @@ jobs:
           mkdir -p hosting
           cp -r bundle hosting/
           cp -r prompt hosting/
+          cp firebase.json hosting/
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

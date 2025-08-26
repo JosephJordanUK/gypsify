@@ -14,6 +14,7 @@ jobs:
         with:
           node-version: '20.19.4'
           cache: 'yarn'
+          check-latest: true
       - run: corepack enable && corepack prepare yarn@1.22.22 --activate
       - run: yarn --version
       - run: yarn install --frozen-lockfile

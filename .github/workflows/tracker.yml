@@ -10,7 +10,6 @@ on:
       - 'prompt/latest-bundle.json'
       - 'prompt/snapshots/**'
       - '.github/workflows/**'
-  workflow_dispatch:
 
 concurrency:
   group: tracker-dev
@@ -22,7 +21,6 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -81,101 +79,111 @@ jobs:
                 fi
               done
 
-      # ===== FULL SNAPSHOT MODE =====
+      - name: Build changed-in-latest.json (diff OLD -> NEW on dev)
+        run: |
+          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
+            | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
 
-      - name: Build full file list (src + prompt + root allowlist)
+      - name: Enforce tracker caps and exclusions
         run: |
           set -e
-          # 1) src + prompt (exclude tests/docs anywhere, .gitkeep, and tracker artifacts)
-          git ls-tree -r --name-only origin/dev -- src prompt \
-            | grep -Eiv '(^|/)(tests|docs)(/|$)' \
-            | grep -Ev '\.gitkeep$' \
-            | grep -Ev '^prompt/(changed-in-latest\.json|latest-sha\.txt|manifest\.json|file-list\.txt|latest-bundle\.json|snapshots/)' \
-            > prompt/file-list.txt
-
-          # 2) root allowlist
-          git ls-tree --name-only origin/dev -- . \
-            | grep -E '(\.editorconfig|\.nvmrc|\.prettierignore|\.prettierrc\.json|app\.json|App\.tsx|index\.ts|babel\.config\.(js|cjs|mjs|ts)|eslint\.config\.cjs|metro\.config\.(js|cjs|mjs|ts)|package\.json|tsconfig\.json|README\.md|LICENSE|firebase\.json|firestore\.indexes\.json|\.firebaserc)$' \
-            >> prompt/file-list.txt
-
-          # 3) global excludes
-          sed -i '/^\.env$/d' prompt/file-list.txt
-          sed -i '/^yarn\.lock$/d' prompt/file-list.txt
-          sed -i '/^\.github\//d' prompt/file-list.txt
-
-          # 4) de-dup and clean
-          sort -u prompt/file-list.txt -o prompt/file-list.txt
-          sed -i '/^$/d' prompt/file-list.txt
-
-      - name: Build changed-in-latest.json (full snapshot mode)
-        run: |
-          jq -R -s 'split("\n") | map(select(length>0))' prompt/file-list.txt \
-            > prompt/changed-in-latest.json
-
-      - name: Enforce tracker caps and exclusions (full list)
-        run: |
-          set -e
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
           MAX=$((1024*1024)) # 1 MB
           BAD='(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'
           fail=0
-          while IFS= read -r f; do
-            if echo "$f" | grep -Eiq '^(\.git/|node_modules/|ios/|android/|\.github/workflows/)' ; then
-              echo "FORBIDDEN PATH: $f" && fail=1
-              continue
-            fi
+          for f in $CHANGED; do
             if echo "$f" | grep -Eiq "$BAD"; then
-              echo "FORBIDDEN EXT: $f" && fail=1
-              continue
+              echo "FORBIDDEN: $f" && fail=1
             fi
             size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
             if [ "$size" -gt "$MAX" ]; then
               echo "TOO LARGE: $f (${size} bytes)" && fail=1
             fi
-          done < prompt/file-list.txt
+          done
           [ $fail -eq 0 ] || { echo "Tracker policy violation"; exit 1; }
+
+      - name: Debug — print OLD/NEW and diff
+        run: |
+          echo "NEW_SHA=${{ steps.shas.outputs.NEW_SHA }}"
+          echo "OLD_SHA=${{ steps.shas.outputs.OLD_SHA }}"
+          echo "---- DIFF ----"
+          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
 
       - name: Write latest-sha.txt
         run: |
           echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt
 
-      - name: Write snapshots of FULL set from dev
+      - name: Write snapshots of changed files from dev
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
           mkdir -p "prompt/snapshots/${SHA}"
-          while IFS= read -r f; do
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
+          for f in $CHANGED; do
             mkdir -p "prompt/snapshots/${SHA}/$(dirname "$f")"
-            git show "origin/dev:$f" > "prompt/snapshots/${SHA}/${f}" || true
-          done < prompt/file-list.txt
+            git show "${SHA}:${f}" > "prompt/snapshots/${SHA}/${f}" || true
+          done
 
-      - name: Write latest-bundle.json (FULL snapshot)
+      # NEW: per-file JSONs + index (keeps legacy bundle for now)
+      - name: Write per-file JSONs (bundle/by-path) and index
+        run: |
+          set -e
+          SHA="${{ steps.shas.outputs.NEW_SHA }}"
+          mkdir -p bundle/by-path
+          INDEX="bundle/index.json"
+          echo '{"sha":"'"$SHA"'","files":[]}' > "$INDEX"
+
+          b64() { printf '%s' "$1" | base64 -w0; }
+
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
+          for f in $CHANGED; do
+            if git show "$SHA:$f" >/dev/null 2>&1; then
+              if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
+                continue
+              fi
+              size=$(git cat-file -s "$SHA:$f" || echo 0)
+              if [ "$size" -gt $((1024*1024)) ]; then
+                continue
+              fi
+
+              CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
+              OUT="bundle/by-path/$(b64 "$f").json"
+              printf '{"path":"%s","encoding":"base64","content":"%s"}' "$f" "$CONTENT_B64" > "$OUT"
+
+              tmp=$(mktemp)
+              jq --arg path "$f" --arg href "bundle/by-path/$(b64 "$f").json" \
+                 '.files += [{"path":$path,"href":$href}]' "$INDEX" > "$tmp" && mv "$tmp" "$INDEX"
+            fi
+          done
+
+      - name: Write latest-bundle.json (paths + base64 contents)
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
           echo "{\"sha\":\"$SHA\",\"files\":[]}" > prompt/latest-bundle.json
-          while IFS= read -r f; do
-            if git show "origin/dev:$f" >/dev/null 2>&1; then
-              CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
+          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
+          for f in $CHANGED; do
+            if git show "$SHA:$f" >/dev/null 2>&1; then
+              CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
               tmp=$(mktemp)
               jq --arg p "$f" --arg c "$CONTENT_B64" \
                 '.files += [{"path":$p,"base64":$c}]' \
                 prompt/latest-bundle.json > "$tmp"
               mv "$tmp" prompt/latest-bundle.json
             fi
-          done < prompt/file-list.txt
+          done
 
-      - name: Verify bundle matches file list
+      - name: Verify bundle matches diff
         run: |
-          LIST_COUNT=$(wc -l < prompt/file-list.txt | tr -d ' ')
+          DIFF_COUNT=$(jq 'length' prompt/changed-in-latest.json)
           BUNDLE_COUNT=$(jq '.files | length' prompt/latest-bundle.json)
-          if [ "$LIST_COUNT" != "$BUNDLE_COUNT" ]; then
-            echo "Mismatch: list=$LIST_COUNT bundle=$BUNDLE_COUNT"
-            echo "First 20 from list:" && head -20 prompt/file-list.txt
-            echo "Bundle sample:" && jq '.files[:5] | map(.path)' prompt/latest-bundle.json
+          if [ "$DIFF_COUNT" != "$BUNDLE_COUNT" ]; then
+            echo "Mismatch: diff=$DIFF_COUNT bundle=$BUNDLE_COUNT"
+            echo "changed-in-latest.json:" && cat prompt/changed-in-latest.json
+            echo "latest-bundle.json:" && cat prompt/latest-bundle.json
             exit 1
           fi
-
-      # ===== END FULL SNAPSHOT MODE =====
 
       - name: Configure SSH for deploy key
         env:
@@ -190,9 +198,9 @@ jobs:
 
       - name: Commit and push artifacts to tracker/dev
         run: |
-          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json prompt/latest-bundle.json prompt/snapshots prompt/deps
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps prompt/latest-bundle.json
           if ! git diff --cached --quiet; then
-            git commit -m "chore(tracker): publish FULL snapshot for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
+            git commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev
           else
             echo "No changes to publish."

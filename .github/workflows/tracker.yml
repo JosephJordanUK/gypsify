@@ -10,6 +10,8 @@ on:
       - 'prompt/latest-bundle.json'
       - 'prompt/snapshots/**'
       - '.github/workflows/**'
+  pull_request:
+    branches: [dev]
 
 concurrency:
   group: tracker-dev
@@ -22,7 +24,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source (dev)
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
@@ -40,9 +43,12 @@ jobs:
           echo "New: ${{ github.sha }}"
           echo "Old: ${{ github.event.before }}"
 
-      - name: Checkout tracker/dev
+      - name: Fetch tracker branch
         run: |
           git fetch origin tracker/dev || true
+
+      - name: Prepare tracker workspace (switch to tracker/dev)
+        run: |
           if git show-ref --verify --quiet refs/remotes/origin/tracker/dev; then
             git checkout -B tracker/dev origin/tracker/dev
           else
@@ -52,19 +58,17 @@ jobs:
             git add prompt
             git -c "user.name=github-actions[bot]" -c "user.email=41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore(tracker): init branch"
           fi
-
-      - name: Reset workspace for prompt only
-        run: |
+          # Clean everything except .git and prompt/
           find . -mindepth 1 -maxdepth 1 ! -name ".git" ! -name "prompt" -exec rm -rf {} +
           mkdir -p prompt
 
-      - name: Copy dependency snapshots
+      - name: Copy dependency snapshots from dev
         run: |
           mkdir -p prompt/deps
           git show origin/dev:package.json > prompt/deps/package.json
           git show origin/dev:yarn.lock > prompt/deps/yarn.lock || true
 
-      - name: Build manifest.json (from dev tree)
+      - name: Build manifest.json from dev tree
         run: |
           jq -n '[]' > prompt/manifest.json
           git ls-files --with-tree=origin/dev \
@@ -79,7 +83,7 @@ jobs:
                 fi
               done
 
-      - name: Build changed-in-latest.json (diff OLD -> NEW on dev)
+      - name: Build changed-in-latest.json (OLD->NEW on dev)
         run: |
           git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
             | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
@@ -103,13 +107,6 @@ jobs:
           done
           [ $fail -eq 0 ] || { echo "Tracker policy violation"; exit 1; }
 
-      - name: Debug — print OLD/NEW and diff
-        run: |
-          echo "NEW_SHA=${{ steps.shas.outputs.NEW_SHA }}"
-          echo "OLD_SHA=${{ steps.shas.outputs.OLD_SHA }}"
-          echo "---- DIFF ----"
-          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }}
-
       - name: Write latest-sha.txt
         run: |
           echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt
@@ -125,7 +122,6 @@ jobs:
             git show "${SHA}:${f}" > "prompt/snapshots/${SHA}/${f}" || true
           done
 
-      # NEW: per-file JSONs + index (keeps legacy bundle for now)
       - name: Write per-file JSONs (bundle/by-path) and index
         run: |
           set -e
@@ -139,6 +135,7 @@ jobs:
           CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
           for f in $CHANGED; do
             if git show "$SHA:$f" >/dev/null 2>&1; then
+              # double guard
               if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
                 continue
               fi
@@ -157,33 +154,9 @@ jobs:
             fi
           done
 
-      - name: Write latest-bundle.json (paths + base64 contents)
+      - name: Remove legacy latest-bundle.json if present
         run: |
-          set -e
-          SHA="${{ steps.shas.outputs.NEW_SHA }}"
-          echo "{\"sha\":\"$SHA\",\"files\":[]}" > prompt/latest-bundle.json
-          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
-          for f in $CHANGED; do
-            if git show "$SHA:$f" >/dev/null 2>&1; then
-              CONTENT_B64=$(git show "$SHA:$f" | base64 -w0)
-              tmp=$(mktemp)
-              jq --arg p "$f" --arg c "$CONTENT_B64" \
-                '.files += [{"path":$p,"base64":$c}]' \
-                prompt/latest-bundle.json > "$tmp"
-              mv "$tmp" prompt/latest-bundle.json
-            fi
-          done
-
-      - name: Verify bundle matches diff
-        run: |
-          DIFF_COUNT=$(jq 'length' prompt/changed-in-latest.json)
-          BUNDLE_COUNT=$(jq '.files | length' prompt/latest-bundle.json)
-          if [ "$DIFF_COUNT" != "$BUNDLE_COUNT" ]; then
-            echo "Mismatch: diff=$DIFF_COUNT bundle=$BUNDLE_COUNT"
-            echo "changed-in-latest.json:" && cat prompt/changed-in-latest.json
-            echo "latest-bundle.json:" && cat prompt/latest-bundle.json
-            exit 1
-          fi
+          git rm -f prompt/latest-bundle.json || true
 
       - name: Configure SSH for deploy key
         env:
@@ -198,9 +171,9 @@ jobs:
 
       - name: Commit and push artifacts to tracker/dev
         run: |
-          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps prompt/latest-bundle.json
+          git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps
           if ! git diff --cached --quiet; then
-            git commit -m "chore(tracker): publish artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
+            git commit -m "chore(tracker): publish per-file artifacts for ${{ steps.shas.outputs.NEW_SHA }} [skip ci]"
             git push git@github.com:${{ github.repository }}.git HEAD:tracker/dev
           else
             echo "No changes to publish."

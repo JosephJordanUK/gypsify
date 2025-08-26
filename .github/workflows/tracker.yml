@@ -132,7 +132,7 @@ jobs:
                '.files += [{"path":$path,"href":$href}]' "$INDEX" > "$tmp" && mv "$tmp" "$INDEX"
           done
 
-      - name: Build multi-part all-files bundles (512 KB max each)
+      - name: Build multi-part all-files bundles (100 KB max each, skip >80 KB files)
         run: |
           set -e
           SHA="${{ steps.shas.outputs.NEW_SHA }}"
@@ -140,7 +140,9 @@ jobs:
           BUNDLE_DIR="bundle/multipart"
           mkdir -p "$BUNDLE_DIR"
 
-          MAX_SIZE=$((256*1024)) # 256 KB
+          MAX_SIZE=$((100*1024))   # 100 KB per part
+          MAX_FILE=$((80*1024))    # skip any file >80 KB
+
           PART=0
           CURRENT_SIZE=0
           OUT_FILE="$BUNDLE_DIR/part-$PART.json"
@@ -148,6 +150,12 @@ jobs:
 
           jq -r '.[].path' "$MANIFEST" | while read -r f; do
             if git show "origin/dev:$f" >/dev/null 2>&1; then
+              FILE_SIZE=$(git cat-file -s "origin/dev:$f" || echo 0)
+              if [ "$FILE_SIZE" -gt $MAX_FILE ]; then
+                echo "Skipping $f (size $FILE_SIZE > $MAX_FILE)"
+                continue
+              fi
+
               CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
               ENTRY=$(mktemp)
               printf '{"path":"%s","content":"%s"}' "$f" "$CONTENT_B64" > "$ENTRY"

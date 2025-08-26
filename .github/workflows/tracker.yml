@@ -119,17 +119,9 @@ jobs:
           b64() { printf '%s' "$1" | base64 -w0; }
 
           jq -r '.[].path' prompt/manifest.json | while read -r f; do
-            # skip secrets/binaries and >1MB
-            if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then
-              continue
-            fi
-            if ! git show "origin/dev:$f" >/dev/null 2>&1; then
-              continue
-            fi
+            if ! git show "origin/dev:$f" >/dev/null 2>&1; then continue; fi
             size=$(git cat-file -s "origin/dev:$f" || echo 0)
-            if [ "$size" -gt $((1024*1024)) ]; then
-              continue
-            fi
+            if [ "$size" -gt $((1024*1024)) ]; then continue; fi
 
             CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
             OUT="$ROOT_DIR/$(b64 "$f").json"
@@ -157,8 +149,9 @@ jobs:
           jq -r '.[].path' "$MANIFEST" | while read -r f; do
             if git show "origin/dev:$f" >/dev/null 2>&1; then
               CONTENT_B64=$(git show "origin/dev:$f" | base64 -w0)
-              ENTRY=$(jq -n --arg path "$f" --arg content "$CONTENT_B64" '{path:$path, content:$content}')
-              SIZE=$(echo "$ENTRY" | wc -c)
+              ENTRY=$(mktemp)
+              printf '{"path":"%s","content":"%s"}' "$f" "$CONTENT_B64" > "$ENTRY"
+              SIZE=$(wc -c < "$ENTRY")
 
               if [ $((CURRENT_SIZE + SIZE)) -gt $MAX_SIZE ]; then
                 PART=$((PART+1))
@@ -168,7 +161,7 @@ jobs:
               fi
 
               tmp=$(mktemp)
-              jq --argjson entry "$ENTRY" '.files += [$entry]' "$OUT_FILE" > "$tmp" && mv "$tmp" "$OUT_FILE"
+              jq --slurpfile e "$ENTRY" '.files += $e' "$OUT_FILE" > "$tmp" && mv "$tmp" "$OUT_FILE"
               CURRENT_SIZE=$((CURRENT_SIZE + SIZE))
             fi
           done

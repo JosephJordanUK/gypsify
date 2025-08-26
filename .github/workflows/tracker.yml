@@ -83,29 +83,13 @@ jobs:
                 fi
               done
 
-      - name: Build changed-in-latest.json (OLD->NEW on dev)
+      - name: Build changed-in-latest.json (OLD->NEW on dev, skip assets)
         run: |
           git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/)' \
+            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/|assets/)' \
             | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
-
-      - name: Enforce tracker caps and exclusions
-        run: |
-          set -e
-          CHANGED=$(jq -r '.[]' prompt/changed-in-latest.json)
-          MAX=$((1024*1024)) # 1 MB
-          BAD='(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'
-          fail=0
-          for f in $CHANGED; do
-            if echo "$f" | grep -Eiq "$BAD"; then
-              echo "FORBIDDEN: $f" && fail=1
-            fi
-            size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
-            if [ "$size" -gt "$MAX" ]; then
-              echo "TOO LARGE: $f (${size} bytes)" && fail=1
-            fi
-          done
-          [ $fail -eq 0 ] || { echo "Tracker policy violation"; exit 1; }
+          echo "Changed filtered:"
+          cat prompt/changed-in-latest.json
 
       - name: Write latest-sha.txt
         run: |
@@ -138,7 +122,6 @@ jobs:
 
           b64() { printf '%s' "$1" | base64 -w0; }
 
-          # Iterate all files from manifest
           jq -r '.[].path' "$MANIFEST" | while read -r f; do
             # skip secrets/binaries and >1MB
             if echo "$f" | grep -Eiq '(\.env|\.pem|\.p12|\.der|\.jks|\.keystore|\.apk|\.aab|\.zip|\.ttf|\.otf|\.png|\.jpg|\.gif|\.webp)$'; then

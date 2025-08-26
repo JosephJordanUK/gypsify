@@ -188,11 +188,6 @@ jobs:
           git config user.name "tracker-bot"
           git config user.email "tracker-bot@users.noreply.github.com"
 
-      - name: Copy vercel.json from dev
-        run: |
-          git show origin/dev:vercel.json > vercel.json
-          git add vercel.json
-
       - name: Commit and push artifacts to tracker/dev
         run: |
           git add prompt/latest-sha.txt prompt/manifest.json prompt/changed-in-latest.json bundle prompt/snapshots prompt/deps
@@ -203,17 +198,12 @@ jobs:
             echo "No changes to publish."
           fi
 
-      - name: Trigger Vercel deploy
-        run: |
-          curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_pvH6K5tIiYvOqe6NIm7dxU9jc4sC/FyFmZnKjlj"
-
       - name: Prepare Firebase hosting folder
         run: |
           rm -rf hosting
           mkdir -p hosting
           cp -r bundle hosting/
           cp -r prompt hosting/
-          cp vercel.json hosting/ || true
 
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@v2.2.0

@@ -21,3 +21,4 @@ Test Firebase deploy 3.0
 Test Firebase deploy 4.0
 Test Firebase deploy 5.0
 Test Firebase deploy 6.0
+Test Firebase deploy 7.0

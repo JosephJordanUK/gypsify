@@ -5,7 +5,7 @@
 1. Copy `.env.example` to `.env`.
 2. Fill Firebase web config from Firebase Console → Project settings → General.
 
-## Run
+## Run:
 
 ```bash
 yarn

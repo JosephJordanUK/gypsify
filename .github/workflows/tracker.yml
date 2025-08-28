@@ -110,40 +110,6 @@ jobs:
                 fi
               done
 
-      - name: Build changed-in-latest.json (diff + recent fallback, 5–10 files)
-        env:
-          MIN: '5'
-          MAX: '10'
-        run: |
-          set -euo pipefail
-          OLD="${{ steps.shas.outputs.OLD_SHA }}"
-          NEW="${{ steps.shas.outputs.NEW_SHA }}"
-          IGNORE='^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/|assets/)'
-
-          list_unique() { awk 'NF && !seen[$0]++'; }
-          exists_in_new() { git cat-file -e "$NEW:$1" 2>/dev/null; }
-          count() { printf '%s\n' "$1" | list_unique | grep -c . || true; }
-
-          DIFF=$(git diff --name-only "$OLD" "$NEW" 2>/dev/null | grep -Ev "$IGNORE" || true)
-          CANDIDATES="$DIFF"
-
-          if [ "$(count "$CANDIDATES")" -lt "$MIN" ]; then
-            LASTDAY=$(git log --since="24 hours ago" --name-only --pretty="" origin/dev | grep -Ev "$IGNORE" || true)
-            CANDIDATES=$(printf '%s\n%s\n' "$CANDIDATES" "$LASTDAY")
-          fi
-          if [ "$(count "$CANDIDATES")" -lt "$MIN" ]; then
-            LAST50=$(git log -n 50 --name-only --pretty="" origin/dev | grep -Ev "$IGNORE" || true)
-            CANDIDATES=$(printf '%s\n%s\n' "$CANDIDATES" "$LAST50")
-          fi
-
-          FINAL=$(printf '%s\n' "$CANDIDATES" \
-            | list_unique \
-            | while IFS= read -r f; do exists_in_new "$f" && printf '%s\n' "$f"; done \
-            | head -n "$MAX")
-
-          printf '%s\n' "$FINAL" | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
-          echo "changed-in-latest.json:"; cat prompt/changed-in-latest.json
-
       - name: Write latest-sha.txt
         run: |
           echo "${{ steps.shas.outputs.NEW_SHA }}" > prompt/latest-sha.txt

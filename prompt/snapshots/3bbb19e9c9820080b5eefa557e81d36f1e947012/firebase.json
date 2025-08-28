@@ -1,0 +1,34 @@
+{
+  "firestore": {
+    "rules": "prompt/firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "site": "gypsify-35447",
+    "public": "hosting",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "**/*.md",
+        "headers": [
+          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
+      },
+      {
+        "source": "**/*.txt",
+        "headers": [
+          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
+      },
+      {
+        "source": "**/*.json",
+        "headers": [
+          { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
+      }
+    ]
+  }
+}

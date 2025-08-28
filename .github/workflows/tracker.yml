@@ -364,7 +364,7 @@ jobs:
 
           # 1 MB cap + exclude secrets/binaries
           MAX=$((1024*1024))
-          skip_re='^(.*/)?(\.env.*|.*\.(png|jpg|jpeg|gif|webp|svg|ico|ttf|otf|woff2?|mp3|mp4|mov|zip|tar|gz|tgz|7z|apk|aab|ipa|keystore|jks|pem|p12|der|pdf))$'
+          skip_re='^(.*/)?(\.env.*|\.gitkeep$|\.DS_Store$|.*\.(png|jpg|jpeg|gif|webp|svg|ico|ttf|otf|woff2?|mp3|mp4|mov|zip|tar|gz|tgz|7z|apk|aab|ipa|keystore|jks|pem|p12|der|pdf))$'
 
           add_file () {
             local path="$1"
@@ -400,11 +400,9 @@ jobs:
           jq -e --argjson req '[
             "app.json","package.json","tsconfig.json","App.tsx","index.ts",
             ".nvmrc","babel.config.js","metro.config.js","eslint.config.cjs",
-            ".editorconfig",".prettierrc.json","yarn.lock","firebase.json"
-          ]' '
-            ($req - ([$req[] | select(. as $k | has($k))] | keys)) as $missing
-            | if ($missing|length)==0 then true else false end
-          ' "$INDEX_JSON" >/dev/null || echo "Note: some root files are absent or filtered."
+            ".editorconfig",".prettierrc.json","yarn.lock","firebase.json",".firebaserc"
+          ]' '($req - (keys)) | length == 0' "$INDEX_JSON" \
+          || echo "Note: some root files are absent or filtered."
 
       - name: Build clickable /files index.html from file-index.json.txt
         shell: bash

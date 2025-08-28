@@ -6,7 +6,7 @@
   "hosting": {
     "site": "gypsify-35447",
     "public": "hosting",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "**/node_modules/**"],
     "headers": [
       {
         "source": "**/*.md",

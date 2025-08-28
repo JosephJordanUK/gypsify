@@ -21,8 +21,8 @@
   },
   {
     "path": ".husky/pre-commit",
-    "bytes": 16,
-    "sha256": "e2b7c9733375d7182af2033bda9a7d2a05d0db5eef5be53d26eb7b5f3df8fbc3"
+    "bytes": 76,
+    "sha256": "1419ae50c3c89aa28e6725cc5aa4d977cc27198236a718b801fa033a22bc6c31"
   },
   {
     "path": ".nvmrc",
@@ -120,6 +120,11 @@
     "sha256": "94a0c229b1b874836a5e5b3e76700e9037dc45bca20c231205f1062c684ebe20"
   },
   {
+    "path": "src/hooks/index.ts",
+    "bytes": 809,
+    "sha256": "2307ae326e1a2af6314cc52ee5d7934482e0c66375b9289834c994888e377879"
+  },
+  {
     "path": "src/navigation/AuthStack.tsx",
     "bytes": 824,
     "sha256": "cab778150869d0bb7007cbd1dbf5143ff4c60b89d896d730b06023df79cf98eb"
@@ -205,6 +210,16 @@
     "sha256": "1e78d1d91edbd95b6da514c0c9d72dd2c853af5d38e925ebe24b6d71699626ca"
   },
   {
+    "path": "src/store/index.ts",
+    "bytes": 741,
+    "sha256": "e76fe5083eddfca2422ac0b1ad5d70cbd21cfbe77ccc8497dd8f167a42193e32"
+  },
+  {
+    "path": "src/styles/index.ts",
+    "bytes": 406,
+    "sha256": "ca6ba601363808a7c4900141acb7efb3688282c9e6095d0fcfe4c24d5716b1df"
+  },
+  {
     "path": "src/utils/i18n.ts",
     "bytes": 6551,
     "sha256": "17c2771e626da0b66180737d0eb94b58746768db46d0b62ed5331c3f9099966e"
@@ -218,11 +233,6 @@
     "path": "src/utils/storage.ts",
     "bytes": 1086,
     "sha256": "635c1fafc9c3e338a745f048f80d38275eaea70ea7e4943da5bf4e30e698564e"
-  },
-  {
-    "path": "test.txt",
-    "bytes": 117,
-    "sha256": "dcb09b0dfce870d1ac7b75b0ce48d60f095050ec5653180d246768fc7b5f5fd4"
   },
   {
     "path": "tsconfig.json",

@@ -1,5 +1,5 @@
 {
-  "sha": "8c68b77bdf5702791db2ba84d828fe94fdc3ddb8",
+  "sha": "a9e56bf3bce2f218d58b52b8bce1a5b0b36d909d",
   "files": [
     {
       "path": ".editorconfig",
@@ -19,7 +19,7 @@
     },
     {
       "path": ".husky/pre-commit",
-      "content": "bnB4IGxpbnQtc3RhZ2VkCg=="
+      "content": "IyAuaHVza3kvcHJlLWNvbW1pdAplY2hvICJwcmUtY29tbWl0OiBydW5uaW5nIGxpbnQtc3RhZ2VkIgp5YXJuIGxpbnQtc3RhZ2VkCg=="
     },
     {
       "path": ".nvmrc",

@@ -1,6 +1,9 @@
 Gypsify — Master Prompt
-This Master Prompt governs ChatGPT 5.0 while building Gypsify. Authoritative code state: Project Snapshot (index + parts, decoded) + GitHub tracker branch. manifest.json is the audit inventory. File Tracking Blocks are mandatory metadata for each change.
-Last updated: 2025-08-27
+This Master Prompt governs ChatGPT 5.0 while building Gypsify.
+Authoritative code state: File Index (json) + decoded files + GitHub tracker branch.
+manifest.json is the audit inventory.
+File Tracking Blocks are mandatory metadata for each change.
+Last updated: 2025-08-28
 
 Table of Contents
 
@@ -29,7 +32,7 @@ Table of Contents
 - N. Monitoring & Analytics
 - N+. Security & Privacy Guardrails
 - N++. Networking & Caching
-- O. File Tracking Instructions (Snapshot + manifest.json + File Tracking Blocks)
+- O. File Tracking Instructions (File Index + manifest.json + File Tracking Blocks)
 - P. Deployment, Monitoring, Post-Launch
 - Q. Monitoring & Incident Response
 - R. Release Management
@@ -358,30 +361,23 @@ N++. Networking & Caching
 - Localized network errors via i18n; offline fallbacks verified.
 - Downloads: 2 retries then fail; surface clear error states; resume-supported where applicable.
 
-O. File Tracking Instructions (Snapshot + manifest.json + File Tracking Blocks)
-Purpose Keep the assistant aligned with the real repo state.
+O. File Tracking Instructions (File Index + manifest.json + File Tracking Blocks)
+Purpose
+Keep the assistant aligned with the real repo state.
 Authoritative sources
 
-- Project Snapshot (Firebase): index + parts, decoded → canonical.
-- manifest.json (Firebase): audit inventory with sizes + hashes.
-- File Tracking Blocks: required metadata per change.
-- Fallback: GitHub raw only if a file is missing from Snapshot.
-  Rules
-- Always consult Snapshot + manifest.json before coding.
+- File Index (Firebase): https://gypsify-35447.web.app/file-index.json.txt (canonical)
+- Backup HTML Index: https://gypsify-35447.web.app/files/index.html
+- manifest.json (Firebase): https://gypsify-35447.web.app/files/prompt/manifest.json.txt
+- File Tracking Blocks: required metadata per change
+- Fallback: GitHub raw only if a file is missing from File Index
+
+Rules
+
+- Always consult File Index + manifest.json before coding.
 - Never overwrite existing logic without explicit approval.
 - Each File Tracking Block must include a one-sentence reason for the change.
-- If Snapshot and manifest.json disagree → stop and report inconsistency. 
-  Required File Tracking Block (template)
-  [ File created/updated:
-  Path: <repo-relative path>
-  Description: <what this file does>
-  Related: <linked modules/slices/screens>
-  Mock Data / Example Props: <if relevant>
-  Test Instructions: <jest or manual steps>
-  Metadata: { lastUpdated:"YYYY-MM-DD", version:"X.Y.Z", integrationNotes:"<notes>" }
-  GitHub Permalink: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/<path>
-  Reason: <one sentence why this change is needed>
-  ]
+- If File Index and manifest.json disagree → stop and report inconsistency.
 
 P. Deployment, Monitoring, Post-Launch
 
@@ -504,30 +500,36 @@ When the user says “I’m now ending this session”, output only:
 4. Optional Logs — Testing Log (K) and/or Deployment & Monitoring Status Log (V.8) if relevant.
 
 Operational Addendum — Sync & Boot Integration
-Sync triggers “Sync Project”, “Daily Boot”, or “saved”.
+Sync triggers
+“Sync Project”, “Daily Boot”, or “saved”.
+
 On trigger, assistant must
 
 1. Re-open fresh (Firebase):
+   - Master Prompt: https://gypsify-35447.web.app/files/prompt/MasterPrompt.md.txt
+   - Checklist: https://gypsify-35447.web.app/files/prompt/checklist.md.txt
+   - Manifest: https://gypsify-35447.web.app/files/prompt/manifest.json.txt
+   - Project Overview (optional): https://gypsify-35447.web.app/files/prompt/project-overview.txt.txt
+   - File Index (json): https://gypsify-35447.web.app/file-index.json.txt
+   - HTML Index (backup): https://gypsify-35447.web.app/files/index.html
+   - Key Files: https://gypsify-35447.web.app/prompt/key-files.md.txt
 
-- https://gypsify-35447.web.app/prompt/latest-sha.txt
-- https://gypsify-35447.web.app/prompt/changed-in-latest.json.txt
-- https://gypsify-35447.web.app/prompt/manifest.json.txt
-- Snapshot index: https://gypsify-35447.web.app/bundle/index.json.txt
-- Snapshot parts: .../bundle/multipart/part-\*.json.txt
-
-2. Decode Snapshot parts; update internal file state (canonical).
-3. Acknowledge changed paths grouped by folder; do not dump full contents unless requested.
-4. Health checks:
-   - All changed paths exist in Snapshot index.
-   - All decoded text files’ paths are in index.
-   - manifest.json paths match index (minus excluded binaries).
+2. Load File Index (canonical). Use HTML Index as backup.
+3. Fetch KEY FILE list from key-files.md.txt (source of truth).
+4. Decode base64 → files; update internal file state (canonical).
+5. Health checks:
+   - All file paths exist in File Index.
+   - manifest.json paths match File Index (minus excluded binaries).
    - On any mismatch → stop and report inconsistency.
-5. Only after a successful sync, proceed with the approved checklist step.
-   Fallback
+6. Only after a successful sync, proceed with the approved checklist step.
 
-- If a requested file is missing from Snapshot but referenced by permalink, fetch once from GitHub raw.
+Fallback
+
+- If a requested file is missing from File Index but referenced by permalink, fetch once from GitHub raw.
 - If that fails, stop and report.
-  Continuity Guardrails
+
+Continuity Guardrails
+
 - Nudge back to current Phase/Step if drift occurs.
 - Always confirm Phase/Step before coding.
 - Roadmap (S) + Checklist (T) act as dual safety nets

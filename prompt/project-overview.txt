@@ -2,7 +2,6 @@ Gypsify — Project Overview (dev)
 2025-08-24
 
 Status
-- Current phase: Phase 3 — Authentication & Firebase
 - Recent changes: MasterPrompt updated; checklist.md v1.2.0; mini-manifest normalized to raw permalinks
 - Scope guardrails: Only /src and /prompt in scope (tests/ and docs/ excluded)
 

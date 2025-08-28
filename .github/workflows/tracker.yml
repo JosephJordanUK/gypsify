@@ -347,6 +347,50 @@ jobs:
             mv "$f" "$f.txt"
           done
 
+      - name: Build file-index.json and mirror plain files to /files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Where we stage for Firebase Hosting
+          ROOT="hosting"
+          FILES_DIR="$ROOT/files"
+          INDEX_JSON="$ROOT/file-index.json"
+
+          mkdir -p "$FILES_DIR"
+          rm -f "$INDEX_JSON"
+          MAP='{}'
+
+          # 1 MB cap. Exclude secrets and binaries.
+          MAX=$((1024*1024))
+          skip_re='^(.*/)?(\.env.*|.*\.(png|jpg|jpeg|gif|webp|svg|ico|ttf|otf|woff2?|mp3|mp4|mov|zip|tar|gz|tgz|7z|apk|aab|ipa|keystore|jks|pem|p12|der|pdf))$'
+
+          while IFS= read -r -d '' f; do
+            # Enforce size and type filters
+            if [[ "$f" =~ $skip_re ]]; then
+              continue
+            fi
+            size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
+            if [ "$size" -eq 0 ] || [ "$size" -gt "$MAX" ]; then
+              continue
+            fi
+
+            # Materialize as text file under /files with .txt suffix
+            out="$FILES_DIR/$f.txt"
+            mkdir -p "$(dirname "$out")"
+            git show "origin/dev:$f" > "$out"
+
+            # Public URL mapping
+            url="https://gypsify-35447.web.app/files/$f.txt"
+            MAP=$(jq --arg k "$f" --arg v "$url" '. + {($k): $v}' <<<"$MAP")
+          done < <(git ls-files -z --with-tree=origin/dev 'src/**' 'prompt/**' ':!:tests/**' ':!:docs/**')
+
+          printf '%s\n' "$MAP" > "$INDEX_JSON"
+
+          echo "file-index.json entries: $(jq 'length' "$INDEX_JSON")"
+          echo "Example URL:"
+          jq -r 'to_entries | .[0].value // empty' "$INDEX_JSON" || true
+
       - name: Generate index.html of hosted files
         run: |
           {

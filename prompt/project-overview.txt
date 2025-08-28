@@ -35,7 +35,7 @@ Key Links
 - Checklist:     https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/checklist.md
 - Mini-manifest: https://raw.githubusercontent.com/JosephJordanUK/gypsify/dev/prompt/mini-manifest.yml
 
-Tracker:
+Tracker
 - Refresh tracker/dev artifacts after the next commit (latest-sha.txt, changed-in-latest.json, latest-bundle.json)
 
 Repo Tree (current)

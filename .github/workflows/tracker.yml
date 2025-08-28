@@ -349,7 +349,7 @@ jobs:
           # Convert staged JSON/MD artifacts to .txt (not the index; it doesn't exist yet)
           find hosting -type f \( -name "*.json" -o -name "*.md" \) -exec sh -c 'mv "$1" "$1.txt"' _ {} \;
 
-      - name: Build file-index.json and mirror plain files to /files
+      - name: Build file-index.json.txt and mirror plain files to /files
         shell: bash
         run: |
           set -euo pipefail
@@ -359,36 +359,52 @@ jobs:
           INDEX_JSON="$ROOT/file-index.json.txt"
 
           mkdir -p "$FILES_DIR"
-          rm -f "$INDEX_JSON"
+
           MAP='{}'
 
-          # 1 MB cap. Exclude secrets and binaries.
+          # 1 MB cap + exclude secrets/binaries
           MAX=$((1024*1024))
           skip_re='^(.*/)?(\.env.*|.*\.(png|jpg|jpeg|gif|webp|svg|ico|ttf|otf|woff2?|mp3|mp4|mov|zip|tar|gz|tgz|7z|apk|aab|ipa|keystore|jks|pem|p12|der|pdf))$'
 
-          while IFS= read -r -d '' f; do
-            if [[ "$f" =~ $skip_re ]]; then
-              continue
-            fi
-            size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
-            if [ "$size" -eq 0 ] || [ "$size" -gt "$MAX" ]; then
-              continue
-            fi
-
-            # Save file with .txt suffix under /files
-            out="$FILES_DIR/$f.txt"
+          add_file () {
+            local path="$1"
+            [[ "$path" =~ $skip_re ]] && return 0
+            local size
+            size=$(git cat-file -s "origin/dev:$path" 2>/dev/null || echo 0)
+            [[ "$size" -eq 0 || "$size" -gt "$MAX" ]] && return 0
+            local out="$FILES_DIR/$path.txt"
             mkdir -p "$(dirname "$out")"
-            git show "origin/dev:$f" > "$out"
+            git show "origin/dev:$path" > "$out"
+            local url="https://gypsify-35447.web.app/files/$path.txt"
+            MAP=$(jq --arg k "$path" --arg v "$url" '. + {($k): $v}' <<<"$MAP")
+          }
 
-            # URL mapping with .txt suffix
-            url="https://gypsify-35447.web.app/files/$f.txt"
-            MAP=$(jq --arg k "$f" --arg v "$url" '. + {($k): $v}' <<<"$MAP")
-          done < <(git ls-files -z --with-tree=origin/dev 'src/**' 'prompt/**' ':!:tests/**' ':!:docs/**')
+          ROOT_FILES=(
+            ".editorconfig" ".nvmrc" ".prettierignore" ".prettierrc.json"
+            "app.json" "App.tsx" "babel.config.js" "eslint.config.cjs" "firebase.json"
+            "firestore.indexes.json" "index.ts" "metro.config.js" "package.json"
+            "README.md" "tsconfig.json" "yarn.lock" ".firebaserc"
+          )
+          for f in "${ROOT_FILES[@]}"; do
+            git show "origin/dev:$f" >/dev/null 2>&1 && add_file "$f" || true
+          done
+
+          while IFS= read -r -d '' f; do add_file "$f"; done < <(
+            git ls-files -z --with-tree=origin/dev \
+              'src/**' 'prompt/**' '.github/**/*.yml' \
+              ':!:tests/**' ':!:docs/**'
+          )
 
           printf '%s\n' "$MAP" > "$INDEX_JSON"
 
-          echo "file-index.json entries: $(jq 'length' "$INDEX_JSON")"
-          jq -r 'to_entries[0]' "$INDEX_JSON" || true
+          jq -e --argjson req '[
+            "app.json","package.json","tsconfig.json","App.tsx","index.ts",
+            ".nvmrc","babel.config.js","metro.config.js","eslint.config.cjs",
+            ".editorconfig",".prettierrc.json","yarn.lock","firebase.json"
+          ]' '
+            ($req - ([$req[] | select(. as $k | has($k))] | keys)) as $missing
+            | if ($missing|length)==0 then true else false end
+          ' "$INDEX_JSON" >/dev/null || echo "Note: some root files are absent or filtered."
 
       - name: Generate index.html of hosted files
         run: |

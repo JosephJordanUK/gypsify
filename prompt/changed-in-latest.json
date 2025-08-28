@@ -1,1 +1,5 @@
-[]
+[
+  "test.txt",
+  "README.md",
+  "firebase.json"
+]

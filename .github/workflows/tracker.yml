@@ -140,8 +140,8 @@ jobs:
           BUNDLE_DIR="bundle/multipart"
           mkdir -p "$BUNDLE_DIR"
 
-          MAX_CHARS=10000    # 10k chars per part
-          MAX_FILE=8000      # skip any file >8k chars
+          MAX_CHARS=75000    # 10k chars per part
+          MAX_FILE=50000      # skip any file >8k chars
 
           PART=0
           CURRENT_CHARS=0

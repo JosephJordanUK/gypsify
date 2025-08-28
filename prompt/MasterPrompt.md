@@ -531,3 +531,4 @@ On trigger, assistant must
 - Nudge back to current Phase/Step if drift occurs.
 - Always confirm Phase/Step before coding.
 - Roadmap (S) + Checklist (T) act as dual safety nets
+  .

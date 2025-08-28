@@ -1,5 +1,5 @@
 {
-  "sha": "13f33d72900eba060e9c3a0aacccf21f14d427f7",
+  "sha": "2cf28665eef4b9ed7636c0d9bcfb8489de407acd",
   "files": [
     {
       "path": "src/utils/i18n.ts",
@@ -20,10 +20,6 @@
     {
       "path": "tsconfig.json",
       "content": "ewogICJleHRlbmRzIjogImV4cG8vdHNjb25maWcuYmFzZSIsCiAgImNvbXBpbGVyT3B0aW9ucyI6IHsKICAgICJza2lwTGliQ2hlY2siOiB0cnVlLAogICAgIm1vZHVsZVJlc29sdXRpb24iOiAiYnVuZGxlciIsCiAgICAicGF0aHMiOiB7CiAgICAgICJmaXJlYmFzZS9hdXRoIjogWyIuL25vZGVfbW9kdWxlcy9AZmlyZWJhc2UvYXV0aC9kaXN0L2luZGV4LnJuLmQudHMiXQogICAgfQogIH0sCiAgImluY2x1ZGUiOiBbIioqLyoudHMiLCAiKiovKi50c3giXQp9Cg=="
-    },
-    {
-      "path": "vercel.json",
-      "content": "ewogICJ2ZXJzaW9uIjogMiwKICAiYnVpbGRzIjogW3sgInNyYyI6ICIqKi8qIiwgInVzZSI6ICJAdmVyY2VsL3N0YXRpYyIgfV0sCiAgInJvdXRlcyI6IFt7ICJzcmMiOiAiLyguKikiLCAiZGVzdCI6ICIvJDEiIH1dCn0K"
     }
   ]
 }

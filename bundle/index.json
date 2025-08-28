@@ -1,5 +1,5 @@
 {
-  "sha": "13f33d72900eba060e9c3a0aacccf21f14d427f7",
+  "sha": "2cf28665eef4b9ed7636c0d9bcfb8489de407acd",
   "files": [
     {
       "path": ".editorconfig",
@@ -184,10 +184,6 @@
     {
       "path": "tsconfig.json",
       "href": "bundle/by-path/dHNjb25maWcuanNvbg==.json"
-    },
-    {
-      "path": "vercel.json",
-      "href": "bundle/by-path/dmVyY2VsLmpzb24=.json"
     },
     {
       "path": "yarn.lock",

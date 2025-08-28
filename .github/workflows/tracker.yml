@@ -68,6 +68,18 @@ jobs:
           git show origin/dev:package.json > prompt/deps/package.json
           git show origin/dev:yarn.lock > prompt/deps/yarn.lock || true
 
+      - name: Mirror prompt sources from dev
+        run: |
+          mkdir -p prompt
+          for f in \
+            prompt/MasterPrompt.md \
+            prompt/checklist.md \
+            prompt/mini-manifest.yml \
+            prompt/project-overview.txt
+          do
+            git show origin/dev:"$f" > "$f" || true
+          done
+
       - name: Build manifest.json from dev tree
         run: |
           jq -n '[]' > prompt/manifest.json

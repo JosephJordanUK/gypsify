@@ -185,6 +185,85 @@ jobs:
                '.files += [{"path":$path,"href":$href}]' "$INDEX" > "$tmp" && mv "$tmp" "$INDEX"
           done
 
+      - name: Build key-files (present, ≤1MB)
+        run: |
+          set -euo pipefail
+          MAX=$((1024*1024))
+
+          LIST=$(mktemp)
+
+          # Root exact
+          for f in app.json package.json tsconfig.json App.tsx index.ts index.tsx .nvmrc; do
+            git show origin/dev:"$f" >/dev/null 2>&1 && echo "$f" >>"$LIST" || true
+          done
+          # Root wildcards
+          git ls-files --with-tree=origin/dev | grep -E '^app\.config\.[^/]+$' >>"$LIST" || true
+          git ls-files --with-tree=origin/dev | grep -E '^babel\.config\.[^/]+$' >>"$LIST" || true
+          git ls-files --with-tree=origin/dev | grep -E '^metro\.config\.[^/]+$' >>"$LIST" || true
+          git ls-files --with-tree=origin/dev | grep -E '^\.eslintrc(\.[^/]+)?$' >>"$LIST" || true
+          git ls-files --with-tree=origin/dev | grep -E '^\.prettierrc(\.[^/]+)?$' >>"$LIST" || true
+
+          # Navigation
+          for f in \
+            src/navigation/RootNavigator.tsx \
+            src/navigation/MainTabs.tsx \
+            src/navigation/OnboardingStack.tsx \
+            src/navigation/AuthStack.tsx \
+            src/navigation/index.ts; do
+            git show origin/dev:"$f" >/dev/null 2>&1 && echo "$f" >>"$LIST" || true
+          done
+
+          # Screens
+          for f in \
+            src/screens/SplashScreen.tsx \
+            src/screens/LanguageSelectionScreen.tsx \
+            src/screens/LoginScreen.tsx \
+            src/screens/SignupScreen.tsx \
+            src/screens/PasswordResetScreen.tsx \
+            src/screens/HomeScreen.tsx \
+            src/screens/SearchScreen.tsx \
+            src/screens/LibraryScreen.tsx \
+            src/screens/ProfileScreen.tsx; do
+            git show origin/dev:"$f" >/dev/null 2>&1 && echo "$f" >>"$LIST" || true
+          done
+
+          # Components / Services / Utils
+          git ls-files --with-tree=origin/dev | grep -E '^src/components/.*\.(ts|tsx)$' >>"$LIST" || true
+          git ls-files --with-tree=origin/dev | grep -E '^src/services/.*\.(ts|tsx)$'   >>"$LIST" || true
+          git ls-files --with-tree=origin/dev | grep -E '^src/utils/.*\.(ts|tsx)$'      >>"$LIST" || true
+
+          # Prompt
+          for f in prompt/MasterPrompt.md prompt/checklist.md; do
+            git show origin/dev:"$f" >/dev/null 2>&1 && echo "$f" >>"$LIST" || true
+          done
+
+          sort -u "$LIST" -o "$LIST"
+
+          mkdir -p prompt
+          J=prompt/key-files.json
+          echo '{"files":[]}' > "$J"
+          M=prompt/key-files.md
+          printf "## KEY FILES (present and ≤1 MB)\n\n" > "$M"
+
+          b64() { printf '%s' "$1" | base64 -w0; }
+
+          while IFS= read -r f; do
+            size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
+            [ "$size" -gt 0 ] || continue
+            [ "$size" -le "$MAX" ] || continue
+            sha=$(git show "origin/dev:$f" | sha256sum | cut -d" " -f1)
+            href="bundle/by-path/$(b64 "$f").json"
+
+            tmp=$(mktemp)
+            jq --arg path "$f" --argjson bytes "$size" --arg sha "$sha" --arg href "$href" \
+               '.files += [{"path":$path,"bytes":$bytes,"sha256":$sha,"href":$href}]' "$J" > "$tmp" && mv "$tmp" "$J"
+
+            echo "- $f" >> "$M"
+          done < "$LIST"
+
+          echo "key-files.json count:"
+          jq '.files | length' "$J"
+
       - name: Build multi-part all-files bundles (10,000 characters max each, skip >8,000 char files)
         run: |
           set -e

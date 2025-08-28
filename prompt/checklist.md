@@ -1253,4 +1253,3 @@ Final pre-launch gate
 ⏭️ 17.33 Submit v1.0.0 build to App Store + Google Play.
 ⏭️ 17.34 Mark Launch Initiated in checklist; monitor review feedback.
 ⏭️ 17.35 Commit Phase 17 completion.
-.

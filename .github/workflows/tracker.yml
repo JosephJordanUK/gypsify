@@ -406,6 +406,21 @@ jobs:
             | if ($missing|length)==0 then true else false end
           ' "$INDEX_JSON" >/dev/null || echo "Note: some root files are absent or filtered."
 
+      - name: Build clickable /files index.html from file-index.json.txt
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="hosting"
+          FILES_DIR="$ROOT/files"
+          INDEX_TXT="$ROOT/file-index.json.txt"
+          OUT="$FILES_DIR/index.html"
+          mkdir -p "$FILES_DIR"
+          {
+            echo '<!doctype html><meta charset="utf-8"><title>Gypsify Files</title><h1>Files</h1><ul>'
+            jq -r 'to_entries[] | "<li><a href=\"" + .value + "\">" + .key + "</a></li>"' "$INDEX_TXT"
+            echo '</ul>'
+          } > "$OUT"
+
       - name: Generate index.html of hosted files
         run: |
           {

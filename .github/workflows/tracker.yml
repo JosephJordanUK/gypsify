@@ -383,7 +383,7 @@ jobs:
             ".editorconfig" ".nvmrc" ".prettierignore" ".prettierrc.json"
             "app.json" "App.tsx" "babel.config.js" "eslint.config.cjs" "firebase.json"
             "firestore.indexes.json" "index.ts" "metro.config.js" "package.json"
-            "README.md" "tsconfig.json" "yarn.lock" ".firebaserc"
+            "README.md" "tsconfig.json" "yarn.lock" ".firebaserc" ".gitignore"
           )
           for f in "${ROOT_FILES[@]}"; do
             git show "origin/dev:$f" >/dev/null 2>&1 && add_file "$f" || true

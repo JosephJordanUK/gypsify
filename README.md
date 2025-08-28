@@ -12,19 +12,3 @@ yarn
 yarn lint
 npx expo start
 ```
-
-# test
-
-Test Firebase deploy
-Test Firebase deploy 2.0
-Test Firebase deploy 3.0
-Test Firebase deploy 4.0
-Test Firebase deploy 5.0
-Test Firebase deploy 6.0
-Test Firebase deploy 7.0
-Test Firebase deploy 8.0
-Test Firebase deploy 9.0
-Test Firebase deploy 10.0
-Test Firebase deploy 11.0
-Test Firebase deploy 12.0
-Test Firebase deploy 13.0

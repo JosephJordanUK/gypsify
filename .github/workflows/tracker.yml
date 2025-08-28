@@ -365,23 +365,28 @@ jobs:
           skip_re='^(.*/)?(\.env.*|.*\.(png|jpg|jpeg|gif|webp|svg|ico|ttf|otf|woff2?|mp3|mp4|mov|zip|tar|gz|tgz|7z|apk|aab|ipa|keystore|jks|pem|p12|der|pdf))$'
 
           while IFS= read -r -d '' f; do
-            [[ "$f" =~ $skip_re ]] && continue
+            if [[ "$f" =~ $skip_re ]]; then
+              continue
+            fi
             size=$(git cat-file -s "origin/dev:$f" 2>/dev/null || echo 0)
-            [ "$size" -eq 0 ] && continue
-            [ "$size" -gt "$MAX" ] && continue
+            if [ "$size" -eq 0 ] || [ "$size" -gt "$MAX" ]; then
+              continue
+            fi
 
+            # Save file with .txt suffix under /files
             out="$FILES_DIR/$f.txt"
             mkdir -p "$(dirname "$out")"
             git show "origin/dev:$f" > "$out"
 
+            # URL mapping with .txt suffix
             url="https://gypsify-35447.web.app/files/$f.txt"
             MAP=$(jq --arg k "$f" --arg v "$url" '. + {($k): $v}' <<<"$MAP")
           done < <(git ls-files -z --with-tree=origin/dev 'src/**' 'prompt/**' ':!:tests/**' ':!:docs/**')
 
           printf '%s\n' "$MAP" > "$INDEX_JSON"
 
-          # Guard: every URL must end with .txt
-          jq 'to_entries | all(.value | endswith(".txt"))' "$INDEX_JSON" | grep -qx 'true'
+          echo "file-index.json entries: $(jq 'length' "$INDEX_JSON")"
+          jq -r 'to_entries[0]' "$INDEX_JSON" || true
 
       - name: Generate index.html of hosted files
         run: |

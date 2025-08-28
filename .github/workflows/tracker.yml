@@ -336,16 +336,18 @@ jobs:
           fi
 
       - name: Prepare Firebase hosting folder
+        shell: bash
         run: |
+          set -euo pipefail
           rm -rf hosting
           mkdir -p hosting
+          # Stage existing artifacts
           cp -r bundle hosting/
-          rsync -av --exclude='snapshots/' prompt/ hosting/prompt/
-          if [ -f firebase.json ]; then cp firebase.json hosting/; fi
-
-          find hosting -type f \( -name "*.json" -o -name "*.md" \) | while read f; do
-            mv "$f" "$f.txt"
-          done
+          rsync -av --exclude='snapshots/' prompt/ hosting/prompt/ >/dev/null
+          # Carry firebase.json if present
+          [ -f firebase.json ] && cp firebase.json hosting/
+          # Convert staged JSON/MD artifacts to .txt (not the index; it doesn't exist yet)
+          find hosting -type f \( -name "*.json" -o -name "*.md" \) -exec sh -c 'mv "$1" "$1.txt"' _ {} \;
 
       - name: Build file-index.json and mirror plain files to /files
         shell: bash
@@ -354,7 +356,7 @@ jobs:
 
           ROOT="hosting"
           FILES_DIR="$ROOT/files"
-          INDEX_JSON="$ROOT/file-index.json"
+          INDEX_JSON="$ROOT/file-index.json.txt"
 
           mkdir -p "$FILES_DIR"
           rm -f "$INDEX_JSON"

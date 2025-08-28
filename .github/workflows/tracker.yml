@@ -38,10 +38,25 @@ jobs:
       - name: Resolve SHAs from event
         id: shas
         run: |
-          echo "NEW_SHA=${{ github.sha }}" >> $GITHUB_OUTPUT
-          echo "OLD_SHA=${{ github.event.before }}" >> $GITHUB_OUTPUT
-          echo "New: ${{ github.sha }}"
-          echo "Old: ${{ github.event.before }}"
+          set -e
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            NEW="${{ github.event.pull_request.head.sha }}"
+            OLD="${{ github.event.pull_request.base.sha }}"
+            git fetch --no-tags origin "$OLD" "$NEW" || true
+          else
+            NEW="${{ github.sha }}"
+            if git rev-parse -q --verify "${NEW}^1" >/dev/null; then
+              OLD=$(git rev-parse "${NEW}^1")
+            elif git cat-file -e "${{ github.event.before }}"^{commit} 2>/dev/null; then
+              OLD="${{ github.event.before }}"
+            else
+              OLD=$(git rev-parse "${NEW}^")
+            fi
+          fi
+          echo "NEW_SHA=$NEW" >> "$GITHUB_OUTPUT"
+          echo "OLD_SHA=$OLD" >> "$GITHUB_OUTPUT"
+          echo "Resolved NEW=$NEW"
+          echo "Resolved OLD=$OLD"
 
       - name: Fetch tracker branch
         run: |
@@ -95,13 +110,39 @@ jobs:
                 fi
               done
 
-      - name: Build changed-in-latest.json (OLD->NEW on dev, skip assets)
+      - name: Build changed-in-latest.json (diff + recent fallback, 5–10 files)
+        env:
+          MIN: '5'
+          MAX: '10'
         run: |
-          git diff --name-only ${{ steps.shas.outputs.OLD_SHA }} ${{ steps.shas.outputs.NEW_SHA }} \
-            | grep -Ev '^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/|assets/)' \
-            | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
-          echo "Changed filtered:"
-          cat prompt/changed-in-latest.json
+          set -euo pipefail
+          OLD="${{ steps.shas.outputs.OLD_SHA }}"
+          NEW="${{ steps.shas.outputs.NEW_SHA }}"
+          IGNORE='^(node_modules/|ios/|android/|tests/|docs/|\.git/|\.github/workflows/|prompt/|assets/)'
+
+          list_unique() { awk 'NF && !seen[$0]++'; }
+          exists_in_new() { git cat-file -e "$NEW:$1" 2>/dev/null; }
+          count() { printf '%s\n' "$1" | list_unique | grep -c . || true; }
+
+          DIFF=$(git diff --name-only "$OLD" "$NEW" 2>/dev/null | grep -Ev "$IGNORE" || true)
+          CANDIDATES="$DIFF"
+
+          if [ "$(count "$CANDIDATES")" -lt "$MIN" ]; then
+            LASTDAY=$(git log --since="24 hours ago" --name-only --pretty="" origin/dev | grep -Ev "$IGNORE" || true)
+            CANDIDATES=$(printf '%s\n%s\n' "$CANDIDATES" "$LASTDAY")
+          fi
+          if [ "$(count "$CANDIDATES")" -lt "$MIN" ]; then
+            LAST50=$(git log -n 50 --name-only --pretty="" origin/dev | grep -Ev "$IGNORE" || true)
+            CANDIDATES=$(printf '%s\n%s\n' "$CANDIDATES" "$LAST50")
+          fi
+
+          FINAL=$(printf '%s\n' "$CANDIDATES" \
+            | list_unique \
+            | while IFS= read -r f; do exists_in_new "$f" && printf '%s\n' "$f"; done \
+            | head -n "$MAX")
+
+          printf '%s\n' "$FINAL" | jq -R -s 'split("\n") | map(select(length>0))' > prompt/changed-in-latest.json
+          echo "changed-in-latest.json:"; cat prompt/changed-in-latest.json
 
       - name: Write latest-sha.txt
         run: |

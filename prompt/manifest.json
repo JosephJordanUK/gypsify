@@ -41,8 +41,8 @@
   },
   {
     "path": "App.tsx",
-    "bytes": 215,
-    "sha256": "3054764ce214952e61ab50f038e03cab10b0e83619f3a5203b18d842ee646b79"
+    "bytes": 226,
+    "sha256": "3c4a7713cab6b4e7977ea85287ec04a2ab249d3cb897f7375a56cbe4d1e02620"
   },
   {
     "path": "README.md",
@@ -86,8 +86,8 @@
   },
   {
     "path": "firebase.json",
-    "bytes": 915,
-    "sha256": "9da3283e794e2fd1a716ae6b0b46b70fa239162e8f8d0ba0be3dddaf5d6dc8c9"
+    "bytes": 896,
+    "sha256": "295d8d90133eb8e3c1b4f8f4379735a4d8ebebe3c44d4789eedcf4eb06ccff90"
   },
   {
     "path": "firestore.indexes.json",
@@ -141,8 +141,8 @@
   },
   {
     "path": "src/navigation/RootNavigator.tsx",
-    "bytes": 891,
-    "sha256": "e7140f6ef2cbddf4f93d409db3eb123dcdd5dbfcf2553e382916ca86dd98015e"
+    "bytes": 892,
+    "sha256": "ba49cf23ce67ca27fa0f28ec6cafa798ea1ada47b88cde5623c50ba7c0cbce06"
   },
   {
     "path": "src/screens/HomeScreen.tsx",

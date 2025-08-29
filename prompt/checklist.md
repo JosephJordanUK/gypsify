@@ -82,13 +82,13 @@ Phase 1 — Project Setup
 • Phase 1.4 Expo TypeScript project initialized (npx expo)
 • Phase 1.5 Git repo initialized; branch naming (feature/, fix/, hotfix/\*)
 • Phase 1.6 Scaffold commit (step-0-initial-scaffold)
+• Phase 1.7 Toolchain pins: .nvmrc=20.19.4, Yarn 1.22.22, lockfile committed
 
 ⸻
 
 ⏭️ Remaining (to complete Phase 1)
 
 Tooling & Config
-• Phase 1.7 Toolchain pins: .nvmrc=20.19.4, Yarn 1.22.22, lockfile committed
 • Phase 1.8 Expo SDK pinned (53.x) and expo doctor clean
 • Phase 1.9 TS strict config ("strict": true, "noImplicitAny": true, "exactOptionalPropertyTypes": true, baseUrl: "src", alias @/_)
 • Phase 1.10 ESLint rules (unused-imports, import/order, no console in prod) + single Prettier source

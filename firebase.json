@@ -9,24 +9,24 @@
     "ignore": ["firebase.json", "**/node_modules/**"],
     "headers": [
       {
-        "source": "**/*.md",
-        "headers": [
-          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
-        ]
-      },
-      {
         "source": "**/*.txt",
         "headers": [
           { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
+          { "key": "Cache-Control", "value": "no-store" }
         ]
       },
       {
-        "source": "**/*.json",
+        "source": "**/*.json.txt",
         "headers": [
-          { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
+          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+          { "key": "Cache-Control", "value": "no-store" }
+        ]
+      },
+      {
+        "source": "**/*.md.txt",
+        "headers": [
+          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+          { "key": "Cache-Control", "value": "no-store" }
         ]
       }
     ]

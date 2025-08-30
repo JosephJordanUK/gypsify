@@ -1,5 +1,5 @@
 {
-  "sha": "353c2c74a974b1ef0bdc9197b90a9854dabe9a31",
+  "sha": "d4de0c825e5594faa3e726c7eb1bd2314bcb0e0b",
   "files": [
     {
       "path": "src/utils/i18n.ts",
@@ -15,7 +15,7 @@
     },
     {
       "path": "tsconfig.json",
-      "content": "ewogICJleHRlbmRzIjogImV4cG8vdHNjb25maWcuYmFzZSIsCiAgImNvbXBpbGVyT3B0aW9ucyI6IHsKICAgICJza2lwTGliQ2hlY2siOiB0cnVlLAogICAgIm1vZHVsZVJlc29sdXRpb24iOiAiYnVuZGxlciIsCiAgICAicGF0aHMiOiB7CiAgICAgICJmaXJlYmFzZS9hdXRoIjogWyIuL25vZGVfbW9kdWxlcy9AZmlyZWJhc2UvYXV0aC9kaXN0L2luZGV4LnJuLmQudHMiXQogICAgfQogIH0sCiAgImluY2x1ZGUiOiBbIioqLyoudHMiLCAiKiovKi50c3giXQp9Cg=="
+      "content": "ewogICJleHRlbmRzIjogImV4cG8vdHNjb25maWcuYmFzZSIsCiAgImNvbXBpbGVyT3B0aW9ucyI6IHsKICAgICJzdHJpY3QiOiB0cnVlLAogICAgIm5vSW1wbGljaXRBbnkiOiB0cnVlLAogICAgImV4YWN0T3B0aW9uYWxQcm9wZXJ0eVR5cGVzIjogdHJ1ZSwKICAgICJza2lwTGliQ2hlY2siOiB0cnVlLAogICAgIm1vZHVsZVJlc29sdXRpb24iOiAiYnVuZGxlciIsCiAgICAiYmFzZVVybCI6ICJzcmMiLAogICAgInBhdGhzIjogewogICAgICAiQC8qIjogWyIqIl0sCiAgICAgICJmaXJlYmFzZS9hdXRoIjogWyIuL25vZGVfbW9kdWxlcy9AZmlyZWJhc2UvYXV0aC9kaXN0L2luZGV4LnJuLmQudHMiXQogICAgfQogIH0sCiAgImluY2x1ZGUiOiBbIioqLyoudHMiLCAiKiovKi50c3giXQp9Cg=="
     }
   ]
 }

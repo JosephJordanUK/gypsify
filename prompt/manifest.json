@@ -236,8 +236,8 @@
   },
   {
     "path": "tsconfig.json",
-    "bytes": 262,
-    "sha256": "03b84398d25ca671401b7a605dcab6326c5c032e48ecc79f4cd606613ff30959"
+    "bytes": 391,
+    "sha256": "62f45508c42c93888fa439c18fa17083cca829a0b45f743029328f9cf36bb578"
   },
   {
     "path": "yarn.lock",
